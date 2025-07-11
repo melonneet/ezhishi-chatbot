@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Management</title>
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        .close:hover {
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5a6fd8;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        
+        .modal-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            text-align: right;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- FAQ Modal -->
+    <div id="faqModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Add New FAQ</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+            
+            <form id="faqForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="questionEn">Question (English) *</label>
+                        <input type="text" id="questionEn" name="questionEn" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="questionZh">Question (Chinese)</label>
+                        <input type="text" id="questionZh" name="questionZh">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category">
+                        <option value="General">General</option>
+                        <option value="Login">Login</option>
+                        <option value="Password">Password</option>
+                        <option value="Activation">Activation</option>
+                        <option value="Refund">Refund</option>
+                        <option value="Delivery">Delivery</option>
+                        <option value="Submit">Submit</option>
+                        <option value="Pen">Pen</option>
+                        <option value="Subscribe">Subscribe</option>
+                        <option value="Points">Points</option>
+                        <option value="App">App</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="answer">Answer *</label>
+                    <textarea id="answer" name="answer" required></textarea>
+                </div>
+            </form>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button type="button" class="btn btn-danger" id="deleteBtn" onclick="deleteFAQ()" style="display: none;">Delete</button>
+                <button type="button" class="btn btn-primary" onclick="saveFAQ()">Save FAQ</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentFaqId = null;
+        const API_URL = window.location.origin;
+        
+        // Check if we're in edit mode on page load
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const editData = urlParams.get('edit');
+            
+            if (editData) {
+                try {
+                    const faq = JSON.parse(decodeURIComponent(editData));
+                    openEditModal(faq);
+                } catch (error) {
+                    console.error('Error parsing edit data:', error);
+                }
+            } else {
+                openAddModal();
+            }
+        });
+        
+        // Open modal for adding new FAQ
+        function openAddModal() {
+            currentFaqId = null;
+            document.getElementById('modalTitle').textContent = 'Add New FAQ';
+            document.getElementById('faqForm').reset();
+            document.getElementById('deleteBtn').style.display = 'none';
+            document.getElementById('faqModal').style.display = 'block';
+        }
+        
+        // Open modal for editing FAQ
+        function openEditModal(faq) {
+            currentFaqId = faq.id;
+            document.getElementById('modalTitle').textContent = 'Edit FAQ';
+            document.getElementById('questionEn').value = faq.questionEn;
+            document.getElementById('questionZh').value = faq.questionZh || '';
+            document.getElementById('category').value = faq.category || 'General';
+            document.getElementById('answer').value = faq.answer;
+            document.getElementById('deleteBtn').style.display = 'inline-block';
+            document.getElementById('faqModal').style.display = 'block';
+        }
+        
+        // Close modal
+        function closeModal() {
+            document.getElementById('faqModal').style.display = 'none';
+            hideMessages();
+        }
+        
+        // Save FAQ
+        async function saveFAQ() {
+            const form = document.getElementById('faqForm');
+            const formData = new FormData(form);
+            
+            const data = {
+                questionEn: formData.get('questionEn'),
+                questionZh: formData.get('questionZh'),
+                category: formData.get('category'),
+                answer: formData.get('answer')
+            };
+            
+            if (!data.questionEn || !data.answer) {
+                showError('English question and answer are required');
+                return;
+            }
+            
+            try {
+                const url = currentFaqId ? 
+                    `${API_URL}/api/faqs/${currentFaqId}` : 
+                    `${API_URL}/api/faqs`;
+                
+                const method = currentFaqId ? 'PUT' : 'POST';
+                
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showSuccess(currentFaqId ? 'FAQ updated successfully!' : 'FAQ added successfully!');
+                    setTimeout(() => {
+                        closeModal();
+                        // Notify parent window to refresh
+                        if (window.parent) {
+                            window.parent.postMessage('closeModal', '*');
+                        }
+                    }, 1500);
+                } else {
+                    showError(result.error || 'Failed to save FAQ');
+                }
+            } catch (error) {
+                showError('Error saving FAQ. Please try again.');
+            }
+        }
+        
+        // Delete FAQ
+        async function deleteFAQ() {
+            if (!currentFaqId) return;
+            
+            if (!confirm('Are you sure you want to delete this FAQ?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/api/faqs/${currentFaqId}`, {
+                    method: 'DELETE'
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showSuccess('FAQ deleted successfully!');
+                    setTimeout(() => {
+                        closeModal();
+                        // Notify parent window to refresh
+                        if (window.parent) {
+                            window.parent.postMessage('closeModal', '*');
+                        }
+                    }, 1500);
+                } else {
+                    showError(result.error || 'Failed to delete FAQ');
+                }
+            } catch (error) {
+                showError('Error deleting FAQ. Please try again.');
+            }
+        }
+        
+        // Show error message
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+        
+        // Show success message
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+        
+        // Hide all messages
+        function hideMessages() {
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('faqModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // Handle form submission
+        document.getElementById('faqForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            saveFAQ();
+        });
+    </script>
+</body>
+</html> 

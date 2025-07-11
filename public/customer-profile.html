@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Profile - eZhishi</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background: #0056b3;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .chat-history {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e5e9;
+        }
+        
+        .chat-session {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .chat-session h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        
+        .chat-session p {
+            margin: 5px 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👤 Customer Profile</h1>
+        
+        <div class="success-message" id="success-message">
+            Profile updated successfully!
+        </div>
+        
+        <div class="error-message" id="error-message">
+            Error updating profile. Please try again.
+        </div>
+        
+        <form id="profile-form">
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name">
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+            
+            <!-- Add a verification code input and button after the email field, hidden by default -->
+            <div class="form-group" id="verify-group" style="display:none;">
+                <label for="verify-code">Verification Code</label>
+                <input type="text" id="verify-code" name="verify-code" placeholder="Enter code sent to your email">
+                <button type="button" class="btn btn-secondary" id="send-code-btn">Send Code</button>
+                <button type="button" class="btn" id="verify-btn">Verify</button>
+            </div>
+            
+            <button type="submit" class="btn">Save Profile</button>
+        </form>
+        
+        <!-- Add a Log out button -->
+        <button type="button" class="btn btn-secondary" id="logout-btn" style="display:none;margin-bottom:15px;">Log out</button>
+        
+        <div class="chat-history" id="chat-history" style="display: none;">
+            <h3>📋 Chat History</h3>
+            <div id="history-content"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = window.location.origin;
+        
+        // Get email from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const email = urlParams.get('email');
+        
+        if (email) {
+            document.getElementById('email').value = email;
+            loadCustomerProfile(email);
+            loadChatHistory(email);
+        }
+        
+        // Handle form submission
+        document.getElementById('profile-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {
+                email: formData.get('email'),
+                name: formData.get('name'),
+                phone: formData.get('phone')
+            };
+            
+            try {
+                const response = await fetch(`${API_URL}/api/customer/profile`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('success', 'Profile updated successfully!');
+                    loadChatHistory(data.email);
+                } else {
+                    showMessage('error', result.error || 'Error updating profile');
+                }
+            } catch (error) {
+                showMessage('error', 'Error updating profile. Please try again.');
+            }
+        });
+        
+        // Load customer profile
+        async function loadCustomerProfile(email) {
+            try {
+                const response = await fetch(`${API_URL}/api/customer/profile/${email}`);
+                const result = await response.json();
+                
+                if (result.profile) {
+                    document.getElementById('name').value = result.profile.name || '';
+                    document.getElementById('phone').value = result.profile.phone || '';
+                }
+            } catch (error) {
+                console.error('Error loading profile:', error);
+            }
+        }
+        
+        let verified = false;
+        let verifiedEmail = null;
+
+        // Show verification UI after email is entered
+        const emailInput = document.getElementById('email');
+        const verifyGroup = document.getElementById('verify-group');
+        const sendCodeBtn = document.getElementById('send-code-btn');
+        const verifyBtn = document.getElementById('verify-btn');
+
+        emailInput.addEventListener('blur', () => {
+            if (emailInput.value) {
+                verifyGroup.style.display = 'block';
+            }
+        });
+
+        const LOGGED_IN_KEY = 'ezhishi_logged_in_email';
+        const logoutBtn = document.getElementById('logout-btn');
+
+        function setLoggedIn(email) {
+            sessionStorage.setItem(LOGGED_IN_KEY, email);
+            verified = true;
+            verifiedEmail = email;
+            logoutBtn.style.display = 'block';
+        }
+        function clearLoggedIn() {
+            sessionStorage.removeItem(LOGGED_IN_KEY);
+            verified = false;
+            verifiedEmail = null;
+            logoutBtn.style.display = 'none';
+            document.getElementById('chat-history').style.display = 'none';
+        }
+
+        logoutBtn.addEventListener('click', () => {
+            clearLoggedIn();
+            showMessage('success', 'Logged out.');
+        });
+
+        // On page load, check if logged in
+        const storedEmail = sessionStorage.getItem(LOGGED_IN_KEY);
+        if (storedEmail) {
+            setLoggedIn(storedEmail);
+            document.getElementById('email').value = storedEmail;
+            loadCustomerProfile(storedEmail);
+            loadChatHistory(storedEmail);
+        }
+
+        // Update verifyBtn click to set logged in state after successful verification
+        verifyBtn.addEventListener('click', async () => {
+            // Call backend to verify code
+            const code = document.getElementById('verify-code').value.trim();
+            const email = emailInput.value.trim();
+            if (!code) {
+                showMessage('error', 'Please enter the verification code.');
+                return;
+            }
+            try {
+                const resp = await fetch(`${API_URL}/api/customer/verify-code`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, code })
+                });
+                const data = await resp.json();
+                if (data.success) {
+                    setLoggedIn(email);
+                    showMessage('success', 'Email verified!');
+                    loadCustomerProfile(email);
+                    loadChatHistory(email);
+                } else {
+                    showMessage('error', data.error || 'Verification failed.');
+                }
+            } catch (err) {
+                showMessage('error', 'Verification failed.');
+            }
+        });
+
+        // Update sendCodeBtn click to call backend
+        sendCodeBtn.addEventListener('click', async () => {
+            const email = emailInput.value.trim();
+            if (!email) {
+                showMessage('error', 'Please enter your email.');
+                return;
+            }
+            try {
+                const resp = await fetch(`${API_URL}/api/customer/send-code`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                const data = await resp.json();
+                if (data.success) {
+                    showMessage('success', 'Verification code sent to ' + email);
+                } else {
+                    showMessage('error', data.error || 'Failed to send code.');
+                }
+            } catch (err) {
+                showMessage('error', 'Failed to send code.');
+            }
+        });
+
+        // Only show chat history if verified
+        async function loadChatHistory(email) {
+            if (!verified || email !== verifiedEmail) return;
+            try {
+                const response = await fetch(`${API_URL}/api/customer/history/${email}`);
+                const result = await response.json();
+                const historyDiv = document.getElementById('chat-history');
+                const contentDiv = document.getElementById('history-content');
+                if (result.history && result.history.length > 0) {
+                    historyDiv.style.display = 'block';
+                    contentDiv.innerHTML = result.history.map((session, idx) => `
+                        <div class="chat-session" data-session="${session.session_id}" style="cursor:pointer;">
+                            <h4>Session on ${new Date(session.started_at).toLocaleString()}</h4>
+                            <p><strong>Messages:</strong> ${session.message_count || 0}</p>
+                            <p><strong>Duration:</strong> ${session.ended_at ? Math.round((new Date(session.ended_at) - new Date(session.started_at)) / 1000 / 60) + ' minutes' : 'Active session'}</p>
+                            <div class="chat-details" id="chat-details-${idx}" style="display:none;"></div>
+                        </div>
+                    `).join('');
+                    // Add click listeners for each session
+                    Array.from(document.getElementsByClassName('chat-session')).forEach((el, idx) => {
+                        el.addEventListener('click', async function() {
+                            const detailsDiv = document.getElementById('chat-details-' + idx);
+                            if (detailsDiv.style.display === 'block') {
+                                detailsDiv.style.display = 'none';
+                                return;
+                            }
+                            // Fetch full conversation
+                            const sessionId = el.getAttribute('data-session');
+                            const resp = await fetch(`${API_URL}/api/chat/history/${sessionId}`);
+                            const data = await resp.json();
+                            if (data.history && data.history.length > 0) {
+                                detailsDiv.innerHTML = data.history.map(msg => `<div><span style='color:#888;font-size:12px;'>[${new Date(msg.timestamp).toLocaleString()}] ${msg.message_type === 'user' ? 'You' : 'Bot'}:</span> <span>${msg.message}</span></div>`).join('');
+                                detailsDiv.style.display = 'block';
+                            } else {
+                                detailsDiv.innerHTML = '<em>No messages found.</em>';
+                                detailsDiv.style.display = 'block';
+                            }
+                        });
+                    });
+                } else {
+                    historyDiv.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error loading chat history:', error);
+            }
+        }
+        
+        // Show success/error messages
+        function showMessage(type, message) {
+            const successDiv = document.getElementById('success-message');
+            const errorDiv = document.getElementById('error-message');
+            
+            if (type === 'success') {
+                successDiv.textContent = message;
+                successDiv.style.display = 'block';
+                errorDiv.style.display = 'none';
+            } else {
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+                successDiv.style.display = 'none';
+            }
+            
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html> 
