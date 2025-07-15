@@ -1,0 +1,476 @@
+[
+  {
+    "category": "账号相关问题",
+    "questionEn": "What is my eZhishi login ID and password?",
+    "questionZh": "我的eZhishi登录账号和密码是什么？",
+    "answer": "You may reset your account at the following link: https://www.ezhishi.com/forgetpassword.html. If this does not work, please provide the following details:\nLogin ID (if available)\nEnglish Full name and school name\nChinese Full name\nChinese Class\nStudent index(if needed)\nWe will check and get back to you, Thank you."
+  },
+  {
+    "category": "账号相关问题",
+    "questionEn": "I cannot login my eZhishi account, can you help me?",
+    "questionZh": "我无法登录我的eZhishi账号，可以帮帮我吗？",
+    "answer": "You may reset your account at the following link: https://www.ezhishi.com/forgetpassword.html. If this does not work, please provide the following details:\nLogin ID (if available)\nEnglish Full name and school name\nChinese Full name\nChinese Class\nStudent index(if needed)\nWe will check and get back to you, Thank you."
+  },
+  {
+    "category": "账号相关问题",
+    "questionEn": "Can you reset my eZhishi account?",
+    "questionZh": "可以重置我eZhishi的账号吗？",
+    "answer": "You may reset your account at the following link: https://www.ezhishi.com/forgetpassword.html. If this does not work, please provide the following details:\nLogin ID (if available)\nEnglish Full name and school name\nChinese Full name\nChinese Class\nStudent index(if needed)\nWe will check and get back to you, Thank you."
+  },
+  {
+    "category": "账号相关问题",
+    "questionEn": "I cannot remember the anser for my security question. Please help.",
+    "questionZh": "我忘记我安全问题的答案的，请帮帮我。",
+    "answer": "You may reset your account at the following link: https://www.ezhishi.com/forgetpassword.html. If this does not work, please provide the following details:\nLogin ID (if available)\nEnglish Full name and school name\nChinese Full name\nChinese Class\nStudent index(if needed)\nWe will check and get back to you, Thank you."
+  },
+  {
+    "category": "账号相关问题",
+    "questionEn": "My kid forget his eZhishi Id and Password?",
+    "questionZh": "我的孩子忘记了他的eZhishi账号和密码。",
+    "answer": "You may reset your account at the following link: https://www.ezhishi.com/forgetpassword.html. If this does not work, please provide the following details:\nLogin ID (if available)\nEnglish Full name and school name\nChinese Full name\nChinese Class\nStudent index(if needed)\nWe will check and get back to you, Thank you."
+  },
+  {
+    "category": "账号相关问题",
+    "questionEn": "Hi I need help to login to Ezhishi",
+    "questionZh": "你好，我需要帮助登录到 Ezhishi。",
+    "answer": "You may reset your account at the following link: https://www.ezhishi.com/forgetpassword.html. If this does not work, please provide the following details:\nLogin ID (if available)\nEnglish Full name and school name\nChinese Full name\nChinese Class\nStudent index(if needed)\nWe will check and get back to you, Thank you."
+  },
+  {
+    "category": "账号相关问题",
+    "questionEn": "My daughter/Son forgot her ID and password. Can you help retrieve it?",
+    "questionZh": "我 女儿/儿子 忘记了她的账号和密码，能帮我们找回吗？",
+    "answer": "You may reset your account at the following link: https://www.ezhishi.com/forgetpassword.html. If this does not work, please provide the following details:\nLogin ID (if available)\nEnglish Full name and school name\nChinese Full name\nChinese Class\nStudent index(if needed)\nWe will check and get back to you, Thank you."
+  },
+  {
+    "category": "账号相关问题",
+    "questionEn": "We tried many times cannot login",
+    "questionZh": "我们尝试了多次都没法登录。",
+    "answer": "You may reset your account at the following link: https://www.ezhishi.com/forgetpassword.html. If this does not work, please provide the following details:\nLogin ID (if available)\nEnglish Full name and school name\nChinese Full name\nChinese Class\nStudent index(if needed)\nWe will check and get back to you, Thank you."
+  },
+  {
+    "category": "账号相关问题",
+    "questionEn": "Hi, my daughter's ezhishi password is expired",
+    "questionZh": "你好，我女儿的eZhishi密码过期了。",
+    "answer": "To change your password, please log in and click on \"My Account\" at the top right corner. You will find the \"Password Reset\" option there. You can also reset at: https://www.ezhishi.com/forgetpassword.html"
+  },
+  {
+    "category": "账号相关问题",
+    "questionEn": "Can you please text me the my ezhishi password",
+    "questionZh": "你能把eZhishi的密码发给我吗？",
+    "answer": "For security reasons, we cannot send passwords via text. Please reset your password at: https://www.ezhishi.com/forgetpassword.html\nOr log in and click on \"My Account\" at the top right corner to find the \"Password Reset\" option."
+  },
+  {
+    "category": "账号相关问题",
+    "questionEn": "How to change the new password? Could you let us know?",
+    "questionZh": "如何更改密码呢？",
+    "answer": "To change your password, please log in and click on \"My Account\" at the top right corner. You will find the \"Password Reset\" option there."
+  },
+  {
+    "category": "项目激活 / 使用问题",
+    "questionEn": "I have made payment, please activate my account.",
+    "questionZh": "我刚付了款，请尽快激活我的账号。",
+    "answer": "Please provide your invoice ID and payment details. Thank you. We will help you check the status."
+  },
+  {
+    "category": "项目激活 / 使用问题",
+    "questionEn": "Why hasn't my program been activated yet?",
+    "questionZh": "我的项目为什么还没激活？",
+    "answer": "Please provide your invoice ID and payment details. Thank you. We will help you check the status."
+  },
+  {
+    "category": "项目激活 / 使用问题",
+    "questionEn": "Why is the activation taking so long?",
+    "questionZh": "为什么激活进度这么慢？",
+    "answer": "Please provide your invoice ID and payment details. Thank you. We will help you check the status."
+  },
+  {
+    "category": "项目激活 / 使用问题",
+    "questionEn": "Why can't I use the program after activation?",
+    "questionZh": "激活后为什么无法使用项目？",
+    "answer": "Hello! Please try refreshing the interface or logging out and back into your account. If the issue persists, please contact our customer service with your login ID and invoice ID."
+  },
+  {
+    "category": "项目激活 / 使用问题",
+    "questionEn": "I just bought the book. Please help me activate it.",
+    "questionZh": "我刚买了书，请帮我激活。",
+    "answer": "Please provide us invoice ID and payment details so that we can help you check the activation status."
+  },
+  {
+    "category": "项目激活 / 使用问题",
+    "questionEn": "Can I activate Hanyu Pinyin (Chinese HCL) online programme with the subscription code on the book?",
+    "questionZh": "我可以用书上的订阅码激活汉语拼音（华文）在线课程吗？",
+    "answer": "It depends on which subscription code you have. If the 10-digit code starts with the letter E, it can be used to activate the online programme. If the 10-digit code begins with the letter S, it can only be used to activate the paper-based subscription and will not activate the online programme."
+  },
+  {
+    "category": "项目激活 / 使用问题",
+    "questionEn": "Can I activate paper subscription with the code card bought from school bookshop?",
+    "questionZh": "我可以用从学校书店购买的代码卡激活纸质订阅吗？",
+    "answer": "No. The code card purchased from the school bookshop can only be used to activate the online programme. For paper subscriptions, the 10-digit code begins with the letter S and can be found on the physical book itself."
+  },
+  {
+    "category": "换地址/发货 / 物流 / 订单问题",
+    "questionEn": "I have made payment, please advise when can I receive the books/magazine/order?",
+    "questionZh": "我刚付了款，什么时候能收到我的书本/杂志/订单？",
+    "answer": "Once payment is completed, you will receive your order within 3–5 working days. Thank you."
+  },
+  {
+    "category": "换地址/发货 / 物流 / 订单问题",
+    "questionEn": "Hi, we did not receive this month book. Can you please check ?",
+    "questionZh": "你好，我们还没有收到本月的杂志。你可以帮忙查一下吗？",
+    "answer": "Could you please provide the recipient's name and contact number so we can check the delivery status? We'll investigate and get back to you as soon as possible."
+  },
+  {
+    "category": "换地址/发货 / 物流 / 订单问题",
+    "questionEn": "Where to get my parcel if I ordered newspaper?",
+    "questionZh": "如果我订了报纸，在哪里取包裹？",
+    "answer": "The parcel will be delivered to the address you provided. Please check your email for tracking information."
+  },
+  {
+    "category": "换地址/发货 / 物流 / 订单问题",
+    "questionEn": "I want to change the delivery address, how?",
+    "questionZh": "我想更改送货地址，怎么办？",
+    "answer": "To change your delivery address, please log in to your account and update the address in \"My Account\" settings before the shipment is processed. If the order has already been shipped, please contact our customer service immediately."
+  },
+  {
+    "category": "换地址/发货 / 物流 / 订单问题",
+    "questionEn": "Can I track my order?",
+    "questionZh": "我可以追踪我的订单吗？",
+    "answer": "Yes, you can track your order. Once your order is shipped, you will receive a tracking number via email. You can use this number to track your package on the courier's website."
+  },
+  {
+    "category": "换地址/发货 / 物流 / 订单问题",
+    "questionEn": "Can you please change the shipping/mailing address for my subscription?",
+    "questionZh": "请问可以帮我更改我订阅的寄送地址吗？",
+    "answer": "Thank you for reaching out. We'll be happy to update your delivery address.\nPlease provide us with the new address:\n• Recipient's name\n• Detailed address\n• Postal code\n• Contact number\nWe'll update it in our system right away."
+  },
+  {
+    "category": "退款问题",
+    "questionEn": "I want to refund.",
+    "questionZh": "我要退款。",
+    "answer": "Please provide your invoice ID and reason for the refund."
+  },
+  {
+    "category": "退款问题",
+    "questionEn": "Could you please arrange a refund for the duplicate orders?",
+    "questionZh": "我这边发现有重复的订单，请问可以退款吗？",
+    "answer": "Please provide your invoice ID and payment details. Thank you."
+  },
+  {
+    "category": "投稿问题",
+    "questionEn": "Hello, teacher! May I know how my child can submit a Essay?",
+    "questionZh": "老师您好！请问小朋友要投稿，要怎么联系你们啊？",
+    "answer": "Thank you for your enquiry. If your child is interested in submitting Essay, please email it to editor@EtutorStar.com or Whatsapp us at +65 9012 6012."
+  },
+  {
+    "category": "投稿问题",
+    "questionEn": "How to submit articles to eZhishi?",
+    "questionZh": "如何向eZhishi投稿文章？",
+    "answer": "To submit articles, please log in to your eZhishi account and click on \"Submit Article\" in the main menu. Follow the submission guidelines and ensure your article meets our requirements. You will receive a confirmation email once your submission is received."
+  },
+  {
+    "category": "投稿问题",
+    "questionEn": "What are the requirements for article submission?",
+    "questionZh": "投稿文章有什么要求？",
+    "answer": "Articles should be original work, between 300-1000 words, and relevant to our readers. Please include a title, your name, and school information. Articles should be educational or informative in nature. We reserve the right to edit submissions for clarity and length."
+  },
+  {
+    "category": "投稿问题",
+    "questionEn": "Is there a reward or gift for published submissions?",
+    "questionZh": "有没有稿费？会送礼物吗？",
+    "answer": "Yes, composition royalties and a copy of magazine will be sent to school."
+  },
+  {
+    "category": "投稿问题",
+    "questionEn": "Do I need to include my name and school?",
+    "questionZh": "需要附上姓名和学校吗？",
+    "answer": "Yes, please indicate your child's Chinese name and school."
+  },
+  {
+    "category": "投稿问题",
+    "questionEn": "When will I know if my work is selected for publishing?",
+    "questionZh": "什么时候会知道有没有被刊登？",
+    "answer": "If the submission is selected, we will send composition royalties and a copy of the magazine to the school when it is published."
+  },
+  {
+    "category": "投稿问题",
+    "questionEn": "Is there a word or length limit?",
+    "questionZh": "有没有字数或篇幅限制？",
+    "answer": "All submissions are welcome, regardless of the topic, as long as they are positive and uplifting. Suggested length is 300-1000 words, but quality is more important than length."
+  },
+  {
+    "category": "eZhishi 平台",
+    "questionEn": "I need some technical help, the videos are not loading.",
+    "questionZh": "我需要一些技术帮助，视频无法加载",
+    "answer": "Hi, sorry for the inconvenience.\nFor technical support, please contact our customer service via Whatsapp at +65 9012 6012 or email us at customer@etutorstar.com. Please include your login ID and a description of the issue."
+  },
+  {
+    "category": "eZhishi 平台",
+    "questionEn": "I found some errors in the questions on the eZhishi platform.",
+    "questionZh": "我发现到一些题目有错误。",
+    "answer": "Thank you for your feedback. Please report any errors to us via email at customer@etutorstar.com or WhatsApp +65 9012 6012. Please include the specific question details and screenshot if possible."
+  },
+  {
+    "category": "eZhishi 平台",
+    "questionEn": "My child's school does not subscribe eZhishi, what can I do?",
+    "questionZh": "我孩子的学校没有订阅知识网，我想个人订阅，要怎么订阅呢？",
+    "answer": "eZhishi is a school-based collective subscription. For personal use, you may consider subscribing to our online learning program at www.EtutorLearning.com or our magazines at www.etutormall.com/subscribe."
+  },
+  {
+    "category": "eZhishi 平台",
+    "questionEn": "What browsers are supported for eZhishi platform?",
+    "questionZh": "eZhishi平台支持哪些浏览器？",
+    "answer": "eZhishi platform works best with the latest versions of Chrome, Firefox, Safari, and Edge. For optimal experience, please ensure your browser is updated to the latest version. Internet Explorer is not recommended."
+  },
+  {
+    "category": "eZhishi 平台",
+    "questionEn": "Can I use eZhishi on mobile devices?",
+    "questionZh": "我可以在移动设备上使用eZhishi吗？",
+    "answer": "Yes, eZhishi is mobile-friendly and can be accessed through your mobile browser. We also have a mobile app available for iOS and Android devices. Search for \"eZhishi\" in your app store to download."
+  },
+  {
+    "category": "Etutorlearning App",
+    "questionEn": "I changed to a new device. Why can't I log in?",
+    "questionZh": "我换了新设备，为什么无法登录？",
+    "answer": "Hi, each account can only be used on one device at a time. Since you've changed to a new device, we'll need to transfer your account. Please contact our customer service with your login ID and new device information."
+  },
+  {
+    "category": "Etutorlearning App",
+    "questionEn": "which one is Etutorlearning App?",
+    "questionZh": "哪个软件是Etutorlearning？",
+    "answer": "The app can only be used on tablets or iPad, Please search for \"Etutorlearning\" in your tablet's app store. Look for the app with our official logo."
+  },
+  {
+    "category": "Etutorlearning App",
+    "questionEn": "How to download Etutorlearning App?",
+    "questionZh": "如何下载Etutorlearning应用程序？",
+    "answer": "You can download the Etutorlearning App from:\n- iOS: Search \"Etutorlearning\" in the App Store\n- Android: Search \"Etutorlearning\" in Google Play Store\nMake sure to download the official app published by eZhishi."
+  },
+  {
+    "category": "Etutorlearning App",
+    "questionEn": "Can I use the same account for web and app?",
+    "questionZh": "我可以在网页和应用程序上使用同一个账户吗？",
+    "answer": "Yes, you can use the same eZhishi account credentials to log in to both the web platform and the Etutorlearning mobile app. Your progress and subscriptions will sync across all devices."
+  },
+  {
+    "category": "积分与奖励问题",
+    "questionEn": "Hi, my daughter's account was hacked and reward points were redeemed by someone. How can she change her password and recover the points?",
+    "questionZh": "你好，我女儿的账号被盗，积分被他人兑换了。请问如何修改密码并追回积分？",
+    "answer": "Please provide her full name, login ID, and School name, so we can check and assist."
+  },
+  {
+    "category": "积分与奖励问题",
+    "questionEn": "Why are no points added when I do my work?",
+    "questionZh": "为什么我完成练习后没有积分？",
+    "answer": "Please find eZhshi Reward rules and regulations here https://www.ezhishi.com/reward/public/rules."
+  },
+  {
+    "category": "积分与奖励问题",
+    "questionEn": "When will I receive my eZhishi reward?",
+    "questionZh": "我什么时候可以收到 eZhishi 礼物？",
+    "answer": "Rewards are usually processed and mailed out to school within 21 working days after redemption."
+  },
+  {
+    "category": "积分与奖励问题",
+    "questionEn": "How can I check my child's points on eZhishi Buddy?",
+    "questionZh": "怎么查孩子在eZhishi Buddy上的成长点？",
+    "answer": "You can view your child's points directly on the eZhishi Buddy interface."
+  },
+  {
+    "category": "积分与奖励问题",
+    "questionEn": "Where are the eZhishi Buddy points recorded or displayed?",
+    "questionZh": "成长点记录在哪里显示？",
+    "answer": "You can view your child's points directly on the eZhishi Buddy interface."
+  },
+  {
+    "category": "积分与奖励问题",
+    "questionEn": "How do I earn points on eZhishi?",
+    "questionZh": "我如何在eZhishi上赚取积分？",
+    "answer": "You can earn points by:\n- Completing lessons and exercises\n- Submitting articles that get published\n- Participating in contests and activities\n- Daily login rewards\n- Referring friends to join eZhishi\nPoints can be redeemed for rewards in our rewards store."
+  },
+  {
+    "category": "积分与奖励问题",
+    "questionEn": "Where can I check my points balance?",
+    "questionZh": "我在哪里可以查看我的积分余额？",
+    "answer": "You can check your points balance by logging into your account and clicking on \"My Points\" or \"Rewards\" section. This will show your current balance, points history, and available rewards."
+  },
+  {
+    "category": "点读笔/扫描笔问题",
+    "questionEn": "How to download the audio files to etutor learning pen?",
+    "questionZh": "如何下载音频到点读笔",
+    "answer": "Download audio files here: https://www.etutorstar.com/AudioDownload.aspx\nWatch the instruction video on our website for step-by-step guidance on how to transfer the files to your pen."
+  },
+  {
+    "category": "点读笔/扫描笔问题",
+    "questionEn": "The pen is not responding.",
+    "questionZh": "笔没有反应",
+    "answer": "We're sorry to hear that your pen is not working properly. You are welcome to bring it to our office for checking.\nAddress: 33 Ubi Ave 3 #03-23 Tower A Vertex Singapore 408868\nOffice hours: Monday-Friday 9am-6pm"
+  },
+  {
+    "category": "点读笔/扫描笔问题",
+    "questionEn": "The pen is broken.",
+    "questionZh": "笔坏了",
+    "answer": "Yes, the Etutorstar Learning Pen comes with a 1-year warranty from the date of purchase."
+  },
+  {
+    "category": "点读笔/扫描笔问题",
+    "questionEn": "The pen is not working.",
+    "questionZh": "笔没有反应",
+    "answer": "Yes, the Etutorstar Learning Pen comes with a 1-year warranty from the date of purchase."
+  },
+  {
+    "category": "点读笔/扫描笔问题",
+    "questionEn": "Does the Etutorstar Learning pen come with a warranty? How long is the warranty period?",
+    "questionZh": "点读笔是否附带保修？保修多久？",
+    "answer": "Yes, the Etutorstar Learning Pen comes with a 1-year warranty from the date of purchase."
+  },
+  {
+    "category": "点读笔/扫描笔问题",
+    "questionEn": "Does the ET-901 AI Language pen come with a warranty? How long is the warranty period?",
+    "questionZh": "ET-901 AI 智能语言笔有保修吗？保修期是多久？",
+    "answer": "Yes, the ET-901 AI Language Pen comes with a 1-year warranty from the date of purchase."
+  },
+  {
+    "category": "点读笔/扫描笔问题",
+    "questionEn": "My reading pen is not working, what should I do?",
+    "questionZh": "我的点读笔不工作了，该怎么办？",
+    "answer": "Please try these steps:\n1. Check if the battery is charged\n2. Restart the device by holding the power button for 10 seconds\n3. Ensure the book code matches the pen content\n4. Update the pen firmware if available\nIf the problem persists, please contact our technical support with your pen model and serial number."
+  },
+  {
+    "category": "点读笔/扫描笔问题",
+    "questionEn": "How to update content on my reading pen?",
+    "questionZh": "如何更新点读笔的内容？",
+    "answer": "To update content:\n1. Connect your reading pen to a computer using the USB cable\n2. Visit our download center at ezhishi.net/downloads\n3. Download the latest content package for your pen model\n4. Copy the files to your pen following the instructions\n5. Safely disconnect and restart your pen"
+  },
+  {
+    "category": "购买产品",
+    "questionEn": "Where can I buy the Etutorstar Learning Pen?",
+    "questionZh": "我在哪里可以买到易笔通点读笔？",
+    "answer": "Hello! You can purchase the Etutorstar Learning Pen here: https://www.etutormall.com/details.aspx?id=101"
+  },
+  {
+    "category": "购买产品",
+    "questionEn": "May I know where to purchase the Etutorstar Learning Pen?",
+    "questionZh": "请问Etutorstar点读笔在哪里买？",
+    "answer": "Hello! You can purchase the Etutorstar Learning Pen here: https://www.etutormall.com/details.aspx?id=101"
+  },
+  {
+    "category": "购买产品",
+    "questionEn": "Where can I buy the ET-901 AI Language Pen?",
+    "questionZh": "请问哪里可以买到 ET-901 AI 语言点读笔？",
+    "answer": "Hello! You can purchase the ET-901 AI Language Pen here: https://www.etutormall.com/details.aspx?id=147"
+  },
+  {
+    "category": "购买产品",
+    "questionEn": "Is there a place where I can buy the ET-901 AI Language Pen online?",
+    "questionZh": "有哪里可以在线购买 ET-901 AI 语言点读笔吗？",
+    "answer": "Hello! You can purchase the ET-901 AI Language Pen here: https://www.etutormall.com/details.aspx?id=147"
+  },
+  {
+    "category": "其他问题",
+    "questionEn": "What is your address and office hour?",
+    "questionZh": "你们的公司地址和工作时间是什么？",
+    "answer": "Address: 33 Ubi Ave 3 #03-23 Tower A Vertex Singapore 408868\nOffice Hour: Mondays to Fridays 9am-6pm (Excluding Public Holidays)"
+  },
+  {
+    "category": "其他问题",
+    "questionEn": "I cannot login my MIMS/SLS/Google classroom, can you help me?",
+    "questionZh": "我不能登录我的MIMS/SLS/Google classroom账号，可以帮帮我吗？",
+    "answer": "Sorry, this helpdesk only supports www.ezhishi.com, not other portals."
+  },
+  {
+    "category": "其他问题",
+    "questionEn": "My child is locked out of her SLS and MIMS accounts due to incorrect login attempts. Could you please help reset her credentials?",
+    "questionZh": "孩子因为输错密码，被锁定了SLS和MIMS账号。请帮忙重置登录信息。",
+    "answer": "Sorry, this helpdesk only supports www.ezhishi.com, not other portals. For SLS and MIMS account issues, please contact your school's IT department."
+  },
+  {
+    "category": "其他问题",
+    "questionEn": "How to contact customer service?",
+    "questionZh": "如何联系客服？",
+    "answer": "You can contact our customer service through:\n- Email: support@ezhishi.net\n- Phone: 6299 8822 (Monday-Friday, 9am-6pm)\n- Live chat on our website\n- Submit a support ticket in your account dashboard\nWe typically respond within 24-48 hours."
+  },
+  {
+    "category": "其他问题",
+    "questionEn": "What payment methods do you accept?",
+    "questionZh": "你们接受哪些付款方式？",
+    "answer": "We accept the following payment methods:\n- Credit/Debit cards (Visa, Mastercard)\n- PayNow\n- Bank transfer\n- PayPal\nAll payments are processed securely through our encrypted payment gateway."
+  },
+  {
+    "category": "订阅",
+    "questionEn": "Hello, I'm interested in subscribing to Young Scientist/Smart Mathematicians/Happy Dragon/New Friends/New World/New Express/HAO PENG YOU/ZHISHIHUABAO/ZHISHIBAO/Could you please let me know where and how I can subscribe to these magazines?",
+    "questionZh": "你好，我想订阅Young Scientist/Smart Mathematicians/Happy Dragon/新朋友/新天地/新列车/好朋友/知识画报/知识报，想知道如何订阅呢？",
+    "answer": "Thank you for your interest! You can subscribe on our subscription website: www.etutormall.com/subscribe"
+  },
+  {
+    "category": "订阅",
+    "questionEn": "I'd like to subscribe to your online learning program. How do I do that?",
+    "questionZh": "我想订阅你们的线上课程，请问怎么订？",
+    "answer": "Thank you for your interest! You can subscribe to our online learning program at: www.EtutorLearning.com"
+  },
+  {
+    "category": "订阅",
+    "questionEn": "Where can I purchase an account for the online learning platform?",
+    "questionZh": "请问线上学习账号要在哪里买？",
+    "answer": "Thank you for your interest! You can subscribe to our online learning program at: www.EtutorLearning.com"
+  },
+  {
+    "category": "订阅",
+    "questionEn": "How much does the online learning subscription cost?",
+    "questionZh": "你们的线上内容是怎么收费的？",
+    "answer": "Thank you for your enquiry! You can find the pricing details for our online learning programs on our website: www.EtutorLearning.com. Different packages are available based on your needs."
+  },
+  {
+    "category": "订阅",
+    "questionEn": "Is there a trial version available before subscribing?",
+    "questionZh": "有没有试用版可以先看看？",
+    "answer": "Yes, we do offer a free trial. You can explore the content directly at the link: https://www.etutorlearning.com. Click on \"Free Trial\" to get started."
+  },
+  {
+    "category": "订阅",
+    "questionEn": "How often is the magazine delivered after I subscribe?",
+    "questionZh": "请问我订阅的杂志多久配送一次呢？",
+    "answer": "Hello!\nIf you've subscribed to one of the following magazines, they are delivered once a month, from January to November (11 issues per year):\n- Young Scientist\n- Smart Mathematicians\n- Happy Dragon\n- 新朋友/新天地/新列车\n- 好朋友\n- 知识画报/知识报"
+  },
+  {
+    "category": "订阅",
+    "questionEn": "Is the magazine sent out monthly?",
+    "questionZh": "杂志是每月寄出的吗？",
+    "answer": "Yes, magazines are delivered monthly from January to November (11 issues per year). There is no issue in December."
+  },
+  {
+    "category": "订阅",
+    "questionEn": "When can I expect to receive the next issue?",
+    "questionZh": "多久会收到下一期杂志？",
+    "answer": "Magazines are typically delivered by the 10th of each month. If you haven't received your issue by the 15th, please contact our customer service."
+  },
+  {
+    "category": "订阅",
+    "questionEn": "How long is my subscription valid?",
+    "questionZh": "我的订阅有效期是多久？",
+    "answer": "Subscription validity depends on the package you purchased:\n- Monthly subscription: 30 days\n- Quarterly subscription: 90 days\n- Annual subscription: 365 days\nYou can check your subscription expiry date in \"My Account\" section."
+  },
+  {
+    "category": "订阅",
+    "questionEn": "Can I cancel my subscription?",
+    "questionZh": "我可以取消订阅吗？",
+    "answer": "Yes, you can cancel your subscription at any time. To cancel:\n1. Log in to your account\n2. Go to \"My Subscriptions\"\n3. Click \"Cancel Subscription\"\nPlease note that cancellations take effect at the end of your current billing period, and refunds are subject to our refund policy."
+  },
+  {
+    "category": "订阅",
+    "questionEn": "How to renew my subscription?",
+    "questionZh": "如何续订我的订阅？",
+    "answer": "To renew your subscription:\n1. Log in to your account\n2. Go to \"My Subscriptions\"\n3. Click \"Renew\" next to your subscription\n4. Choose your renewal period and complete payment\nYou can also enable auto-renewal to avoid service interruption."
+  },
+  {
+    "category": "人工",
+    "questionEn": "Can I talk to a customer service agent?",
+    "questionZh": "我想联系人工客服",
+    "answer": "Hi there! If you need help from our support team, feel free to contact us on WhatsApp:+65 9012 6012."
+  },
+  {
+    "category": "人工",
+    "questionEn": "I need to speak to a human agent",
+    "questionZh": "我需要与人工客服交谈",
+    "answer": "To speak with a human agent:\n- Call our hotline: 6299 8822 (Monday-Friday, 9am-6pm)\n- Use the live chat on our website and type \"agent\"\n- Email us at support@ezhishi.net with \"Urgent\" in the subject line\nOur team will assist you as soon as possible."
+  }
+]
