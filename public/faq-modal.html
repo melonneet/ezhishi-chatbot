@@ -213,9 +213,12 @@
         </div>
     </div>
 
+    <!-- Common Configuration -->
+    <script src="common.js"></script>
+    
     <script>
         let currentFaqId = null;
-        const API_URL = window.location.origin;
+        const API_URL = window.location.origin + (window.EZhishiConfig ? window.EZhishiConfig.getApiUrl() : '/apiChat');
         
         // Check if we're in edit mode on page load
         window.addEventListener('load', function() {

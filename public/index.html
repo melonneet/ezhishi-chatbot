@@ -88,13 +88,13 @@
         </p>
     </div>
 
+    <!-- Common Configuration -->
+    <script src="common.js"></script>
+    
     <!-- eZhishi Chatbot Widget -->
     <script src="chatbot.js"></script>
     <script>
-        // Automatically detect the current URL to use as API endpoint
-        const currentUrl = window.location.origin;
         EZhishiChatbot.init({
-            apiUrl: currentUrl,
             position: 'bottom-right',
             primaryColor: '#007bff',
             title: 'eZhishi Digital Assistant'
