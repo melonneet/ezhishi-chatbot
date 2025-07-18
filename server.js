@@ -1,42 +1,206 @@
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
-const db = require('./database');
-const nodemailer = require('nodemailer');
-
-// In-memory store for verification codes (for demo)
-const verificationCodes = {};
-
-// Configure nodemailer using environment variables
-const transporter = nodemailer.createTransport({
-  service: process.env.SMTP_SERVICE || 'gmail',
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
-  }
-});
+const SemanticSearch = require('./semantic-search');
+const RelatedQuestionsGenerator = require('./related-questions');
+const RelatedFAQ = require('./related-faq');
+const { pipeline } = require('@xenova/transformers');
+const natural = require('natural');
+const emailService = require('./email-service');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const BASE_PATH = process.env.BASE_PATH || '';
+
+// Initialize semantic search and related questions generator
+const semanticSearch = new SemanticSearch();
+const relatedQuestionsGenerator = new RelatedQuestionsGenerator();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: true, // Allow all origins
+  credentials: true
+}));
 app.use(express.json());
-app.use(BASE_PATH, express.static('public'));
+app.use(express.static('public'));
 
 // Load FAQ data
 let faqs = [];
+let keywordSet = new Set();
+
 try {
-  const data = fs.readFileSync(path.join(__dirname, 'data', 'faqs_updated.json'), 'utf8');
+  const data = fs.readFileSync(path.join(__dirname, 'data', 'faqs_updated_full.json'), 'utf8');
   faqs = JSON.parse(data);
   console.log(`Loaded ${faqs.length} FAQs successfully`);
+
+  // Define general nouns to exclude from keyword generation
+  const generalNounsToExclude = new Set([
+    'child', 'children', 'kid', 'kids', 'boy', 'girl', 'student', 'students',
+    'person', 'people', 'user', 'users', 'someone', 'anyone', 'everyone',
+    'thing', 'things', 'stuff', 'item', 'items', 'object', 'objects',
+    'place', 'places', 'location', 'locations', 'area', 'areas',
+    'time', 'times', 'day', 'days', 'week', 'weeks', 'month', 'months',
+    'year', 'years', 'hour', 'hours', 'minute', 'minutes',
+    'way', 'ways', 'method', 'methods', 'process', 'processes',
+    'part', 'parts', 'piece', 'pieces', 'section', 'sections',
+    'group', 'groups', 'team', 'teams', 'family', 'families',
+    'work', 'works', 'job', 'jobs', 'task', 'tasks',
+    'problem', 'problems', 'issue', 'issues', 'matter', 'matters',
+    'question', 'questions', 'answer', 'answers', 'reply', 'replies',
+    'help', 'helps', 'support', 'supports', 'service', 'services',
+    'information', 'info', 'data', 'content', 'text', 'message', 'messages',
+    'system', 'systems', 'platform', 'platforms', 'website', 'websites',
+    'page', 'pages', 'screen', 'screens', 'window', 'windows',
+    'button', 'buttons', 'link', 'links', 'menu', 'menus',
+    'form', 'forms', 'field', 'fields', 'box', 'boxes',
+    'file', 'files', 'folder', 'folders', 'document', 'documents',
+    'email', 'emails', 'phone', 'phones', 'number', 'numbers',
+    'code', 'codes', 'password', 'passwords', 'account', 'accounts',
+    'money', 'cash', 'payment', 'payments', 'price', 'prices',
+    'cost', 'costs', 'fee', 'fees', 'charge', 'charges',
+    'point', 'points', 'reward', 'rewards', 'bonus', 'bonuses',
+    'video', 'videos', 'image', 'images', 'picture', 'pictures',
+    'text', 'texts', 'word', 'words', 'letter', 'letters',
+    'name', 'names', 'title', 'titles', 'subject', 'subjects',
+    'topic', 'topics', 'category', 'categories', 'type', 'types',
+    'kind', 'kinds', 'sort', 'sorts', 'level', 'levels',
+    'size', 'sizes', 'amount', 'amounts', 'quantity', 'quantities',
+    'number', 'numbers', 'count', 'counts', 'total', 'totals',
+    'result', 'results', 'outcome', 'outcomes', 'effect', 'effects',
+    'change', 'changes', 'update', 'updates', 'modify', 'modifies',
+    'create', 'creates', 'make', 'makes', 'build', 'builds',
+    'start', 'starts', 'begin', 'begins', 'stop', 'stops', 'end', 'ends',
+    'open', 'opens', 'close', 'closes', 'save', 'saves', 'delete', 'deletes',
+    'add', 'adds', 'remove', 'removes', 'edit', 'edits', 'change', 'changes',
+    'get', 'gets', 'find', 'finds', 'search', 'searches', 'look', 'looks',
+    'see', 'sees', 'view', 'views', 'show', 'shows', 'display', 'displays',
+    'use', 'uses', 'try', 'tries', 'test', 'tests', 'check', 'checks',
+    'know', 'knows', 'think', 'thinks', 'feel', 'feels', 'want', 'wants',
+    'need', 'needs', 'like', 'likes', 'love', 'loves', 'hate', 'hates',
+    'good', 'bad', 'better', 'worse', 'best', 'worst', 'great', 'terrible',
+    'big', 'small', 'large', 'tiny', 'high', 'low', 'long', 'short',
+    'new', 'old', 'young', 'fresh', 'recent', 'current', 'latest',
+    'first', 'last', 'next', 'previous', 'before', 'after', 'during',
+    'here', 'there', 'where', 'when', 'why', 'how', 'what', 'which',
+    'this', 'that', 'these', 'those', 'it', 'its', 'they', 'them',
+    'me', 'my', 'mine', 'you', 'your', 'yours', 'he', 'his', 'she', 'her', 'hers',
+    'we', 'our', 'ours', 'they', 'their', 'theirs', 'who', 'whom', 'whose'
+  ]);
+
+  // Build keyword set from FAQ data
+  faqs.forEach(faq => {
+    // Extract meaningful phrases from English questions
+    if (faq.questionEn) {
+      // Add specific phrases that should be prioritized
+      const specificPhrases = [
+        'program not activated',
+        'cannot login',
+        'forgot password',
+        'technical support',
+        'customer service',
+        'human agent',
+        'activation delay',
+        'payment made',
+        'points balance',
+        'security question'
+      ];
+      
+      specificPhrases.forEach(phrase => {
+        if (faq.questionEn.toLowerCase().includes(phrase)) {
+          keywordSet.add(phrase);
+        }
+      });
+      
+      // Then add individual words (lower priority), excluding general nouns
+      faq.questionEn.split(/[^\w]+/).forEach(word => {
+        const wordLower = word.toLowerCase();
+        if (word && word.length > 1 && !generalNounsToExclude.has(wordLower)) {
+          keywordSet.add(wordLower);
+        }
+      });
+    }
+    
+    // Chinese keywords from questions
+    if (faq.questionZh) {
+      faq.questionZh.split('').forEach(char => {
+        if (/^[\u4e00-\u9fa5]$/.test(char)) keywordSet.add(char);
+      });
+    }
+    
+    // Add category keywords
+    if (faq.category) {
+      faq.category.split(/[^\w\u4e00-\u9fa5]+/).forEach(word => {
+        if (word && word.length > 1) keywordSet.add(word.toLowerCase());
+      });
+    }
+  });
+
+  console.log('Enhanced keyword set with related terms:', Array.from(keywordSet).slice(0, 20), '...');
+  
+  // Build spellcheck dictionary from FAQ terms
+  function buildSpellcheckDictionary(faqs) {
+    const allTerms = new Set();
+    faqs.forEach(faq => {
+      // Add terms from English questions
+      const tokens = faq.questionEn.toLowerCase().match(/\b[a-z]{3,}\b/g) || [];
+      tokens.forEach(token => allTerms.add(token));
+      
+      // Add terms from answers
+      const answerTokens = faq.answer.toLowerCase().match(/\b[a-z]{3,}\b/g) || [];
+      answerTokens.forEach(token => allTerms.add(token));
+    });
+    
+    const spellcheck = new natural.Spellcheck([...allTerms]);
+    console.log(`📚 Built spellcheck dictionary with ${allTerms.size} terms`);
+    return spellcheck;
+  }
+
+  function correctQuery(query, spellcheck) {
+    return query
+      .split(/\b/)                     // split on word boundaries
+      .map(token => {
+        const lower = token.toLowerCase();
+        // only try to correct alphabetic tokens longer than 2 chars
+        if (/^[a-z]{3,}$/.test(lower)) {
+          if (!spellcheck.isCorrect(lower)) {
+            const corrections = spellcheck.getCorrections(lower, 1);
+            if (corrections.length > 0) {
+              const best = corrections[0];
+              console.log(`🔤 Spell correction: "${token}" → "${best}"`);
+              return best;
+            }
+          }
+        }
+        return token;
+      })
+      .join("");
+  }
+
+  // Initialize spellcheck
+  global.spellcheck = buildSpellcheckDictionary(faqs);
+  
+  // Initialize semantic search and related questions generator with FAQs
+  (async () => {
+    try {
+      await semanticSearch.initialize();
+      await semanticSearch.loadFAQs(faqs);
+      console.log('✅ Semantic search ready with stats:', semanticSearch.getStats());
+      
+      await relatedQuestionsGenerator.initialize();
+      relatedQuestionsGenerator.loadFAQs(faqs);
+      console.log('✅ Related questions generator ready with stats:', relatedQuestionsGenerator.getStats());
+
+      const semanticModel = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+      relatedFAQ = new RelatedFAQ(faqs.map(f => f.questionEn), semanticModel);
+      console.log('✅ Related FAQ module ready');
+    } catch (error) {
+      console.error('⚠️ Initialization failed, using fallback:', error);
+    }
+  })();
+  
 } catch (error) {
   console.error('Error loading FAQ data:', error);
-  console.error('Make sure data/faqs_updated.json exists and contains valid JSON');
+  console.error('Make sure data/faqs.json exists and contains valid JSON');
 }
 
 // Helper function to calculate similarity score
@@ -55,8 +219,8 @@ function calculateSimilarity(query, text) {
   // Check if query contains the text (for partial matches)
   if (queryLower.includes(textLower) && textLower.length > 10) return 0.8;
   
-  // Word-based matching with stricter logic
-  const queryWords = queryLower.split(/\s+/).filter(w => w.length > 2); // Only 3+ letter words
+  // Word-based matching with improved logic
+  const queryWords = queryLower.split(/\s+/).filter(w => w.length > 1); // Include 2+ letter words
   const textWords = textLower.split(/\s+/);
   
   if (queryWords.length === 0) return 0;
@@ -71,8 +235,7 @@ function calculateSimilarity(query, text) {
       exactMatches++;
       matches += 1;
     } else {
-      // Check for partial matches only for longer words (4+ characters)
-      if (qWord.length >= 4) {
+      // Check for partial matches (substring)
       const partialMatch = textWords.some(tWord => {
         if (tWord.includes(qWord) || qWord.includes(tWord)) {
           partialMatches++;
@@ -80,8 +243,7 @@ function calculateSimilarity(query, text) {
         }
         return false;
       });
-        if (partialMatch) matches += 0.4; // Lower score for partial matches
-      }
+      if (partialMatch) matches += 0.6;
     }
   });
   
@@ -93,370 +255,337 @@ function calculateSimilarity(query, text) {
   return Math.min(baseScore + exactBonus + partialBonus, 1);
 }
 
-// Create new chat session
-app.post(`${BASE_PATH}/apiChat/session/start`, async (req, res) => {
-  try {
-    const sessionId = crypto.randomBytes(16).toString('hex');
-    const userIp = req.ip || req.connection.remoteAddress;
-    const userAgent = req.headers['user-agent'];
-    
-    await db.createSession(sessionId, userIp, userAgent);
-    res.json({ sessionId });
-  } catch (error) {
-    console.error('Error creating session:', error);
-    res.status(500).json({ error: 'Failed to create session' });
-  }
-});
-
-// End chat session
-app.post(`${BASE_PATH}/apiChat/session/end`, async (req, res) => {
-  try {
-    const { sessionId } = req.body;
-    await db.endSession(sessionId);
-    res.json({ success: true });
-  } catch (error) {
-    console.error('Error ending session:', error);
-    res.status(500).json({ error: 'Failed to end session' });
-  }
-});
-
-// Search endpoint with chat recording
-app.post(`${BASE_PATH}/apiChat/search`, async (req, res) => {
-  const { query, sessionId } = req.body;
-  
-  if (!query || query.trim() === '') {
-    return res.json({ results: [] });
-  }
-
-  // Save user message
-  if (sessionId) {
-    try {
-      await db.saveMessage(sessionId, 'user', query);
-    } catch (error) {
-      console.error('Error saving user message:', error);
-    }
-  }
-
+// Rule-based override function for specific queries
+function ruleBasedAnswer(query) {
   const queryLower = query.toLowerCase();
   
-  // Check if query contains meaningful keywords
-  const meaningfulKeywords = [
-    'login', 'password', 'activate', 'refund', 'delivery', 'submit', 'pen', 'subscribe', 'points', 'app',
-    'account', 'help', 'support', 'problem', 'issue', 'question', 'how', 'what', 'when', 'where', 'why',
-    'eZhishi', 'ecombay', 'etutor', 'etutorstar', 'et-901', 'mobile', 'download', 'reset', 'change',
-    'forgot', 'cannot', 'cant', 'access', 'signin', 'sign in', 'pwd', 'passcode', 'activation', 'active',
-    'money back', 'cancel', 'return', 'shipping', 'mail', 'address', 'receive', 'parcel', 'order',
-    'submission', 'contribute', 'article', 'essay', 'composition', 'learning pen', 'reading pen',
-    'subscription', 'renew', 'rewards', 'reward points', 'redeem', 'application', 'etutorlearning'
-  ];
-  
-  const queryWords = queryLower.split(/\s+/).filter(w => w.length > 2);
-  const meaningfulWords = queryWords.filter(word => 
-    meaningfulKeywords.some(keyword => 
-      word.includes(keyword) || keyword.includes(word)
-    )
-  );
-  
-  // If no meaningful words found, return no results
-  if (meaningfulWords.length === 0) {
-    return res.json({ results: [] });
-  }
-  
-  // Check if the query is actually asking a question or seeking help
-  const questionWords = ['how', 'what', 'when', 'where', 'why', 'can', 'could', 'would', 'should', 'help', 'problem', 'issue', 'trouble', 'error', 'cannot', 'cant', 'doesnt', 'doesn\'t', 'dont', 'don\'t'];
-  const hasQuestionIntent = questionWords.some(word => queryLower.includes(word)) || 
-                           queryLower.includes('?') || 
-                           queryLower.includes('help') ||
-                           queryLower.includes('problem') ||
-                           queryLower.includes('issue');
-  
-  // If no question intent detected, return no results
-  if (!hasQuestionIntent) {
-    return res.json({ results: [] });
-  }
-  
-  // Define keywords for better matching
-  const keywordMap = {
-    'login': ['login', 'log in', 'signin', 'sign in', 'access', 'cannot login', 'cant login'],
-    'password': ['password', 'pwd', 'passcode', 'forgot password', 'reset password', 'change password'],
-    'activate': ['activate', 'activation', 'active', 'activating'],
-    'refund': ['refund', 'money back', 'cancel', 'return'],
-    'delivery': ['delivery', 'shipping', 'mail', 'address', 'receive', 'parcel', 'order'],
-    'submit': ['submit', 'submission', 'contribute', 'article', 'essay', 'composition'],
-    'pen': ['pen', 'learning pen', 'reading pen', 'etutorstar', 'et-901'],
-    'subscribe': ['subscribe', 'subscription', 'renew', 'cancel subscription'],
-    'points': ['points', 'rewards', 'reward points', 'redeem'],
-    'app': ['app', 'application', 'etutorlearning', 'mobile', 'download']
-  };
-  
-  // Check for keyword matches
-  let keywordBoost = {};
-  Object.entries(keywordMap).forEach(([category, keywords]) => {
-    if (keywords.some(kw => queryLower.includes(kw))) {
-      keywordBoost[category] = 0.3;
-    }
-  });
-
-  // Calculate similarity scores for each FAQ with stricter matching
-  const scoredFaqs = faqs.map(faq => {
-    const englishScore = calculateSimilarity(query, faq.questionEn);
-    const chineseScore = calculateSimilarity(query, faq.questionZh || '');
-    const categoryScore = calculateSimilarity(query, faq.category) * 0.2; // Reduced weight
-    const answerScore = calculateSimilarity(query, faq.answer) * 0.1; // Much lower weight for answer
+  // Catch "account not activated" or similar activation-related queries
+  if (/account.*activated|activate.*account|not.*activated|activation.*problem/i.test(queryLower)) {
+    // Normalize apostrophes for comparison
+    const normalizeText = (text) => {
+      return text
+        .replace(/[''′]/g, "'") // Replace curly apostrophes with straight apostrophe
+        .replace(/[""″]/g, '"') // Replace curly quotes with straight quotes
+        .replace(/\u2019/g, "'") // Replace right single quotation mark
+        .replace(/\u2018/g, "'") // Replace left single quotation mark
+        .replace(/\u201D/g, '"') // Replace right double quotation mark
+        .replace(/\u201C/g, '"'); // Replace left double quotation mark
+    };
     
-    // Add keyword boost based on category
-    let boost = 0;
-    Object.entries(keywordBoost).forEach(([category, boostValue]) => {
-      if (faq.questionEn.toLowerCase().includes(category) || 
-          faq.category.toLowerCase().includes(category)) {
-        boost += boostValue;
+    const activationFAQ = faqs.find(faq => {
+      const normalizedFAQ = normalizeText(faq.questionEn);
+      const targetQuestion1 = normalizeText("Why hasn't my account been activated yet?");
+      const targetQuestion2 = normalizeText("When will my account be activated?");
+      
+      return normalizedFAQ === targetQuestion1 || normalizedFAQ === targetQuestion2;
+    });
+    
+    if (activationFAQ) {
+      console.log(`🎯 Rule-based override for activation query: "${query}"`);
+      return {
+        faq: activationFAQ,
+        score: 1.0,
+        similarity: 1.0,
+        isRuleOverride: true
+      };
+    }
+  }
+  
+  return null;
+}
+
+// Search endpoint
+app.post('/api/search', async (req, res) => {
+  const { query } = req.body;
+  
+  console.log('🔍 Search query received:', query);
+  
+  if (!query || query.trim() === '') {
+    console.log('Empty query, returning empty results');
+    return res.json({ results: [] });
+  }
+
+  try {
+    // 1) Check for rule-based override first
+    const ruleOverride = ruleBasedAnswer(query);
+    if (ruleOverride) {
+      const results = [{
+        ...ruleOverride.faq,
+        score: ruleOverride.score,
+        similarity: ruleOverride.similarity
+      }];
+      
+      // Get related questions
+      let relatedQuestions = [];
+      if (relatedFAQ) {
+        relatedQuestions = await relatedFAQ.relatedQuestionKeywords(query, 3, 3);
       }
+      
+      console.log(`🎯 Rule-based result for query: "${query}"`);
+      return res.json({ results, relatedQuestions });
+    }
+    
+    // 2) Spell-correct the query
+    const correctedQuery = correctQuery(query, global.spellcheck);
+    if (correctedQuery !== query) {
+      console.log(`🔤 Spell-corrected query: "${query}" → "${correctedQuery}"`);
+    }
+    
+    // 3) Check for exact matches with both original and corrected query
+    const exactMatch = faqs.find(faq => {
+      const normalizedQuery = query.toLowerCase().trim().replace(/\s+/g, ' ');
+      const normalizedCorrectedQuery = correctedQuery.toLowerCase().trim().replace(/\s+/g, ' ');
+      const normalizedQuestionEn = faq.questionEn.toLowerCase().trim().replace(/\s+/g, ' ');
+      const normalizedQuestionZh = faq.questionZh.toLowerCase().trim().replace(/\s+/g, ' ');
+      
+      // Debug logging for login queries
+      if (query.toLowerCase().includes('login')) {
+        console.log('Debug - Query:', JSON.stringify(normalizedQuery));
+        console.log('Debug - Corrected Query:', JSON.stringify(normalizedCorrectedQuery));
+        console.log('Debug - QuestionEn:', JSON.stringify(normalizedQuestionEn));
+        console.log('Debug - Match:', normalizedQuestionEn === normalizedQuery || normalizedQuestionEn === normalizedCorrectedQuery);
+      }
+      
+      return normalizedQuestionEn === normalizedQuery || 
+             normalizedQuestionZh === normalizedQuery ||
+             normalizedQuestionEn === normalizedCorrectedQuery || 
+             normalizedQuestionZh === normalizedCorrectedQuery;
     });
     
-    // Require at least one strong match (question or category)
-    const hasStrongMatch = Math.max(englishScore, chineseScore) > 0.4 || categoryScore > 0.15;
-    
-    return {
-      ...faq,
-      score: hasStrongMatch ? (Math.max(englishScore, chineseScore) + categoryScore + answerScore + boost) : 0
-    };
-  });
-
-  // Filter and sort results with very strict matching
-  const results = scoredFaqs
-    .filter(faq => faq.score > 0.5) // Much higher threshold to avoid meaningless matches
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 5); // Top 5 results
-
-  // Track question in analytics
-  const wasAnswered = results.length > 0 && results[0].score > 0.5;
-  const category = results.length > 0 ? results[0].category : 'Unknown';
-  
-  try {
-    await db.trackQuestion(query, category, wasAnswered);
-  } catch (error) {
-    console.error('Error tracking question:', error);
-  }
-
-  // Save bot response
-  if (sessionId && results.length > 0) {
-    try {
-      await db.saveMessage(sessionId, 'bot', results[0].answer);
-    } catch (error) {
-      console.error('Error saving bot message:', error);
-    }
-  }
-
-  res.json({ results });
-});
-
-// Get chat history for download
-app.get(`${BASE_PATH}/apiChat/chat/history/:sessionId`, async (req, res) => {
-  try {
-    const { sessionId } = req.params;
-    const history = await db.getChatHistory(sessionId);
-    res.json({ history });
-  } catch (error) {
-    console.error('Error getting chat history:', error);
-    res.status(500).json({ error: 'Failed to get chat history' });
-  }
-});
-
-// Customer profile management
-app.post(`${BASE_PATH}/apiChat/customer/profile`, async (req, res) => {
-  try {
-    const { email, name, phone } = req.body;
-    await db.updateCustomerProfile(email, name, phone);
-    res.json({ success: true, message: 'Profile updated successfully' });
-  } catch (error) {
-    console.error('Error updating customer profile:', error);
-    res.status(500).json({ error: 'Failed to update profile' });
-  }
-});
-
-app.get(`${BASE_PATH}/apiChat/customer/profile/:email`, async (req, res) => {
-  try {
-    const { email } = req.params;
-    const profile = await db.getCustomerProfile(email);
-    if (profile) {
-      res.json({ profile });
+    let searchResults;
+    if (exactMatch) {
+      // If exact match found, prioritize it
+      searchResults = [{
+        faq: exactMatch,
+        score: 1.0,
+        similarity: 1.0
+      }];
+      
+      // Add additional semantic results (excluding the exact match)
+      const additionalResults = await semanticSearch.semanticSearch(correctedQuery, 4);
+      const filteredResults = additionalResults.filter(result => 
+        result.faq.questionEn !== exactMatch.questionEn
+      );
+      searchResults = searchResults.concat(filteredResults);
     } else {
-      res.status(404).json({ error: 'Profile not found' });
-    }
-  } catch (error) {
-    console.error('Error getting customer profile:', error);
-    res.status(500).json({ error: 'Failed to get profile' });
-  }
-});
-
-app.get(`${BASE_PATH}/apiChat/customer/history/:email`, async (req, res) => {
-  try {
-    const { email } = req.params;
-    const history = await db.getCustomerChatHistory(email);
-    res.json({ history });
-  } catch (error) {
-    console.error('Error getting customer history:', error);
-    res.status(500).json({ error: 'Failed to get customer history' });
-  }
-});
-
-// Start session with customer info
-app.post(`${BASE_PATH}/apiChat/session/start-with-customer`, async (req, res) => {
-  try {
-    const { email, name, phone } = req.body;
-    const sessionId = crypto.randomBytes(16).toString('hex');
-    const userIp = req.ip || req.connection.remoteAddress;
-    const userAgent = req.headers['user-agent'];
-    
-    await db.createSession(sessionId, userIp, userAgent, email, name);
-    
-    // Update customer profile
-    if (email) {
-      await db.updateCustomerProfile(email, name, phone);
+      // Use semantic search if available, otherwise fallback to keyword search
+      searchResults = await semanticSearch.semanticSearch(correctedQuery, 5);
     }
     
-    res.json({ sessionId });
+    const results = searchResults.map(result => ({
+      ...result.faq,
+      score: result.score,
+      similarity: result.similarity
+    }));
+
+    console.log(`Found ${results.length} results for query: "${query}"`);
+    if (results.length > 0) {
+      console.log('Top result:', {
+        question: results[0].questionEn,
+        score: results[0].score,
+        similarity: results[0].similarity
+      });
+    }
+
+    // Related questions
+    let relatedQuestions = [];
+    if (relatedFAQ) {
+      relatedQuestions = await relatedFAQ.relatedQuestionKeywords(query, 3, 3);
+      
+      // Special case: If query is about login problems, ensure "We tried many times cannot login" is included
+      const loginKeywords = ['login', 'log in', 'signin', 'sign in', 'cannot login', 'cant login', 'unable to login', 'login problem', 'tried many times', 'many times cannot'];
+      const isLoginQuery = loginKeywords.some(keyword => query.toLowerCase().includes(keyword));
+      
+      if (isLoginQuery) {
+        const loginQuestion = "We tried many times cannot login";
+        const hasLoginQuestion = relatedQuestions.some(q => q.question === loginQuestion);
+        
+        if (!hasLoginQuestion) {
+          // Find the login question in FAQs and add it
+          const loginFAQ = faqs.find(faq => faq.questionEn === loginQuestion);
+          if (loginFAQ) {
+            relatedQuestions.unshift({
+              question: loginQuestion,
+              similarity: "0.950",
+              keywords: ["login", "password", "tried"]
+            });
+            // Keep only top 3
+            relatedQuestions = relatedQuestions.slice(0, 3);
+          }
+        }
+      }
+      
+      // Special case: If query is about activation problems, ensure "Why hasn't my account been activated yet?" is included
+      const activationKeywords = ['activate', 'activation', 'activated', 'not activated', 'account not activated', 'account activation', 'activate account', 'account activated'];
+      const isActivationQuery = activationKeywords.some(keyword => query.toLowerCase().includes(keyword));
+      
+      if (isActivationQuery) {
+        const activationQuestion = "Why hasn't my account been activated yet?";
+        const hasActivationQuestion = relatedQuestions.some(q => q.question === activationQuestion);
+        
+        if (!hasActivationQuestion) {
+          // Find the activation question in FAQs and add it
+          const activationFAQ = faqs.find(faq => faq.questionEn === activationQuestion);
+          if (activationFAQ) {
+            relatedQuestions.unshift({
+              question: activationQuestion,
+              similarity: "0.950",
+              keywords: ["account", "activated", "activation"]
+            });
+            // Keep only top 3
+            relatedQuestions = relatedQuestions.slice(0, 3);
+          }
+        }
+      }
+    }
+
+    res.json({ results, relatedQuestions });
   } catch (error) {
-    console.error('Error creating session with customer:', error);
-    res.status(500).json({ error: 'Failed to create session' });
+    console.error('Search error:', error);
+    res.status(500).json({ error: 'Search failed' });
   }
 });
 
-// Admin endpoints
-app.get(`${BASE_PATH}/apiChat/admin/sessions`, async (req, res) => {
-  try {
-    const limit = parseInt(req.query.limit) || 100;
-    const offset = parseInt(req.query.offset) || 0;
-    const sessions = await db.getAllSessions(limit, offset);
-    res.json({ sessions });
-  } catch (error) {
-    console.error('Error getting sessions:', error);
-    res.status(500).json({ error: 'Failed to get sessions' });
+// API Chat search endpoint (mirrors /api/search for compatibility)
+app.post('/apiChat/search', async (req, res) => {
+  const { query } = req.body;
+  
+  console.log('API Chat search query received:', query);
+  
+  if (!query || query.trim() === '') {
+    console.log('Empty query, returning empty results');
+    return res.json({ results: [] });
   }
-});
 
-app.get(`${BASE_PATH}/apiChat/admin/analytics`, async (req, res) => {
   try {
-    const analytics = await db.getQuestionAnalytics();
-    const totalQuestions = analytics.reduce((sum, item) => sum + item.times_asked, 0);
-    const avgSessionTime = await db.getAverageSessionTime();
+    // 1) Check for rule-based override first
+    const ruleOverride = ruleBasedAnswer(query);
+    if (ruleOverride) {
+      const results = [{
+        ...ruleOverride.faq,
+        score: ruleOverride.score,
+        similarity: ruleOverride.similarity
+      }];
+      
+      // Get related questions
+      let relatedQuestions = [];
+      if (relatedFAQ) {
+        relatedQuestions = await relatedFAQ.relatedQuestionKeywords(query, 3, 3);
+      }
+      
+      console.log(`🎯 Rule-based result for API Chat query: "${query}"`);
+      return res.json({ results, relatedQuestions });
+    }
     
-    res.json({ 
-      questions: analytics, 
-      totalQuestions,
-      avgSessionTime: Math.round(avgSessionTime || 0)
+    // 2) Spell-correct the query
+    const correctedQuery = correctQuery(query, global.spellcheck);
+    if (correctedQuery !== query) {
+      console.log(`🔤 Spell-corrected query: "${query}" → "${correctedQuery}"`);
+    }
+    
+    // 3) Check for exact matches with both original and corrected query
+    const exactMatch = faqs.find(faq => {
+      const normalizedQuery = query.toLowerCase().trim().replace(/\s+/g, ' ');
+      const normalizedCorrectedQuery = correctedQuery.toLowerCase().trim().replace(/\s+/g, ' ');
+      const normalizedQuestionEn = faq.questionEn.toLowerCase().trim().replace(/\s+/g, ' ');
+      const normalizedQuestionZh = faq.questionZh.toLowerCase().trim().replace(/\s+/g, ' ');
+      
+      return normalizedQuestionEn === normalizedQuery || 
+             normalizedQuestionZh === normalizedQuery ||
+             normalizedQuestionEn === normalizedCorrectedQuery || 
+             normalizedQuestionZh === normalizedCorrectedQuery;
     });
-  } catch (error) {
-    console.error('Error getting analytics:', error);
-    res.status(500).json({ error: 'Failed to get analytics' });
-  }
-});
-
-app.get(`${BASE_PATH}/apiChat/admin/customers`, async (req, res) => {
-  try {
-    const customers = await db.getAllCustomers();
-    res.json({ customers, total: customers.length });
-  } catch (error) {
-    console.error('Error getting customers:', error);
-    res.status(500).json({ error: 'Failed to get customers' });
-  }
-});
-
-// FAQ Management endpoints
-app.get(`${BASE_PATH}/apiChat/faqs`, async (req, res) => {
-  try {
-    res.json({ faqs });
-  } catch (error) {
-    console.error('Error getting FAQs:', error);
-    res.status(500).json({ error: 'Failed to get FAQs' });
-  }
-});
-
-app.post(`${BASE_PATH}/apiChat/faqs`, async (req, res) => {
-  try {
-    const { questionEn, questionZh, answer, category } = req.body;
     
-    if (!questionEn || !answer) {
-      return res.status(400).json({ error: 'English question and answer are required' });
+    let searchResults;
+    if (exactMatch) {
+      // If exact match found, prioritize it
+      searchResults = [{
+        faq: exactMatch,
+        score: 1.0,
+        similarity: 1.0
+      }];
+      
+      // Add additional semantic results (excluding the exact match)
+      const additionalResults = await semanticSearch.semanticSearch(correctedQuery, 4);
+      const filteredResults = additionalResults.filter(result => 
+        result.faq.questionEn !== exactMatch.questionEn
+      );
+      searchResults = searchResults.concat(filteredResults);
+    } else {
+      // Use semantic search if available, otherwise fallback to keyword search
+      searchResults = await semanticSearch.semanticSearch(correctedQuery, 5);
     }
     
-    const newFaq = {
-      id: Date.now(), // Simple ID generation
-      questionEn,
-      questionZh: questionZh || '',
-      answer,
-      category: category || 'General'
-    };
-    
-    faqs.push(newFaq);
-    
-    // Save to file
-    fs.writeFileSync(path.join(__dirname, 'data', 'faqs_updated.json'), JSON.stringify(faqs, null, 2));
-    
-    res.json({ success: true, faq: newFaq });
-  } catch (error) {
-    console.error('Error adding FAQ:', error);
-    res.status(500).json({ error: 'Failed to add FAQ' });
-  }
-});
+    const results = searchResults.map(result => ({
+      ...result.faq,
+      score: result.score,
+      similarity: result.similarity
+    }));
 
-app.put(`${BASE_PATH}/apiChat/faqs/:id`, async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { questionEn, questionZh, answer, category } = req.body;
-    
-    const faqIndex = faqs.findIndex(faq => faq.id == id);
-    if (faqIndex === -1) {
-      return res.status(404).json({ error: 'FAQ not found' });
+    console.log(`Found ${results.length} results for query: "${query}"`);
+    if (results.length > 0) {
+      console.log('Top result:', {
+        question: results[0].questionEn,
+        score: results[0].score,
+        similarity: results[0].similarity
+      });
     }
-    
-    faqs[faqIndex] = {
-      ...faqs[faqIndex],
-      questionEn: questionEn || faqs[faqIndex].questionEn,
-      questionZh: questionZh || faqs[faqIndex].questionZh,
-      answer: answer || faqs[faqIndex].answer,
-      category: category || faqs[faqIndex].category
-    };
-    
-    // Save to file
-    fs.writeFileSync(path.join(__dirname, 'data', 'faqs_updated.json'), JSON.stringify(faqs, null, 2));
-    
-    res.json({ success: true, faq: faqs[faqIndex] });
-  } catch (error) {
-    console.error('Error updating FAQ:', error);
-    res.status(500).json({ error: 'Failed to update FAQ' });
-  }
-});
 
-app.delete(`${BASE_PATH}/apiChat/faqs/:id`, async (req, res) => {
-  try {
-    const { id } = req.params;
-    
-    const faqIndex = faqs.findIndex(faq => faq.id == id);
-    if (faqIndex === -1) {
-      return res.status(404).json({ error: 'FAQ not found' });
+    // Related questions
+    let relatedQuestions = [];
+    if (relatedFAQ) {
+      relatedQuestions = await relatedFAQ.relatedQuestionKeywords(query, 3, 3);
+      
+      // Special case: If query is about login problems, ensure "We tried many times cannot login" is included
+      const loginKeywords = ['login', 'log in', 'signin', 'sign in', 'cannot login', 'cant login', 'unable to login', 'login problem', 'tried many times', 'many times cannot'];
+      const isLoginQuery = loginKeywords.some(keyword => query.toLowerCase().includes(keyword));
+      
+      if (isLoginQuery) {
+        const loginQuestion = "We tried many times cannot login";
+        const hasLoginQuestion = relatedQuestions.some(q => q.question === loginQuestion);
+        
+        if (!hasLoginQuestion) {
+          // Find the login question in FAQs and add it
+          const loginFAQ = faqs.find(faq => faq.questionEn === loginQuestion);
+          if (loginFAQ) {
+            relatedQuestions.unshift({
+              question: loginQuestion,
+              similarity: "0.950",
+              keywords: ["login", "password", "tried"]
+            });
+            // Keep only top 3
+            relatedQuestions = relatedQuestions.slice(0, 3);
+          }
+        }
+      }
+      // Special case: If query is about activation problems, ensure "Why hasn't my account been activated yet?" is included
+      const activationKeywords = ['activate', 'activation', 'activated', 'not activated', 'account not activated', 'account activation', 'activate account', 'account activated'];
+      const isActivationQuery = activationKeywords.some(keyword => query.toLowerCase().includes(keyword));
+      
+      if (isActivationQuery) {
+        const activationQuestion = "Why hasn't my account been activated yet?";
+        const hasActivationQuestion = relatedQuestions.some(q => q.question === activationQuestion);
+        
+        if (!hasActivationQuestion) {
+          // Find the activation question in FAQs and add it
+          const activationFAQ = faqs.find(faq => faq.questionEn === activationQuestion);
+          if (activationFAQ) {
+            relatedQuestions.unshift({
+              question: activationQuestion,
+              similarity: "0.950",
+              keywords: ["account", "activated", "activation"]
+            });
+            // Keep only top 3
+            relatedQuestions = relatedQuestions.slice(0, 3);
+          }
+        }
+      }
     }
-    
-    const deletedFaq = faqs.splice(faqIndex, 1)[0];
-    
-    // Save to file
-    fs.writeFileSync(path.join(__dirname, 'data', 'faqs_updated.json'), JSON.stringify(faqs, null, 2));
-    
-    res.json({ success: true, message: 'FAQ deleted successfully' });
-  } catch (error) {
-    console.error('Error deleting FAQ:', error);
-    res.status(500).json({ error: 'Failed to delete FAQ' });
-  }
-});
 
-app.get('/api/admin/session/:sessionId', async (req, res) => {
-  try {
-    const { sessionId } = req.params;
-    const messages = await db.getChatHistory(sessionId);
-    res.json({ messages });
+    res.json({ results, relatedQuestions });
   } catch (error) {
-    console.error('Error getting session details:', error);
-    res.status(500).json({ error: 'Failed to get session details' });
+    console.error('Search error:', error);
+    res.status(500).json({ error: 'Search failed' });
   }
 });
 
@@ -478,50 +607,234 @@ app.get('/api/faqs/:category', (req, res) => {
   res.json({ faqs: categoryFaqs });
 });
 
+// Get chat sessions (for admin)
+app.get('/api/sessions', async (req, res) => {
+  try {
+    const db = require('./database.js');
+    const sessions = await db.getAllSessions(100, 0);
+    res.json({ 
+      sessions: sessions,
+      totalSessions: sessions.length,
+      recentSessions: sessions.filter(s => {
+        const sessionDate = new Date(s.started_at);
+        const weekAgo = new Date();
+        weekAgo.setDate(weekAgo.getDate() - 7);
+        return sessionDate > weekAgo;
+      }).length
+    });
+  } catch (error) {
+    console.error('Error fetching sessions:', error);
+    res.status(500).json({ error: 'Failed to fetch sessions' });
+  }
+});
+
+// Get analytics (for admin)
+app.get('/api/analytics', async (req, res) => {
+  try {
+    const db = require('./database.js');
+    const analytics = await db.getQuestionAnalytics();
+    res.json({ 
+      analytics: analytics,
+      totalQuestions: analytics.length,
+      topQuestion: analytics.length > 0 ? analytics[0].question : 'N/A'
+    });
+  } catch (error) {
+    console.error('Error fetching analytics:', error);
+    res.status(500).json({ error: 'Failed to fetch analytics' });
+  }
+});
+
+// Get dashboard data (for admin)
+app.get('/api/dashboard', async (req, res) => {
+  try {
+    const db = require('./database.js');
+    const sessions = await db.getAllSessions(100, 0);
+    const analytics = await db.getQuestionAnalytics();
+    
+    // Calculate recent sessions (last 7 days)
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    const recentSessions = sessions.filter(s => new Date(s.started_at) > weekAgo).length;
+    
+    // Get FAQ statistics
+    const categories = [...new Set(faqs.map(faq => faq.category))];
+    const categoryStats = categories.map(category => ({
+      category: category,
+      count: faqs.filter(faq => faq.category === category).length
+    }));
+    
+    res.json({
+      totalFAQs: faqs.length,
+      totalCategories: categories.length,
+      totalSessions: sessions.length,
+      totalQuestions: analytics.length,
+      recentSessions: recentSessions,
+      topQuestion: analytics.length > 0 ? analytics[0].question : 'N/A',
+      categoryStats: categoryStats,
+      lastUpdated: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error fetching dashboard data:', error);
+    res.status(500).json({ error: 'Failed to fetch dashboard data' });
+  }
+});
+
 // Test endpoint to verify FAQs are loaded
 app.get('/api/test', (req, res) => {
   res.json({ 
     status: 'ok',
     faqCount: faqs.length,
     categories: [...new Set(faqs.map(faq => faq.category))],
-    message: 'Server is running and FAQs are loaded'
+    message: 'Server is running and FAQs are loaded',
+    timestamp: new Date().toISOString(),
+    origin: req.get('origin') || 'unknown'
   });
 });
 
-// Send verification code to email
-app.post('/api/customer/send-code', async (req, res) => {
-  const { email } = req.body;
-  if (!email) return res.status(400).json({ error: 'Email required' });
-  const code = Math.floor(100000 + Math.random() * 900000).toString();
-  verificationCodes[email] = { code, expires: Date.now() + 10 * 60 * 1000 }; // 10 min expiry
-  try {
-    await transporter.sendMail({
-      from: process.env.SMTP_USER || 'your-email@gmail.com',
-      to: email,
-      subject: 'Your eZhishi Verification Code',
-      text: `Your verification code is: ${code}`
+// API Chat test endpoint
+app.get('/apiChat/test', (req, res) => {
+  res.json({
+    status: 'ok',
+    message: 'apiChat test endpoint is working',
+    time: new Date().toISOString()
+  });
+});
+
+// Simple health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'healthy',
+    message: 'eZhishi Chatbot API is running',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Semantic search status endpoint
+app.get('/api/semantic-status', (req, res) => {
+  const stats = semanticSearch.getStats();
+  res.json({
+    semanticSearch: stats,
+    faqCount: faqs.length,
+    keywordCount: keywordSet.size
+  });
+});
+
+// Debug endpoint to test search with query parameter
+app.get('/api/debug-search', (req, res) => {
+  const { q } = req.query;
+  
+  if (!q) {
+    return res.json({ error: 'Please provide a query parameter "q"' });
+  }
+  
+  // Simulate the search logic
+  const query = q;
+  console.log('Debug search query:', query);
+  
+  const queryLower = query.toLowerCase().trim();
+  
+  // Enhanced keyword mapping
+  const keywordMap = {
+    'login': ['login', 'log in', 'signin', 'sign in', 'access', 'cannot login', 'cant login', 'unable to login', 'login problem'],
+    'password': ['password', 'pwd', 'passcode', 'forgot password', 'reset password', 'change password', 'new password', 'password expired'],
+    'activate': ['activate', 'activation', 'active', 'activating', 'activated', 'not activated'],
+    'refund': ['refund', 'money back', 'cancel', 'return', 'get money back'],
+    'delivery': ['delivery', 'shipping', 'mail', 'address', 'receive', 'parcel', 'order', 'when will i receive', 'track order'],
+    'submit': ['submit', 'submission', 'contribute', 'article', 'essay', 'composition', 'send article'],
+    'pen': ['pen', 'learning pen', 'reading pen', 'etutorstar', 'et-901', 'pointing pen', 'scanning pen'],
+    'subscribe': ['subscribe', 'subscription', 'renew', 'cancel subscription', 'magazine subscription'],
+    'points': ['points', 'rewards', 'reward points', 'redeem', 'earn points', 'check points'],
+    'app': ['app', 'application', 'etutorlearning', 'mobile', 'download', 'install app'],
+    'account': ['account', 'profile', 'my account', 'account settings'],
+    'help': ['help', 'support', 'assistance', 'problem', 'issue', 'trouble'],
+    'contact': ['contact', 'email', 'phone', 'call', 'reach', 'get in touch']
+  };
+  
+  let keywordBoost = {};
+  Object.entries(keywordMap).forEach(([category, keywords]) => {
+    const matchedKeywords = keywords.filter(kw => queryLower.includes(kw));
+    if (matchedKeywords.length > 0) {
+      keywordBoost[category] = Math.min(0.4, matchedKeywords.length * 0.1);
+    }
+  });
+
+  const scoredFaqs = faqs.map(faq => {
+    const englishScore = calculateSimilarity(query, faq.questionEn);
+    const chineseScore = calculateSimilarity(query, faq.questionZh || '');
+    const categoryScore = calculateSimilarity(query, faq.category) * 0.4;
+    const answerScore = calculateSimilarity(query, faq.answer) * 0.15;
+    
+    let boost = 0;
+    Object.entries(keywordBoost).forEach(([category, boostValue]) => {
+      const questionLower = faq.questionEn.toLowerCase();
+      const answerLower = faq.answer.toLowerCase();
+      const categoryLower = faq.category.toLowerCase();
+      
+      if (questionLower.includes(category) || 
+          answerLower.includes(category) ||
+          categoryLower.includes(category)) {
+        boost += boostValue;
+      }
     });
-    res.json({ success: true });
+    
+    const totalScore = Math.max(englishScore, chineseScore) + categoryScore + answerScore + boost;
+    
+    return {
+      questionEn: faq.questionEn,
+      category: faq.category,
+      score: totalScore,
+      debug: {
+        englishScore,
+        chineseScore,
+        categoryScore,
+        answerScore,
+        boost,
+        totalScore
+      }
+    };
+  });
+
+  const results = scoredFaqs
+    .filter(faq => faq.score > 0.1)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 10);
+
+  res.json({
+    query: query,
+    keywordBoost: keywordBoost,
+    results: results
+  });
+});
+
+// Contact form endpoint
+app.post('/api/contact', async (req, res) => {
+  const { name, email, subject, message } = req.body;
+  
+  if (!name || !email || !subject || !message) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+  
+  try {
+    if (!emailService.isConfigured()) {
+      return res.status(500).json({ error: 'Email service not configured' });
+    }
+    
+    await emailService.sendContactFormEmail(name, email, subject, message);
+    res.json({ success: true, message: 'Contact form submitted successfully' });
   } catch (error) {
-    console.error('Error sending email:', error);
-    res.status(500).json({ error: 'Failed to send code' });
+    console.error('Contact form error:', error);
+    res.status(500).json({ error: 'Failed to send contact form' });
   }
 });
 
-// Verify code
-app.post('/api/customer/verify-code', (req, res) => {
-  const { email, code } = req.body;
-  if (!email || !code) return res.status(400).json({ error: 'Email and code required' });
-  const entry = verificationCodes[email];
-  if (!entry || entry.code !== code) {
-    return res.status(400).json({ error: 'Invalid code' });
-  }
-  if (Date.now() > entry.expires) {
-    delete verificationCodes[email];
-    return res.status(400).json({ error: 'Code expired' });
-  }
-  delete verificationCodes[email];
-  res.json({ success: true });
+// Email service status endpoint
+app.get('/api/email-status', (req, res) => {
+  res.json({
+    configured: emailService.isConfigured(),
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    user: process.env.SMTP_USER ? 'configured' : 'not configured'
+  });
 });
 
 app.listen(PORT, () => {
