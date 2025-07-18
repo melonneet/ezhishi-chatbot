@@ -158,8 +158,11 @@
         </div>
     </div>
 
+    <!-- Common Configuration -->
+    <script src="common.js"></script>
+
     <script>
-        const API_URL = window.location.origin + (window.location.pathname.split('/').slice(0, -1).join('/') || '');
+        const API_URL = window.location.origin + (window.EZhishiConfig ? window.EZhishiConfig.getApiUrl() : '/apiChat');
         
         // Get email from URL parameter
         const urlParams = new URLSearchParams(window.location.search);
@@ -222,7 +225,7 @@
 
         // Auto-verify when email is entered
         const emailInput = document.getElementById('email');
-        
+
         emailInput.addEventListener('blur', () => {
             if (emailInput.value && emailInput.value.includes('@')) {
                 setLoggedIn(emailInput.value);
