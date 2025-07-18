@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eZhishi Database Admin</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .nav {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .nav button {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        .nav button:hover {
+            background: #e9ecef;
+        }
+        .nav button.active {
+            background: #007bff;
+            color: white;
+        }
+        .content {
+            padding: 20px;
+            min-height: 500px;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .faq-item {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+        }
+        .faq-category {
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 5px;
+        }
+        .faq-question {
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .faq-answer {
+            color: #666;
+            line-height: 1.5;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .table th, .table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 2px;
+        }
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 eZhishi Database Admin</h1>
+            <p>Manage FAQs, view analytics, and monitor chat sessions</p>
+        </div>
+        
+        <div class="nav">
+            <button class="nav-btn active" onclick="showSection('dashboard')">📊 Dashboard</button>
+            <button class="nav-btn" onclick="showSection('faqs')">📚 FAQs</button>
+            <button class="nav-btn" onclick="showSection('analytics')">📈 Analytics</button>
+            <button class="nav-btn" onclick="showSection('sessions')">💬 Chat Sessions</button>
+        </div>
+        
+        <div class="content">
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="section active">
+                <h2>📊 Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-faqs">-</div>
+                        <div class="stat-label">Total FAQs</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-categories">-</div>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-sessions">-</div>
+                        <div class="stat-label">Chat Sessions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-questions">-</div>
+                        <div class="stat-label">Questions Asked</div>
+                    </div>
+                </div>
+                <div id="dashboard-content">
+                    <div class="loading">Loading dashboard data...</div>
+                </div>
+            </div>
+            
+            <!-- FAQs Section -->
+            <div id="faqs" class="section">
+                <h2>📚 FAQ Management</h2>
+                <input type="text" class="search-box" id="faq-search" placeholder="Search FAQs by keyword or category...">
+                <div id="faqs-content">
+                    <div class="loading">Loading FAQs...</div>
+                </div>
+            </div>
+            
+            <!-- Analytics Section -->
+            <div id="analytics" class="section">
+                <h2>📈 Question Analytics</h2>
+                <div id="analytics-content">
+                    <div class="loading">Loading analytics...</div>
+                </div>
+            </div>
+            
+            <!-- Chat Sessions Section -->
+            <div id="sessions" class="section">
+                <h2>💬 Chat Sessions</h2>
+                <div id="sessions-content">
+                    <div class="loading">Loading chat sessions...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Common Configuration -->
+    <script src="common.js"></script>
+    
+    <script>
+        
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Load section data
+            loadSectionData(sectionId);
+        }
+        
+        function loadSectionData(sectionId) {
+            switch(sectionId) {
+                case 'dashboard':
+                    loadDashboard();
+                    break;
+                case 'faqs':
+                    loadFAQs();
+                    break;
+                case 'analytics':
+                    loadAnalytics();
+                    break;
+                case 'sessions':
+                    loadSessions();
+                    break;
+            }
+        }
+        
+        async function loadDashboard() {
+            try {
+                const response = await fetch(`${window.location.origin}${window.EZhishiConfig.getApiUrl()}/api/dashboard`);
+                const data = await response.json();
+                
+                document.getElementById('total-faqs').textContent = data.totalFAQs || 0;
+                document.getElementById('total-categories').textContent = data.totalCategories || 0;
+                document.getElementById('total-sessions').textContent = data.totalSessions || 0;
+                document.getElementById('total-questions').textContent = data.totalQuestions || 0;
+                
+                // Create category stats HTML
+                const categoryStatsHtml = data.categoryStats ? data.categoryStats.map(stat => 
+                    `<li><strong>${stat.category}:</strong> ${stat.count} FAQs</li>`
+                ).join('') : '';
+                
+                document.getElementById('dashboard-content').innerHTML = `
+                    <div class="dashboard-section">
+                        <h3>📊 Recent Activity</h3>
+                        <p><strong>Last 7 days:</strong> ${data.recentSessions || 0} new chat sessions</p>
+                        <p><strong>Most asked question:</strong> "${data.topQuestion || 'N/A'}"</p>
+                    </div>
+                    
+                    <div class="dashboard-section">
+                        <h3>📁 FAQ Categories</h3>
+                        <ul class="category-list">
+                            ${categoryStatsHtml}
+                        </ul>
+                    </div>
+                    
+                    <div class="dashboard-section">
+                        <h3>🔄 System Status</h3>
+                        <p><strong>Last updated:</strong> ${new Date(data.lastUpdated).toLocaleString()}</p>
+                        <p><strong>Total data points:</strong> ${(data.totalFAQs + data.totalSessions + data.totalQuestions)}</p>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Dashboard error:', error);
+                document.getElementById('dashboard-content').innerHTML = '<p style="color: red;">Error loading dashboard data</p>';
+            }
+        }
+        
+        async function loadFAQs() {
+            try {
+                const response = await fetch(`${window.location.origin}${window.EZhishiConfig.getApiUrl()}/api/faqs`);
+                const data = await response.json();
+                
+                // Group FAQs by category
+                const faqsByCategory = {};
+                data.faqs.forEach(faq => {
+                    if (!faqsByCategory[faq.category]) {
+                        faqsByCategory[faq.category] = [];
+                    }
+                    faqsByCategory[faq.category].push(faq);
+                });
+                
+                let faqsHtml = `<div class="faq-summary">
+                    <h3>📊 FAQ Summary</h3>
+                    <p><strong>Total FAQs:</strong> ${data.faqs.length}</p>
+                    <p><strong>Categories:</strong> ${Object.keys(faqsByCategory).length}</p>
+                </div>`;
+                
+                // Display FAQs by category
+                Object.keys(faqsByCategory).forEach(category => {
+                    faqsHtml += `<div class="category-section">
+                        <h4>📁 ${category} (${faqsByCategory[category].length} FAQs)</h4>
+                        ${faqsByCategory[category].map((faq, index) => `
+                            <div class="faq-item">
+                                <div class="faq-header">
+                                    <span class="faq-number">#${index + 1}</span>
+                                    <span class="faq-category">${faq.category}</span>
+                                </div>
+                                <div class="faq-question">
+                                    <strong>Q:</strong> ${faq.questionEn}
+                                </div>
+                                <div class="faq-question-zh">
+                                    <strong>问题:</strong> ${faq.questionZh}
+                                </div>
+                                <div class="faq-answer">
+                                    <strong>A:</strong> ${faq.answer.substring(0, 300)}${faq.answer.length > 300 ? '...' : ''}
+                                </div>
+                                <div class="faq-answer-length">
+                                    <small>Answer length: ${faq.answer.length} characters</small>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>`;
+                });
+                
+                document.getElementById('faqs-content').innerHTML = faqsHtml;
+            } catch (error) {
+                console.error('FAQs error:', error);
+                document.getElementById('faqs-content').innerHTML = '<p style="color: red;">Error loading FAQs</p>';
+            }
+        }
+        
+        async function loadAnalytics() {
+            try {
+                const response = await fetch(`${window.location.origin}${window.EZhishiConfig.getApiUrl()}/api/analytics`);
+                const data = await response.json();
+                
+                const analyticsHtml = `
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Category</th>
+                                <th>Times Asked</th>
+                                <th>Last Asked</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.analytics.map(item => `
+                                <tr>
+                                    <td>${item.question}</td>
+                                    <td>${item.category || 'N/A'}</td>
+                                    <td>${item.times_asked}</td>
+                                    <td>${new Date(item.last_asked).toLocaleDateString()}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                
+                document.getElementById('analytics-content').innerHTML = analyticsHtml;
+            } catch (error) {
+                document.getElementById('analytics-content').innerHTML = '<p style="color: red;">Error loading analytics</p>';
+            }
+        }
+        
+        async function loadSessions() {
+            try {
+                const response = await fetch(`${window.location.origin}${window.EZhishiConfig.getApiUrl()}/api/sessions`);
+                const data = await response.json();
+                
+                const sessionsHtml = `
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Session ID</th>
+                                <th>Started</th>
+                                <th>Messages</th>
+                                <th>IP Address</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.sessions.map(session => `
+                                <tr>
+                                    <td>${session.session_id}</td>
+                                    <td>${new Date(session.started_at).toLocaleString()}</td>
+                                    <td>${session.total_messages}</td>
+                                    <td>${session.user_ip || 'N/A'}</td>
+                                    <td>
+                                        <button class="btn btn-primary" onclick="viewSession('${session.session_id}')">View</button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                
+                document.getElementById('sessions-content').innerHTML = sessionsHtml;
+            } catch (error) {
+                document.getElementById('sessions-content').innerHTML = '<p style="color: red;">Error loading sessions</p>';
+            }
+        }
+        
+        function viewSession(sessionId) {
+            // This would open a modal or new page to view session details
+            alert(`Viewing session: ${sessionId}`);
+        }
+        
+        // Search functionality
+        document.getElementById('faq-search').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(searchTerm) ? 'block' : 'none';
+            });
+        });
+        
+        // Load initial data
+        loadDashboard();
+    </script>
+</body>
+</html>
