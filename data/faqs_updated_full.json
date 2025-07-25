@@ -1,320 +1,563 @@
 [
-  {
-    "category": "账号相关问题",
-    "questionEn": "What is my eZhishi login ID and password?",
-    "questionZh": "我的eZhishi登录账号和密码是什么？",
-    "answer": "For school collective subscription, Ezhishi accounts will be activated upon schools' arrangement and you will be notified with the new Login ID and Password by your Chinese teacher once account is ready.\n\nUpon activation of the school account, account information sticker will be issued to you. Kindly verify the details printed on it.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "I cannot login my eZhishi account, can you help me?",
-    "questionZh": "我无法登录我的eZhishi账号，可以帮帮我吗？",
-    "answer": "Please ensure that the username and password you entered for eZhishi.com are correct.\nFor school collective subscription users, the username and password change each academic year.\nPlease check your account sticker (if provided) to confirm your correct username and password.\n\nIf you forget your passowrd, you may get your password via https://www.ezhishi.com/forgetpassword.html.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "Can you reset my eZhishi account?",
-    "questionZh": "可以重置我eZhishi的账号吗？",
-    "answer": "You can change the password for your eZhishi account, but the User ID cannot be changed.\nAfter successfully logging in to eZhishi, go to the user homepage and click on “My Account” → “Reset Password” to reset your account password by following the steps provided.\n\nIf you forgot your passowrd, you may get your password via https://www.ezhishi.com/forgetpassword.html.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "I cannot remember the answer for my security question. Please help.",
-    "questionZh": "我忘记我安全问题的答案的，请帮帮我。",
-    "answer": "If you’ve forgotten your security questions, please provide your child's full name and school, and contact our customer service team via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "How do I log in for the first time?",
-    "questionZh": "如何进行第一次登录？",
-    "answer": "To log in, visit the eZhishi website and click “Login”. Enter your Login ID and password. For first-time login, follow these steps:\n1.\tUse the credentials provided: Enter the Login ID and default password given to you by your school’s Chinese teacher. This is typically distributed on a printed note or sticker.\n2.\tChange your password (if prompted): On your first login, the system may prompt you to change your default password. Please follow the instructions to set a new, secure password (usually a minimum of 8 characters, including both letters and numbers).\n3.\tSet up security information: After logging in, we recommend updating your security questions. This will make it easier to recover your password in the future.\n4.\tVerify your profile: Upon login, your name should appear at the top of the homepage. If your name or content level appear incorrect, please inform your Chinese teacher or contact eZhishi customer support for assistance."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "I need help to login to Ezhishi.",
-    "questionZh": "我需要帮助登录到 Ezhishi。",
-    "answer": "For school collective subscriptions, please check and verify the details printed on the eZhishi account information sticker (if provided).\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "My child forgot her/his login ID. Can you help retrieve it?",
-    "questionZh": "我的孩子忘记了他/她的账号，能帮我们找回吗？",
-    "answer": "For school collective subscriptions, please check and verify the details printed on the eZhishi account information sticker (if provided).\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "My child forgot her/his eZhishi password. Can you help retrieve it?",
-    "questionZh": "我的孩子忘记密码了，能帮我们找回吗？",
-    "answer": "If you have forgotten your eZhishi password, you can reset it using the “Get Password 忘记密码” function on the login page—provided that you have previously set up your security questions and answers.\nTo reset your password:\n1.\tGo to the login page at www. and click “Get Password 忘记密码”.\n2.\tEnter your correct Login ID.\n3.\tEnter your full name (as per your account).\n4.\tAnswer the three security questions you had set previously. All answers must be correct.\n5.\tProvide a valid email address.\n6.\tIf all answers are correct, the system will send your login password to the email address provided.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "I used “Get Password” but didn’t receive the password email. What should I do?",
-    "questionZh": "我使用了“忘记密码”功能，但没有收到邮件，该怎么办？",
-    "answer": "If you have submitted a password reset request but did not receive the email, please try the following steps:\n•\tCheck your spam/junk folder: The email may have been filtered as spam. Look for messages from eZhishi in your spam or junk mail folder.\n•\tAllow a few minutes: Sometimes email delivery is delayed. Please wait a few minutes and refresh your inbox.\n•\tVerify your email address: Make sure you entered the same email address that is registered with your eZhishi account. \n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "We tried many times cannot login",
-    "questionZh": "我们尝试了多次都没法登录。",
-    "answer": "Please ensure that the username and password you entered for eZhishi.com are correct.\nFor school collective subscription users, the username and password change each academic year.\nPlease check your account sticker (if provided) to confirm your correct username and password.\n\nIf you forget your passowrd, you may get your password via https://www.ezhishi.com/forgetpassword.html.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "Can you please tell me my ezhishi password",
-    "questionZh": "你能把eZhishi的密码发给我吗？",
-    "answer": "If you forgot your passowrd, you may get your password via https://www.ezhishi.com/forgetpassword.html.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "How to subscribe eZhishi account?",
-    "questionZh": "如何订阅知识网账号？",
-    "answer": "Students (School Collective Subscription): If your school has a collective subscription to eZhishi, your Chinese teacher will provide you with a Login ID and a default password—typically via a printed note or sticker. Login ID formats may vary by school. During your first login, you may be prompted to change your password for security purposes.\nTeachers (School Collective Subscription): Teacher accounts are also managed through the school’s subscription. If your school subscribes to eZhishi, you should receive login credentials from your school administrator or the designated eZhishi teacher-in-charge. Please check with them if you have not yet received your account details.\nParents / Home Users (Individual Subscription): If you wish to subscribe individually for home use, you may register for a home subscription directly on the eZhishi website. For further assistance, please contact eZhishi helpdesk."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "How to pay for the eZhishi subscription fee?",
-    "questionZh": "订阅怎样收费？有哪些付费方式？",
-    "answer": "The eZhishi website is available only through school group subscriptions. Subscription fees vary depending on the school's subscription package, and payment methods also differ according to each school's arrangements. These include schools collecting payments uniformly from students’ Edusave accounts or parents making payments independently via PayNow, bank transfer, or cash.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "Can one account be used to log in on multiple devices at the same time?",
-    "questionZh": "一个账号可以同时在多台设备上登录吗？",
-    "answer": "No, to ensure a smooth learning experience and account security, the same account can only be logged in on one device at a time."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "Can multiple children or users use the same account?",
-    "questionZh": "多个孩子或用户可以使用同一个 eZhishi 帐户吗？",
-    "answer": "To ensure accurate tracking of individual learning progress and performance, each user should have their own dedicated eZhishi account. Sharing a single account among multiple students is not allowed, as it may result in mixed records and disrupt the learning experience. Additionally, each account supports only one active login session at a time.\nFor school-based users, students will typically receive unique login credentials from their Chinese teacher—one account per student.\nFor individual home use, if you have more than one child using eZhishi, we kindly recommend subscribing separately for each child. This ensures that each learner has access to personalized assignments, progress tracking, and performance data tailored to their individual level.\nShould you require assistance with multiple subscriptions, please feel free to contact our support team."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "Is there an expiry date for my eZhishi account?",
-    "questionZh": "账号有有效期吗？",
-    "answer": "Yes, the validity period for the school collective subscription ends on December 30 of the current year."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "Can I use handphone or tablet/iPad to access my eZhishi account?",
-    "questionZh": "可以在手机或平板上学习吗？",
-    "answer": "Yes. In addition to accessing eZhishi through a web browser, official eZhishi mobile apps are available for both iOS (iPad/iPhone) and Android devices, offering a more convenient experience—especially for younger students using tablets.\nThe app provides a streamlined interface for logging into the eZhishi portal, with the ability to save login credentials and support for key features like audio recording for eOral practice directly within the app.\nUsing the mobile app is optional—users can still access eZhishi via a mobile browser—but many find the app more user-friendly on handheld devices.\nTo download the app:\n•\tSearch “eZhishi” on the Apple App Store or Google Play Store.\n•\tLook for the app published by E-COM Digital International Pte Ltd.\n•\tThe app is free to download."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "How to change my name in eZhishi?",
-    "questionZh": "如何修改个人名字？",
-    "answer": "The student's name is provided by the school and cannot be modified manually."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "Why did I get logged out with a message that my account is logged in elsewhere?",
-    "questionZh": "为什么我会被登出，并提示我的帐户已在别处登录？",
-    "answer": "eZhishi allows only one active session per account at a time for security and data integrity. If you see a message like “your account is being logged-in elsewhere and has been logged out”, it means the system detected a login for your account from another browser or device, causing your current session to end. \nWhat to do: Ensure that you are only logged in on one device at a time. If you want to switch devices, properly log out from the first device before logging in on the second. If you encounter this message, close any other sessions (you might just wait a minute and then log in again, which will override any other session). If you did not initiate another login and suspect someone else is using your account, immediately reset your password to secure your account. It’s also a good practice not to share your password and to keep it confidential. Once you log back in (with a new password if you changed it), the other person will be logged out. This one-login-at-a-time policy is to prevent concurrent use that could confuse the tracking of progress and to protect your account. So always log out after finishing your session, especially on shared or public computers, to avoid unintended concurrent logins."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "My account says it’s expired or not active – what should I do?",
-    "questionZh": "登录时提示我的帐户已过期或未激活，该怎么办？",
-    "answer": "If you receive a notification that your account has expired or is not active, this typically indicates one of the following:\n•\tSchool Subscription Expiry or New Academic Year: eZhishi Accounts linked to school collective subscriptions are valid for a specific academic year. At the end of the year, existing accounts may expire, and new accounts for the upcoming year will be issued by your school. If your school renews its collective subscription, updated login credentials will be provided once available. In some cases, previous year accounts may be temporarily extended through January or February, but certain features, such as eZhishi Rewards, will be unavailable during this period.\n•\tNo Active Subscription: If neither your school nor you personally have an active subscription, your account will remain inactive. For example, if a previous individual (home) subscription has expired, renewal is required to regain access. You may visit the eZhishi website’s subscription page to renew or purchase a new individual subscription.\n\nIf you need further assistance, please take note of the course name, chapter, and any error messages, then contact our customer service via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
-  },
-  {
-    "category": "账号相关问题",
-    "questionEn": "How to change a new password?",
-    "questionZh": "如何更改密码呢？",
-    "answer": "To change your password after logging in:\n1.\tGo to My Account.\n2.\tSelect Change Password.\n3.\tEnter your current password.\n4.\tEnter your new password twice to confirm.\nMake sure your new password is strong (e.g., at least 8 characters, including letters and numbers). We recommend updating your password regularly to enhance account security.\n\nIf you do not see the “Reset Password” option, it means that password changes are not allowed based on your school’s request. \n\nIf you have any questions, feel free to contact us via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
-  },
-  {
-    "category": "项目激活 / 使用问题",
-    "questionEn": "I have made payment, please activate my account.",
-    "questionZh": "我刚付了款，请尽快激活我的账号。",
-    "answer": "We will activate your account within 1–2 working days after receiving your payment.\n\nIf your request is urgent, please provide your Invoice ID, contact number, and a screenshot of your payment details via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
-  },
-  {
-    "category": "项目激活 / 使用问题",
-    "questionEn": "Why hasn’t my account been activated yet?",
-    "questionZh": "我的订阅为什么还没激活？",
-    "answer": "We will activate your account within 1–2 working days after receiving your payment.\n\nIf your request is urgent, please provide your Invoice ID, contact number, and a screenshot of your payment details via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
-  },
-  {
-    "category": "项目激活 / 使用问题",
-    "questionEn": "Why is the activation taking so long?",
-    "questionZh": "为什么激活进度这么慢？",
-    "answer": "We will activate your account within 1–2 working days after receiving your payment.\n\nIf your request is urgent, please provide your Invoice ID, contact number, and a screenshot of your payment details via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
-  },
-  {
-    "category": "项目激活 / 使用问题",
-    "questionEn": "Why can’t I use the account after activation?",
-    "questionZh": "激活后为什么无法使用项目？",
-    "answer": "Please try refreshing your browser or logging out and back into your account. \n\nIf you have any questions, feel free to contact us via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "I need some technical help, the videos are not loading.",
-    "questionZh": "我需要一些技术帮助，视频无法加载",
-    "answer": "Check if your internet connection is stable.\n\nClear your browser cache or restart the app.\n\nClose other applications that may be using a large amount of bandwidth.\n\nIf you need further assistance, please take note of the course name, chapter, and any error messages, then contact our customer service via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "What is eZhishi?",
-    "questionZh": "eZhishi是什么？",
-    "answer": "eZhishi is an online interactive teaching and learning platform, question bank, and learning management system (LMS) for Chinese language education. It is primarily designed for Singapore primary school students (Primary 1–6) to learn Chinese, and for their teachers and parents to support the learning process. Aligned with the MOE Chinese curriculum (e.g., Huanle Huoban textbook), the platform offers a wide range of resources, including exercises, assignments, reading materials, oral practice, listening comprehension, writing tasks, and interactive content. Teachers use eZhishi to assign homework and monitor student progress, students use it to complete learning activities, and parents can support learning at home through the platform."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "Who can use eZhishi?",
-    "questionZh": "谁可以使用eZhishi？",
-    "answer": "eZhishi is designed for students, parents, and educators. It caters to learners of Chinese as either a first or second language, especially those in primary and lower secondary schools, and supports teachers with supplementary teaching materials aligned to the Singapore MOE primary Chinese curriculum."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "Which curriculum levels or subjects does eZhishi cover?",
-    "questionZh": "eZhishi 涵盖哪些年级或课程内容？",
-    "answer": "eZhishi is focused on supporting Chinese language learning at the primary school level, specifically for Primary 1 to Primary 6, in alignment with the Singapore MOE Chinese curriculum. All content—including exercises, assignments, reading materials, listening, oral, and writing practices—is designed to follow the 欢乐伙伴 (Huanle Huoban) textbook series widely used in schools.\nThe platform offers resources tailored for both lower and upper primary students, helping them strengthen core language skills such as vocabulary, reading comprehension, listening, speaking, and composition writing.\nAt present, eZhishi's content is designed exclusively for the primary school syllabus and does not cover secondary-level Chinese."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "What types of resources are available on eZhishi?",
-    "questionZh": "eZhishi里有什么学习资源？",
-    "answer": "eZhishi offers a wide range of Chinese language learning resources designed to support students at different levels. These include:\n• Interactive language enhancement resources covering reading, writing, vocabulary, and comprehension\n• Levelled E-books and digital reading materials tailored to various proficiency levels\n• Language assessment papers aligned with school curricula (e.g., MOE syllabus)\n• Multimedia content such as educational videos and audio clips for listening practice\n• Progress tracking and assessment tools for both students and teachers"
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "I found some errors in the questions on the eZhishi platform.",
-    "questionZh": "我发现到一些题目有错误。",
-    "answer": "Please provide your level and a screenshot of the error, then send them to us via WhatsApp at +65 9012 6012 or email at service@ecombay.com."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "I'm unable to record my voice for the oral questions. What can I do?",
-    "questionZh": "口试问题我不可以完成录音，请问怎么办？",
-    "answer": "Please check your browser settings and ensure that your microphone is enabled.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "My child's school does not subscribe eZhishi, what can I do?",
-    "questionZh": "我孩子的学校没有订阅知识网，我想个人订阅，要怎么订阅呢？",
-    "answer": "eZhishi is a school-based collective subscription. For personal use, you may consider subscribing to https://www.etutorlearning.com/chinese/"
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "I accidentally submitted my homework without completing it. Can you delete it for me?",
-    "questionZh": "我不小心在没完成功课的情况下点击提交了。可以帮我删除提交记录吗？",
-    "answer": "Please provide your login ID and the homework title by contacting our customer service team via WhatsApp at +65 9012 6012 or email at service@ecombay.com."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "How to check my learning record?",
-    "questionZh": "如何查看我的自主学习记录",
-    "answer": "After logging in, go to the \"Self-Learning Records\" page, where you can view the study dates, content, and quiz scores for each learning resource."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "How do I check which learning resources I can use?",
-    "questionZh": "如何查看我可以使用哪些学习资源",
-    "answer": "On the homepage under \"Digital Learning Resources,\" you can use all resources that are not marked as \"Not Subscribed.\" For resources labeled \"Not Subscribed,\" you can click the \"Subscribe\" button to subscribe to them independently. Once the subscription is complete, the resource will be added to your account for use.\n\nIf you have any questions, feel free to contact us via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "Is eZhishi suitable for non-native Chinese speakers?",
-    "questionZh": "eZhishi适合非中文母语者使用吗？",
-    "answer": "Yes, eZhishi is designed to accommodate learners at various proficiency levels, including non-native speakers and beginners. The platform offers carefully developed materials that establish a strong foundation in Chinese language skills."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "Does eZhishi offer content in languages other than Chinese?",
-    "questionZh": "eZhishi是否提供中文以外的其他语言内容？",
-    "answer": "eZhishi primarily focuses on Chinese language education. While the platform’s interface and instructions may be available in English for accessibility, the core content remains centred on Chinese language learning."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "How often is the content updated?",
-    "questionZh": "内容多久能更新呢？",
-    "answer": "eZhishi’s content is regularly updated to align with the latest educational standards, examination formats, and user feedback. New exercises and resources are added periodically to ensure the platform remains relevant and engaging."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "Can I use eZhishi offline?",
-    "questionZh": "没有网络可以使用eZhishi吗？",
-    "answer": "Features of eZhishi require an active internet connection to support real-time updating of learning progress and results."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "Does eZhishi offer support for exams like PSLE or O-Levels?",
-    "questionZh": "eZhishi是否提供如PSLE或O-Level等考试的支持？",
-    "answer": "Yes, eZhishi provides:\nPractice papers mimicking PSLE formats.\nTargeted exercises for key exam components (e.g., language assessment, oral, listening comprehension, composition, comprehension).\nTimed assessments to build exam readiness."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "How can students use eZhishi effectively?",
-    "questionZh": "学生如何有效地使用eZhishi？",
-    "answer": "Set Goals: Use the platform’s progress tracker to set learning objectives (e.g., score 100 eZhishi Reward points daily).\nFollow Curriculum: Select exercises aligned with your school’s Chinese syllabus.\nEngage with Multimedia: Use audio and video content to improve listening and speaking skills.\nReview Feedback: Check automated feedback on exercises to understand mistakes and improve.\nPractice Regularly: Dedicate time daily or weekly to complete exercises and read e-books."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "How secure is my data on eZhishi?",
-    "questionZh": "我的数据在eZhishi上安全吗？",
-    "answer": "eZhishi employs standard security measures to protect user data:\nEncrypted connections for data privacy.\nRefer to the “Privacy Policy” on www.eZhishi.com for detailed information."
-  },
-  {
-    "category": "eZhishi 平台",
-    "questionEn": "How to submit my homework?",
-    "questionZh": "怎样提交作业呢？",
-    "answer": "After you complete all the questions and click on \"Submit\", teacher will receive your homework."
-  },
-  {
-    "category": "积分与奖励问题",
-    "questionEn": "My account was hacked and reward points were redeemed by someone. How can she change the password and recover the points?",
-    "questionZh": "我孩子的账号被盗，积分被他人兑换了。请问如何修改密码并追回积分？",
-    "answer": "Please change your password immediately. Once the change is successful, kindly send your child’s login ID and the reward(s) you wish to cancel via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
-  },
-  {
-    "category": "积分与奖励问题",
-    "questionEn": "Why are no points added when I do my work?",
-    "questionZh": "为什么我完成练习后没有积分？",
-    "answer": "It may have exceeded the maximum points allowed for the day. You can view the eZhishi Reward Rules and Regulations here: https://www.ezhishi.com/reward/public/rules."
-  },
-  {
-    "category": "积分与奖励问题",
-    "questionEn": "When will I receive my eZhishi reward?",
-    "questionZh": "我什么时候可以收到 eZhishi 礼物？",
-    "answer": "Upon successful redemption submission being done online, all the redemption item shall be delivered ONLY to the pupil's school, within 20 working days (EXCEPT school holidays, HBL and school exam period). If the redemption is being done during school holiday, HBL and/or public holidays, they are not counted as working day and the item will be received only after the school re-open."
-  },
-  {
-    "category": "积分与奖励问题",
-    "questionEn": "How can I check my child’s points on eZhishi Buddy?",
-    "questionZh": "怎么查孩子在eZhishi Buddy上的成长点？",
-    "answer": "After logging in to your eZhishi account, click on \"Buddy\" to view your child's Buddy Points."
-  },
-  {
-    "category": "积分与奖励问题",
-    "questionEn": "Where are the eZhishi Buddy points recorded or displayed?",
-    "questionZh": "成长点记录在哪里显示？",
-    "answer": "After logging in to your eZhishi account, click on \"Buddy\" to view your child's Buddy Points record."
-  },
-  {
-    "category": "其他问题",
-    "questionEn": "What is your address and office hour?",
-    "questionZh": "你们的公司地址和工作时间是什么？",
-    "answer": "Address: 33 Ubi Ave 3 #03-23 Tower A Vertex Singapore 408868\nOffice Hour: Mondays to Fridays 9am-6pm, Saturdays 9am-1pm, closed at Sundays and Public Holidays."
-  },
-  {
-    "category": "其他问题",
-    "questionEn": "I cannot login my MIMS/SLS/Google classroom, can you help me?",
-    "questionZh": "我不能登录我的MIMS/SLS/Google classroom账号，可以帮帮我吗？",
-    "answer": "Sorry, this helpdesk only supports www.ezhishi.com, not other portals."
-  },
-  {
-    "category": "其他问题",
-    "questionEn": "My child is locked out of her SLS and MIMS accounts due to incorrect login attempts. Could you please help reset her credentials?",
-    "questionZh": "孩子因为输错密码，被锁定了SLS和MIMS账号。请帮忙重置登录信息。",
-    "answer": "Sorry, this helpdesk only supports www.ezhishi.com, not other portals."
-  },
-  {
-    "category": "人工",
-    "questionEn": "Can I talk to a customer service agent?",
-    "questionZh": "我想联系人工客服",
-    "answer": "If you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
-  }
+    {
+        "category": "账号相关问题",
+        "questionEn": "What is my eZhishi login ID and password?",
+        "questionZh": "我的eZhishi登录账号和密码是什么？",
+        "answer": "If you have forgotten your Login ID or password, please follow the steps below based on your situation:\nYour Login ID is usually provided by your Chinese teacher, often on a printed note or sticker. Refer to any documents or communications from your school. If you are unable to locate the information, please reach out to your Chinese teacher. They can help retrieve your Login ID and password.\n\nIf you are a home user or unable to reach your Chinese teacher, please contact the eZhishi Helpdesk at +65 6742 7555, WhatsApp +65 9012 6012, or email service@ecombay.com for assistance."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "I need help to login to Ezhishi.",
+        "questionZh": "我需要帮助登录进 Ezhishi。",
+        "answer": "If you have forgotten your Login ID or password, please follow the steps below based on your situation:\nYour Login ID is usually provided by your Chinese teacher, often on a printed note or sticker. Refer to any documents or communications from your school. If you are unable to locate the information, please reach out to your Chinese teacher. They can help retrieve your Login ID and password. If you are a home user or unable to reach your Chinese teacher, please contact the eZhishi Helpdesk at +65 6742 7555, WhatsApp +65 9012 6012, or email service@ecombay.com for assistance."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "Can you please tell me my ezhishi password?",
+        "questionZh": "你能把eZhishi的密码发给我吗？",
+        "answer": "If you have forgotten your Login ID or password, please follow the steps below based on your situation:\nYour Login ID is usually provided by your Chinese teacher, often on a printed note or sticker. Refer to any documents or communications from your school. If you are unable to locate the information, please reach out to your Chinese teacher. They can help retrieve your Login ID and password. If you are a home user or unable to reach your Chinese teacher, please contact the eZhishi Helpdesk at +65 6742 7555, WhatsApp +65 9012 6012, or email service@ecombay.com for assistance."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "My child forgot her/his login ID. Can you help retrieve it?",
+        "questionZh": "我的孩子忘记了他/她的账号，能帮我们找回吗？",
+        "answer": "If you have forgotten your Login ID or password, please follow the steps below based on your situation:\nYour Login ID is usually provided by your Chinese teacher, often on a printed note or sticker. Refer to any documents or communications from your school. If you are unable to locate the information, please reach out to your Chinese teacher. They can help retrieve your Login ID and password. If you are a home user or unable to reach your Chinese teacher, please contact the eZhishi Helpdesk at +65 6742 7555, WhatsApp +65 9012 6012, or email service@ecombay.com for assistance."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "I cannot login my eZhishi account, can you help me?",
+        "questionZh": "我无法登录我的eZhishi账号，可以帮帮我吗？",
+        "answer": "Please ensure that the username and password you entered for eZhishi.com are correct.\nFor school collective subscription users, the username and password change each academic year.\nPlease check your account sticker (if provided) to confirm your correct username and password.\n\nIf you forget your passowrd, you may get your password via https://www.ezhishi.com/forgetpassword.html.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "We tried many times cannot login.",
+        "questionZh": "我们尝试了多次都没法登录。",
+        "answer": "Please ensure that the username and password you entered for eZhishi.com are correct.\nFor school collective subscription users, the username and password change each academic year.\nPlease check your account sticker (if provided) to confirm your correct username and password.\n\nIf you forget your passowrd, you may get your password via https://www.ezhishi.com/forgetpassword.html.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "Can you reset my eZhishi account?",
+        "questionZh": "可以重置我eZhishi的账号吗？",
+        "answer": "You can change the password for your eZhishi account, but the User ID cannot be changed.\nAfter successfully logging in to eZhishi, go to the user homepage and click on \"My Account\" → \"Reset Password\" to reset your account password by following the steps provided.\n\nIf you forgot your passowrd, you may get your password via https://www.ezhishi.com/forgetpassword.html.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "I cannot remember the answer for my security question. Please help.",
+        "questionZh": "我忘记我安全问题的答案的，请帮帮我。",
+        "answer": "If you've forgotten your security questions, please provide your child's full name and school, and contact our customer service team via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "How do I log in for the first time?",
+        "questionZh": "如何进行第一次登录？",
+        "answer": "To log in, visit the eZhishi website enter your Login ID and password. For first-time login, follow these steps:\n1.\tUse the credentials provided: Enter the Login ID and default password given to you by your school's Chinese teacher. This is typically distributed on a printed note or sticker.\n2.\tChange your password (if prompted): On your first login, the system may prompt you to change your default password. Please follow the instructions to set a new, secure password (usually a minimum of 8 characters, including both letters and numbers).\n3.\tSet up security information: After logging in, we recommend updating your security questions. This will make it easier to recover your password in the future.\n4.\tVerify your profile: Upon login, your name should appear at the top of the homepage. If your name or content level appear incorrect, please inform your Chinese teacher or contact eZhishi customer support for assistance."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "Why can't I log in to my account? ",
+        "questionZh": "为什么我无法登录我的账户？ ",
+        "answer": "If you are experiencing issues logging in to your eZhishi account, please check the following common causes:\n•\tIncorrect Login ID or Password: Double-check that your Login ID and password are entered correctly. Ensure there are no extra spaces or special characters. \n•\tInactive or Expired Account: At the start of a new school year, school-based accounts may not be activated yet. Students typically receive new login credentials from their Chinese teacher once the school term begins. If you haven't received updated details, please wait for your teacher's instructions\n•\tScheduled Maintenance: Occasionally, the portal may undergo scheduled maintenance, during which access is temporarily unavailable. Check the login page for any maintenance announcements and try again later.\n•\tConcurrent Logins: Each account allows only one active session at a time. If your account is already logged in on another device or wasn't properly logged out previously, you may receive a message such as \"Your account is logged in elsewhere.\" Please wait a moment and try again, or log out from other devices before attempting to log in again.\nTechnical Assistance: If none of the above resolves your login issue, your account may have been locked or encountered a technical error. Please contact the eZhishi Helpdesk at +65 6742 7555, WhatsApp +65 9012 6012, or email service@ecombay.com for assistance."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "I enter the password correctly, but can't log in.",
+        "questionZh": "我输入的密码是正确的，但无法登录。",
+        "answer": "If you are experiencing issues logging in to your eZhishi account, please check the following common causes:\n•\tIncorrect Login ID or Password: Double-check that your Login ID and password are entered correctly. Ensure there are no extra spaces or special characters. \n•\tInactive or Expired Account: At the start of a new school year, school-based accounts may not be activated yet. Students typically receive new login credentials from their Chinese teacher once the school term begins. If you haven't received updated details, please wait for your teacher's instructions\n•\tScheduled Maintenance: Occasionally, the portal may undergo scheduled maintenance, during which access is temporarily unavailable. Check the login page for any maintenance announcements and try again later.\n•\tConcurrent Logins: Each account allows only one active session at a time. If your account is already logged in on another device or wasn't properly logged out previously, you may receive a message such as \"Your account is logged in elsewhere.\" Please wait a moment and try again, or log out from other devices before attempting to log in again.\nTechnical Assistance: If none of the above resolves your login issue, your account may have been locked or encountered a technical error. Please contact the eZhishi Helpdesk at +65 6742 7555, WhatsApp +65 9012 6012, or email service@ecombay.com for assistance."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "My account doesn't work. Can you check?",
+        "questionZh": "我的账户无法登录，能帮我检查吗？",
+        "answer": "If you are experiencing issues logging in to your eZhishi account, please check the following common causes:\n•\tIncorrect Login ID or Password: Double-check that your Login ID and password are entered correctly. Ensure there are no extra spaces or special characters. \n•\tInactive or Expired Account: At the start of a new school year, school-based accounts may not be activated yet. Students typically receive new login credentials from their Chinese teacher once the school term begins. If you haven't received updated details, please wait for your teacher's instructions\n•\tScheduled Maintenance: Occasionally, the portal may undergo scheduled maintenance, during which access is temporarily unavailable. Check the login page for any maintenance announcements and try again later.\n•\tConcurrent Logins: Each account allows only one active session at a time. If your account is already logged in on another device or wasn't properly logged out previously, you may receive a message such as \"Your account is logged in elsewhere.\" Please wait a moment and try again, or log out from other devices before attempting to log in again.\nTechnical Assistance: If none of the above resolves your login issue, your account may have been locked or encountered a technical error. Please contact the eZhishi Helpdesk at +65 6742 7555, WhatsApp +65 9012 6012, or email service@ecombay.com for assistance."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "eZhishi login keeps failing, what should I do?",
+        "questionZh": "eZhishi 一直登录失败，怎么办？",
+        "answer": "If you are experiencing issues logging in to your eZhishi account, please check the following common causes:\n•\tIncorrect Login ID or Password: Double-check that your Login ID and password are entered correctly. Ensure there are no extra spaces or special characters. \n•\tInactive or Expired Account: At the start of a new school year, school-based accounts may not be activated yet. Students typically receive new login credentials from their Chinese teacher once the school term begins. If you haven't received updated details, please wait for your teacher's instructions\n•\tScheduled Maintenance: Occasionally, the portal may undergo scheduled maintenance, during which access is temporarily unavailable. Check the login page for any maintenance announcements and try again later.\n•\tConcurrent Logins: Each account allows only one active session at a time. If your account is already logged in on another device or wasn't properly logged out previously, you may receive a message such as \"Your account is logged in elsewhere.\" Please wait a moment and try again, or log out from other devices before attempting to log in again.\nTechnical Assistance: If none of the above resolves your login issue, your account may have been locked or encountered a technical error. Please contact the eZhishi Helpdesk at +65 6742 7555, WhatsApp +65 9012 6012, or email service@ecombay.com for assistance."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "My child forgot her/his eZhishi password. Can you help retrieve it?",
+        "questionZh": "我的孩子忘记密码了，能帮我们找回吗？",
+        "answer": "If you have forgotten your eZhishi password, you can reset it using the \"Get Password 忘记密码\" function on the login page—provided that you have previously set up your security questions and answers.\nTo reset your password:\n1.\tGo to the login page at www. and click \"Get Password 忘记密码\".\n2.\tEnter your correct Login ID.\n3.\tEnter your full name (as per your account).\n4.\tAnswer the three security questions you had set previously. All answers must be correct.\n5.\tProvide a valid email address.\n6.\tIf all answers are correct, the system will send your login password to the email address provided.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "I forgot my password. How can I reset it?",
+        "questionZh": "我忘记了密码，如何重置？",
+        "answer": "If you have forgotten your eZhishi password, you can reset it using the \"Get Password 忘记密码\" function on the login page—provided that you have previously set up your security questions and answers.\nTo reset your password:\n1.\tGo to the login page at www. and click \"Get Password 忘记密码\".\n2.\tEnter your correct Login ID.\n3.\tEnter your full name (as per your account).\n4.\tAnswer the three security questions you had set previously. All answers must be correct.\n5.\tProvide a valid email address.\n6.\tIf all answers are correct, the system will send your login password to the email address provided.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "I used \"Get Password\" but didn't receive the password email. What should I do?",
+        "questionZh": "我使用了\"忘记密码\"功能，但没有收到邮件，该怎么办？",
+        "answer": "If you have submitted a password reset request but did not receive the email, please try the following steps:\n•\tCheck your spam/junk folder: The email may have been filtered as spam. Look for messages from eZhishi in your spam or junk mail folder.\n•\tAllow a few minutes: Sometimes email delivery is delayed. Please wait a few minutes and refresh your inbox.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "I want to help my child reset the ezhishi password.",
+        "questionZh": "我想帮孩子重设 ezhishi 的密码。",
+        "answer": "If you have forgotten your eZhishi password, you can reset it using the \"Get Password 忘记密码\" function on the login page—provided that you have previously set up your security questions and answers.\nTo reset your password:\n1.\tGo to the login page at www. and click \"Get Password 忘记密码\".\n2.\tEnter your correct Login ID.\n3.\tEnter your full name (as per your account).\n4.\tAnswer the three security questions you had set previously. All answers must be correct.\n5.\tProvide a valid email address.\n6.\tIf all answers are correct, the system will send your login password to the email address provided.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "How to subscribe eZhishi account?",
+        "questionZh": "如何订阅知识网账号？",
+        "answer": "Students (School Collective Subscription): If your school has a collective subscription to eZhishi, your Chinese teacher will provide you with a Login ID and a default password—typically via a printed note or sticker. Login ID formats may vary by school. During your first login, you may be prompted to change your password for security purposes.\nTeachers (School Collective Subscription): Teacher accounts are also managed through the school's subscription. If your school subscribes to eZhishi, you should receive login credentials from your school administrator or the designated eZhishi teacher-in-charge. Please check with them if you have not yet received your account details.\nParents / Home Users (Individual Subscription): If you wish to subscribe individually for home use, you may register for a home subscription directly on the eZhishi website. For further assistance, please contact eZhishi helpdesk."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "How to pay for the eZhishi subscription fee?",
+        "questionZh": "订阅怎样收费？有哪些付费方式？",
+        "answer": "The eZhishi website is available only through school collective subscriptions. Subscription fees vary depending on the school's subscription package, and payment methods also differ according to each school's arrangements. These include schools collecting payments uniformly from students' Edusave accounts or parents making payments independently via PayNow, bank transfer, or cash.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "Is eZhishi free to use?",
+        "questionZh": "知识网是免费的吗？",
+        "answer": "eZhishi is a subscription-based platform. While some trial resources are freely accessible, full access to interactive content, comprehensive exercises, detailed progress reports, and exclusive materials requires a paid subscription. "
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "Can one account be used to log in on multiple devices at the same time?",
+        "questionZh": "一个账号可以同时在多台设备上登录吗？",
+        "answer": "No, to ensure a smooth learning experience and account security, the same account can only be logged in on one device at a time."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "Can multiple children or users use the same account?",
+        "questionZh": "多个孩子或用户可以使用同一个 eZhishi 帐户吗？",
+        "answer": "Each eZhishi user account is dedicated and intended for use by a single user only, ensuring that each student's learning progress and records can be accurately saved. Additionally, each account only allows one device to be logged in at a time, if another login occurs, the current user will be logged out."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "Is there an expiry date for my eZhishi account?",
+        "questionZh": "账号有有效期吗？",
+        "answer": "Yes, the validity period for the school collective subscription ends on December 30 of the current year."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "Can I use handphone or tablet/iPad to access my eZhishi account?",
+        "questionZh": "可以在手机或平板上学习吗？",
+        "answer": "Yes, you can use a handphone or tablet/iPad to access your eZhishi account. Both the browser and the app can be used, and they offer the same user experience.\nTo download the app:\n•\tSearch \"eZhishi\" on the Apple App Store or Google Play Store.\n•\tLook for the app published by E-COM Digital International Pte Ltd.\n•\tThe app is free to download."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "What are the recommended browsers or system requirements for using eZhishi?",
+        "questionZh": "使用 eZhishi 平台推荐使用哪些浏览器或设备要求？",
+        "answer": "eZhishi works best on modern devices and updated browsers. Please ensure the following:\n•\tBrowsers: Use the latest version of Google Chrome, Safari, or Microsoft Edge. Avoid Internet Explorer.\n•\tOperating System: Windows, macOS, iOS (12.0+), and Android devices are supported.\n•\tDevice Compatibility: Accessible via PC, laptop, tablet, or smartphone. For longer typing tasks, a computer or tablet with keyboard is recommended.\n•\tInternet: A stable Wi-Fi or broadband connection is required, especially for audio/video content.\n•\tAudio Features: Ensure your device has a working microphone and speaker. Allow microphone access in your browser or app when prompted.\n•\tNo Plugins Needed: eZhishi uses standard web technologies (e.g., HTML5); no additional plugins are required. Just ensure JavaScript is enabled.\nYou may also use the optional eZhishi mobile app, available free on iOS and Android, for a more convenient mobile experience."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "How to change my name in eZhishi?",
+        "questionZh": "如何修改个人名字？",
+        "answer": "The student's name is provided by the school and cannot be modified manually.\n If you need further assistance, please take note of the course name, chapter, and any error messages, then contact our customer service via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "Why did I get logged out with a message that my account is logged in elsewhere?",
+        "questionZh": "为什么我会被登出，并提示我的帐户已在别处登录？",
+        "answer": "eZhishi allows only one active session per account at a time for security and data integrity. If you see a message like \"your account is being logged-in elsewhere and has been logged out\", it means the system detected a login for your account from another browser or device, causing your current session to end. \nWhat to do: Ensure that you are only logged in on one device at a time. If you want to switch devices, properly log out from the first device before logging in on the second. If you encounter this message, close any other sessions (you might just wait a minute and then log in again, which will override any other session). If you did not initiate another login and suspect someone else is using your account, immediately reset your password to secure your account. It's also a good practice not to share your password and to keep it confidential. Once you log back in (with a new password if you changed it), the other person will be logged out. This one-login-at-a-time policy is to prevent concurrent use that could confuse the tracking of progress and to protect your account. So always log out after finishing your session, especially on shared or public computers, to avoid unintended concurrent logins."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "My account says it's expired or not active – what should I do?",
+        "questionZh": "登录时提示我的帐户已过期或未激活，该怎么办？",
+        "answer": "If you receive a notification that your account has expired or is not active, this typically indicates one of the following:\n•\tSchool Subscription Expiry or New Academic Year: eZhishi Accounts linked to school collective subscriptions are valid for a specific academic year. At the end of the year, existing accounts may expire, and new accounts for the upcoming year will be issued by your school. If your school renews its collective subscription, updated login credentials will be provided once available. In some cases, previous year accounts may be temporarily extended through January or February, but certain features, such as eZhishi Rewards, will be unavailable during this period.\n•\tNo Active Subscription: If neither your school nor you personally have an active subscription, your account will remain inactive. For example, if a previous individual (home) subscription has expired, renewal is required to regain access. You may visit the eZhishi website's subscription page to renew or purchase a new individual subscription.\n\nIf you need further assistance, please take note of the course name, chapter, and any error messages, then contact our customer service via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
+    },
+    {
+        "category": "账号相关问题",
+        "questionEn": "How to change a new password?",
+        "questionZh": "如何更改密码呢？",
+        "answer": "To change your password after logging in:\n1.\tGo to My Account.\n2.\tSelect Reset Password.\n3.\tEnter your current password.\n4.\tEnter your new password twice to confirm.\nMake sure your new password is strong (e.g., at least 8 characters, including letters and numbers). We recommend updating your password regularly to enhance account security.\n\nIf you do not see the \"Reset Password\" option, it means that password changes are not allowed based on your school's request. \n\nIf you have any questions, feel free to contact us via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
+    },
+    {
+        "category": "项目激活 / 使用问题",
+        "questionEn": "I have made payment, please activate my account.",
+        "questionZh": "我刚付了款，请尽快激活我的账号。",
+        "answer": "We will activate your account within 1–2 working days after receiving your payment.\n\nIf your request is urgent, please provide your Invoice ID, contact number, and a screenshot of your payment details via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
+    },
+    {
+        "category": "项目激活 / 使用问题",
+        "questionEn": "Why hasn't my account been activated yet?",
+        "questionZh": "我的订阅为什么还没激活？",
+        "answer": "We will activate your account within 1–2 working days after receiving your payment.\n\nIf your request is urgent, please provide your Invoice ID, contact number, and a screenshot of your payment details via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
+    },
+    {
+        "category": "项目激活 / 使用问题",
+        "questionEn": "Why is the activation taking so long?",
+        "questionZh": "为什么激活进度这么慢？",
+        "answer": "We will activate your account within 1–2 working days after receiving your payment.\n\nIf your request is urgent, please provide your Invoice ID, contact number, and a screenshot of your payment details via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
+    },
+    {
+        "category": "项目激活 / 使用问题",
+        "questionEn": "Why can't I use the account after activation?",
+        "questionZh": "激活后为什么无法使用项目？",
+        "answer": "Please try refreshing your browser or logging out and back into your account. \n\nIf you have any questions, feel free to contact us via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "I need some technical help, the videos are not loading.",
+        "questionZh": "我需要一些技术帮助，视频无法加载",
+        "answer": "If you encounter issues such as slow loading, missing content, or unresponsive buttons, please try the following steps:\n•\tClear browser cache and cookies: Outdated cache often causes display issues. Go to your browser settings, clear browsing data (cache and cookies), then restart the browser and log in again.\n•\tCheck your internet connection: Ensure you have a stable Wi-Fi or mobile data connection. Weak connectivity may affect page loading or media playback.\n•\tTry another browser or device: Open eZhishi in a different browser (e.g. Chrome, Edge, Safari) or on another device to see if the issue persists.\n•\tUpdate your browser and OS: Make sure your browser and operating system are up to date for compatibility.\n•\tDisable browser extensions: Some plugins (like ad-blockers) may interfere. Temporarily disable them and refresh the page.\n•\tCheck for maintenance updates: The platform may occasionally undergo scheduled maintenance. Check the login page for any announcements.\n•\tContact support if needed: If problems continue, please contact eZhishi Support with your account details, device/browser used, and a screenshot if possible. Our team will assist you promptly.\nMost issues can be resolved through the above steps. Clearing cache is especially effective for display errors."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "What should I do if I encounter technical issues?",
+        "questionZh": "我遇到了一些技术问题要怎么办？",
+         "answer": "If you encounter issues such as slow loading, missing content, or unresponsive buttons, please try the following steps:\n•\tClear browser cache and cookies: Outdated cache often causes display issues. Go to your browser settings, clear browsing data (cache and cookies), then restart the browser and log in again.\n•\tCheck your internet connection: Ensure you have a stable Wi-Fi or mobile data connection. Weak connectivity may affect page loading or media playback.\n•\tTry another browser or device: Open eZhishi in a different browser (e.g. Chrome, Edge, Safari) or on another device to see if the issue persists.\n•\tUpdate your browser and OS: Make sure your browser and operating system are up to date for compatibility.\n•\tDisable browser extensions: Some plugins (like ad-blockers) may interfere. Temporarily disable them and refresh the page.\n•\tCheck for maintenance updates: The platform may occasionally undergo scheduled maintenance. Check the login page for any announcements.\n•\tContact support if needed: If problems continue, please contact eZhishi Support with your account details, device/browser used, and a screenshot if possible. Our team will assist you promptly.\nMost issues can be resolved through the above steps. Clearing cache is especially effective for display errors."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "What is eZhishi?",
+        "questionZh": "eZhishi是什么？",
+        "answer": "eZhishi is a comprehensive online educational platform designed to support Chinese language acquisition through curriculum-aligned resources, interactive language assessment exercises, and self-directed learning tools, specifically tailored for primary school students."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "What equipment or software do I need to use eZhishi?",
+        "questionZh": "使用 eZhishi 需要什么设备或软件？",
+        "answer": "eZhishi is a web-based platform that works on desktop computers (Windows/Mac), tablets, and smartphones. No special software installation required. Simply use an up-to-date browser such as Chrome, Safari, or Edge for optimal performance. (Older or unsupported browsers may result in limited functionality.)\nFor oral practice, a microphone is needed and browser access must be granted. For audio playback, ensure your device has working speakers or headphones."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "Is there a mobile app for eZhishi?",
+        "questionZh": "eZhishi 有手机应用程序吗？",
+        "answer": "Yes. eZhishi mobile apps are available for both iOS (iPad/iPhone) and Android. The app offer a streamlined login experience, saves login credentials and support key features like audio recording for eOral practice. Search \"eZhishi\" on the Apple App Store or Google Play Store \nto download the app for free."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How does eZhishi support Chinese language learning?",
+        "questionZh": "eZhishi 如何支持中文学习？",
+        "answer": "eZhishi is an online educational platform designed to enhance Chinese language learning for students. It provides interactive exercises, e-books, multimedia content, and assessment tools that support the development of reading, writing, listening, and comprehension skills aligned with school curricula."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "Who can use eZhishi?",
+        "questionZh": "谁可以使用eZhishi？",
+        "answer": "eZhishi is designed for students, parents, and educators. It caters to learners of Chinese as either a first or second language, especially those in primary and lower secondary schools, and supports teachers with supplementary teaching materials aligned to the Singapore MOE primary Chinese curriculum."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How do I subscribe an account on eZhishi as a home subscriber?",
+        "questionZh": "我要怎样订阅eZhishi账号？",
+        "answer": "Please contact eZhishi's support team via email: service@ecombay.com, or through WhatsApp at +65 9012 6012.  "
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How do I access eZhishi?",
+        "questionZh": "我要怎样使用ezhishi?",
+        "answer": "You can access eZhishi by visiting www.eZhishi.com and signing up for an account. The platform is compatible with most web browsers and can be used on desktops, laptops, and mobile devices. Some features may also be available through a mobile app —please refer to the website for the latest app availability and download links"
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "Which curriculum levels or subjects does eZhishi cover?",
+        "questionZh": "eZhishi 涵盖哪些年级或课程内容？",
+        "answer": "eZhishi is focused on supporting Chinese language learning at the primary school level, specifically for Primary 1 to Primary 6, in alignment with the Singapore MOE Chinese curriculum. All content—including exercises, assignments, reading materials, listening, oral, and writing practices—is designed to follow the 欢乐伙伴 (Huanle Huoban) textbook series widely used in schools.\nThe platform offers resources tailored for both lower and upper primary students, helping them strengthen core language skills such as vocabulary, reading comprehension, listening, speaking, and composition writing.\nAt present, eZhishi's content is designed exclusively for the primary school syllabus and does not cover secondary-level Chinese. "
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How does eZhishi align with school curricula?",
+        "questionZh": "eZhishi 如何与学校课程大纲保持一致？",
+        "answer": "Most of eZhishi's content is closely aligned with the Singapore MOE Huanle Huoban Chinese language curriculum. The platform is regularly updated to reflect the latest syllabus revisions and exam formats, ensuring students have access to relevant and current learning materials."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "What types of resources are available on eZhishi?",
+        "questionZh": "eZhishi里有什么学习资源？",
+        "answer": "eZhishi offers 8 specialized content modules designed to comprehensively support Chinese language learning:\n•\teChinese E-Magazine: Syllabus-aligned multimedia resources focused on vocabulary building, language assessment, and skill enhancement practices.\n•\tZhishi.Funland E-Magazine: Engaging and captivating reading materials aimed at enhancing overall language proficiency.\n•\teExercise: A comprehensive language assessment question bank covering reading comprehension, vocabulary, grammar, and writing skills, featuring automatic marking and progress tracking.\n•\teOral: Interactive resources designed to develop speaking and oral communication skills, including read-aloud exercises, picture and video conversations, recording features, and AI-powered grading.\n•\teListening: Audio-based exercises to improve listening comprehension, with automatic marking providing immediate feedback.\n•\teWriting: Structured writing practice tailored to various proficiency levels, supported by AI-assisted marking for detailed evaluation.\n•\teReading: A digital library of leveled Chinese storybooks and reading materials, complemented by post-reading comprehension questions, suitable for learners at all levels.\n•\teClassic: A curated series of culturally rich classic Chinese stories, comprising 20 episodes per story theme, each accompanied by post-reading comprehension questions, designed to deepen language skills and cultural understanding."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "I found some errors in the questions on the eZhishi platform.",
+        "questionZh": "我发现到一些题目有错误。",
+        "answer": "Please provide your level and a screenshot of the error, then send them to us via WhatsApp at +65 9012 6012 or email at service@ecombay.com."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "I'm unable to record my voice for the oral questions. What can I do?",
+        "questionZh": "口试问题我不可以完成录音，请问怎么办？",
+        "answer": "Please check your browser settings and ensure that your microphone is enabled.\n\nIf you need further assistance, please contact our customer service team via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How do I enable microphone and audio features on eZhishi (for speaking and listening activities)?",
+        "questionZh": "如何启用 eZhishi 上的麦克风和音频功能？（适用于口语与听力练习）",
+        "answer": "To use eZhishi's speaking (eOral) and listening features, please ensure:\n•\tMicrophone Access:\nWhen prompted by your browser or app, click \"Allow\" to grant microphone permission.\no\tIn Chrome: Click the padlock icon in the address bar > set Microphone to Allow.\no\tIn Safari (Mac/iPad): Go to Safari > Settings > Websites > Microphone > Allow.\no\tIn Edge: Go to Settings > Site permissions > Microphone > Allow.\n•\tSystem Settings: Ensure your microphone is working and not muted. On Windows/macOS, check privacy settings to confirm your browser is allowed to access the mic.\n•\tUsing the Mobile App: If using the eZhishi app, enable microphone access via device settings (iOS: Settings > eZhishi > Microphone; Android: Settings > Apps > eZhishi > Permissions).\n•\tAudio Playback: Ensure your speakers/headphones are connected and the device is not muted. Some browsers may block autoplay—click the play button to start audio.\n•\tTroubleshooting: Try a different browser or the eZhishi app if recording still doesn't work. Contact support if issues persist."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "I accidentally submitted my homework without completing it. Can you delete it for me?",
+        "questionZh": "我不小心在没完成功课的情况下点击提交了。可以帮我删除提交记录吗？",
+        "answer": "Please provide your login ID and the homework title by contacting our customer service team via WhatsApp at +65 9012 6012 or email at service@ecombay.com."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How to check my learning record?",
+        "questionZh": "如何查看我的自主学习记录",
+        "answer": "After logging in, go to the \"Self-Learning Records\" page, where you can view the study dates, content, and quiz scores for each learning resource."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "Can parents track their child's progress?",
+        "questionZh": "家长可以追踪孩子的学习进程吗？",
+        "answer": "While eZhishi does not offer a separate parent login for school accounts, parents can stay informed in the following ways:\n•\tVia the child's account: Parents may log in together with the child to view assignments, scores, practice history, and progress charts.\n•\tHomework tracking: If the school uses eZhishi for assignments, parents can check if tasks are submitted on time using the child's account.\n•\tHome subscription: For individual users, the parent who subscribed has full access to progress records and can manage the account directly.\n•\tEncouraging practice: Parents can set learning goals with the child and review achievements, such as reward points, together."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How can students track their own learning progress on eZhishi?",
+        "questionZh": "学生如何在 eZhishi 上跟踪自己的学习进度？",
+        "answer": "eZhishi provides several tools to help students monitor and reflect on their learning:\n•\tView Past Assignments: After submitting an assignment, students can revisit it under \"My Homework\" to review scores, corrections, and teacher feedback.\n•\tTrack Practice Results: The platform may display statistics such as number of questions attempted, average score, and progress trends. Look for the \"Learning Progress\" chart for a visual summary.\n•\tPersonalised Reminders: eZhishi may recommend extra practices based on your performance. Check the dashboard for alerts or suggested activities.\n•\tReward & Buddy Points: An increase in points reflects your engagement. While not graded, it shows how actively you've been learning.\n•\tContent Completion: In sections like eReading or eClassic, students can view which books or stories they've completed—useful for setting personal goals.\nBy reviewing your own results and using the tools provided, you can take ownership of your learning and track your progress meaningfully."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How can teachers monitor student progress on eZhishi?",
+        "questionZh": "老师如何通过 eZhishi 跟踪学生的学习进度？",
+        "answer": "eZhishi provides teachers with powerful tools to track both class and individual performance:\n•\tAssignment Reports: Teachers can view detailed reports for each task, showing completion status, scores, averages, and question analysis.\n•\tLearning Analytics: The dashboard offers progress charts and performance trends by student, class, or activity type.\n•\tReal-Time Updates: Teachers can monitor submissions and results as students complete tasks.\n•\tExportable Reports: Progress summaries can be exported for parent-teacher conferences or reporting purposes.\n•\tHBL & Inactivity Alerts: For home-based learning, teachers can track logins and receive alerts for students who are inactive or falling behind.\nWith these features, eZhishi enables data-driven, targeted teaching and timely support for every learner."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How do I check which learning resources I can use?",
+        "questionZh": "如何查看我可以使用哪些学习资源",
+        "answer": "On the homepage under \"Digital Learning Resources,\" you can use all resources that are not marked as \"Not Subscribed.\" For resources labeled \"Not Subscribed,\" you can click the \"Subscribe\" button to subscribe to them independently. Once the subscription is complete, the resource will be added to your account for use.\n\nIf you have any questions, feel free to contact us via WhatsApp at +65 9012 6012 or by email at service@ecombay.com."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "Is eZhishi suitable for non-native Chinese speakers?",
+        "questionZh": "eZhishi适合非中文母语者使用吗？",
+        "answer": "Yes, eZhishi primarily supports learners at the primary school level, including beginners and non-native Chinese speakers. The platform offers syllabus-aligned vocabulary and sentence structure exercises, Pinyin support to aid accurate pronunciation, simplified reading materials, and step-by-step guidance for composition writing."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "Does eZhishi offer content in languages other than Chinese?",
+        "questionZh": "eZhishi是否提供中文以外的其他语言内容？",
+        "answer": "eZhishi primarily focuses on Chinese language education. While the platform's interface and instructions may be available in English for accessibility, the core content remains centred on Chinese language learning."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How often is the content updated?",
+        "questionZh": "内容多久能更新呢？",
+        "answer": "eZhishi's content is regularly updated to align with the latest educational standards, examination formats, and user feedback. New exercises and resources are added periodically to ensure the platform remains relevant and engaging."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "Can I use eZhishi offline?",
+        "questionZh": "没有网络可以使用eZhishi吗？",
+        "answer": "Features of eZhishi require an active internet connection to support real-time updating of learning progress and results."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "Does eZhishi offer support for PSLE exam?",
+        "questionZh": "eZhishi是否提供如PSLE考试的支持？",
+        "answer": "Yes, eZhishi offers practice and tests aligned with PSLE formats, including targeted exercises for key components such as language use, oral, listening, composition, and comprehension. Timed assessments help build exam readiness."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How can students use eZhishi effectively?",
+        "questionZh": "学生如何有效地使用eZhishi？",
+        "answer": "Set Goals: Use the platform's progress tracker to set learning objectives (e.g., score 100 eZhishi Reward points daily).\nFollow Curriculum: Select exercises aligned with your school's Chinese syllabus.\nEngage with Multimedia: Use audio and video content to improve listening and speaking skills.\nReview Feedback: Check automated feedback on exercises to understand mistakes and improve.\nPractice Regularly: Dedicate time daily or weekly to complete exercises and read e-books."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How secure is my data on eZhishi?",
+        "questionZh": "我的数据在eZhishi上安全吗？",
+        "answer": "eZhishi employs standard security measures to protect user data. For details, please refer to the \"Privacy Policy\" on www.eZhishi.com."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How can teachers use eZhishi in the classroom?",
+        "questionZh": "老师怎样在课堂上使用eZhishi呢？",
+        "answer": "School teachers can utilize eZhishi to assign targeted exercises, monitor student progress, and incorporate interactive learning materials into their lesson plans. The platform also provides tools to facilitate group assignments and create customized learning plans tailored to students' needs. Teachers may contact us to arrange a demonstration session."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How can teachers integrate eZhishi into their lessons?",
+        "questionZh": "教师如何将 eZhishi 融入课堂教学中？",
+        "answer": "Teachers can:\n1.\tAssign specific exercises or practice papers tailored to the class syllabus.\n2.\tUse the management tools to track student progress and generate performance reports.\n3.\tIncorporate eZhishi's multimedia content (e.g., videos) into lessons for interactive learning.\n4.\tSet up group challenges or competitions to encourage student engagement."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How do teachers assign online homework (eAssignment) on eZhishi?",
+        "questionZh": "老师如何在 eZhishi 上布置网上作业（电子作业）？",
+        "answer": "Teachers can use eZhishi's eAssignment feature to create and distribute online homework to students quickly. Here's how it works for teachers:\n•\tAccess the eAssignment tool: After logging in to eZhishi with a teacher account, navigate to the eAssignment or homework section. There will be an option to \"create/publish assignment\" (电子作业发布).\n•\tSelect content from question bank: The teacher can choose questions from eZhishi's question bank. Teacher may select the exercise type (e.g., multiple-choice, fill-in-the-blank, open-ended) and the number of questions, either letting the system auto-generate a set of questions or select specific questions.. \n•\tSet assignment details: Give the eAssignment a title and instructions. Teachercan assign it to a specific class, multiple classes, a whole grade level, or even individual students as needed. Teacher may also set a start date and due date/time for the assignment.\n•\tPublish the assignment: Once the content and settings are ready, publish the eAssignment. Students in the selected group will receive it automatically when they log in. eZhishi also allows generating a direct assignment link – meaning you can copy a unique URL for the assignment and share it via other platforms (like SLS or Google Classroom). With that link, students can directly access the assignment without a separate login (useful for integration with other systems).\n•\tAutomatic grading and recording: For most question types, eZhishi will auto-mark the submitted answers. This saves grading time as multiple-choice and similar questions are instantly scored. \n•\tReviewing results: After students submit their work, teachers can go to the eAssignment management page to monitor who has completed the assignment and view their scores. The system provides statistics and charts for each assignment, making it easy to see class performance at a glance. Teachers can use this data to identify common mistakes, or which students might need extra help."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How do teachers review assignment results and provide feedback to students?",
+        "questionZh": "老师如何查看作业结果并给学生反馈？",
+        "answer": "After an eAssignment deadline passes or once students have submitted their work, teachers can manage and review results through the eAssignment Management interface. "
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "Can teachers monitor or see the results of students' self-practice in eExercise?",
+        "questionZh": "老师能看到学生在网上练习 (eExercise) 中的练习结果吗？",
+        "answer": "Yes, teachers have visibility into students' eExercise activity. Even though eExercise is optional practice and not assigned homework, the platform records data from these practice sessions that teachers (and school administrators) can access."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "Does eZhishi offer listening and writing practice as well?",
+        "questionZh": "eZhishi 上是否提供听力练习和写作练习？",
+        "answer": "Yes. eZhishi provides both listening and writing modules to support well-rounded Chinese learning:\n•\teListening: Students can access audio-based exercises and tests to build listening comprehension. These include recordings of dialogues or passages, followed by related questions. Audio can be replayed, and some exercises simulate actual exam formats.\n•\teWriting: The platform offers writing prompts and composition tasks. Students can type and submit essays online. Teachers may review them manually or with AI writing tools that highlight common errors and suggest improvements.\n•\tIntegrated in assignments: Teachers can assign both listening and writing tasks through the platform, with auto-marking for objective questions and teacher/AI feedback for compositions.\n•\tExtra practice available: Students can also use these modules independently for extra practice beyond assigned work.\nTogether with reading and oral components, these features ensure students strengthen all four core language skills on eZhishi."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How does eOral practice work on eZhishi?",
+        "questionZh": "eZhishi 上的 \"口试互动练习 (eOral)\" 是如何运作的？",
+        "answer": "eOral Interactive Practice is a feature designed to help students improve their Chinese oral skills, such as reading aloud and speaking. \n•\tUsing the microphone: eOral requires access to your device's microphone. The first time you use it, your browser (or the eZhishi app) will ask for permission to use the microphone. Make sure to allow this, otherwise the recording won't work. If you accidentally blocked it, you'll need to adjust your browser settings to enable microphone access for the site.\n•\tRecording answers: In an eOral task, you'll typically click a \"Record\" button to start recording your voice. You'll speak your response or read the passage. Once done, you stop the recording and can usually replay it to listen to yourself. Satisfied with your attempt, you then submit the recording through the platform.\n•\tAI Read Aloud evaluation: eZhishi incorporates an AI Read Aloud Evaluation function for oral practice. This AI will analyze your recorded reading pronunciation and fluency. It can provide instant feedback or scores on how accurately you pronounced words and where you might improve. This is like having a virtual coach that helps you refine your speaking.\n•\tTeacher review: If the eOral practice is part of an assignment or a teacher-assigned oral exercise, your teacher can listen to your submitted recordings. The AI evaluation might highlight certain issues, but your teacher may also give personalized feedback or score your oral performance. For example, a teacher might comment on clarity of speech or intonation via the feedback system.\n•\tIndependent practice: There might be an eOral section where students can practice on their own (outside of assignments). If so, you can choose practice passages to read and use the AI to self-check your pronunciation. This can be very helpful for improving oral reading – the more you practice speaking aloud, the more confident and fluent you become."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "What is eExercise and how do students use it for practice?",
+        "questionZh": "什么是 \"网上练习 (eExercise)\"？学生如何使用这一功能进行练习？",
+        "answer": "eExercise is eZhishi's self-practice module – an online exercise system that allows students to practice Chinese questions independently, without it being a teacher-assigned homework. Key features of eExercise:\n•\tQuestion bank practice: eExercise draws from the same extensive question bank. Students can select practice exercises by textbook unit or topic, aligning with what they are learning in school. \n•\tUnlimited attempts: You can practice unlimited times – there is no limit to how many exercises you can do, and you can redo them as needed. This is great for reinforcing knowledge; doing more questions helps consolidate learning.\n•\tNo time pressure: eExercises are typically untimed, and you can do them at your own pace. This makes it ideal for revision or extra practice, as you can focus on understanding rather than racing a clock.\n•\tAutomated generation: The system can automatically generate a set of practice questions for you. When you choose a unit and exercise type, it will pull random questions from that unit's question pool. This means each practice session can be different, giving you fresh questions if available.\n•\tSelf-evaluation: After completing a set of eExercise questions, you can submit for auto-marking (just like assignments). You will see immediate feedback on which answers are correct and your score for that practice set. \n•\tFocus on weak areas: You have the flexibility to target your weaker areas. \n•\tAccessible anytime: eExercise is available to students at any time – you don't have to wait for a teacher to assign homework. You can use it for extra practice after school, during school holidays, or whenever you want to study. \n•\tTeachers and parents monitoring: While eExercise is student-initiated, the records of your practice are still tracked. Teachers (and parents, if they check) can see the practice logs and performance details."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "Can I provide feedback or suggest new features?",
+        "questionZh": "我可以提供反馈或建议新功能吗？",
+        "answer": "Yes, eZhishi welcomes user feedback. You can visit the \"Feedback\" section at the bottom of the www.eZhishi.com homepage to submit suggestions or report issues. Alternatively, you may email your feedback to service@ecombay.com."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "Are eAssignments automatically graded by the system?",
+        "questionZh": "电子作业是否由系统自动评分？",
+        "alternateQuestionsEn": [
+            "Will the eZhishi system mark my child's assignments?",
+            "Does eZhishi automatically grade assignments?",
+            "Will my child's homework be marked automatically?",
+            "Does the system mark assignments automatically?",
+            "Will eZhishi mark my child's work?",
+            "How are the homework answers marked in eZhishi?",
+            "How are homework answers marked in eZhishi?",
+            "How does eZhishi mark homework answers?",
+            "How are assignments marked in eZhishi?",
+            "How does eZhishi grade homework?",
+            "Does eZhishi auto-mark MCQs?",
+            "Does eZhishi auto-mark multiple choice questions?",
+            "Are multiple choice questions auto-marked?",
+            "Does eZhishi automatically mark MCQs?",
+            "Are MCQs automatically graded in eZhishi?"
+        ],
+        "alternateQuestionsZh": [
+            "电子作业是否由系统自动评分？",
+            "系统会自动批改作业吗？",
+            "eZhishi会自动评分吗？",
+            "作业会自动批改吗？",
+            "系统会帮我批改作业吗？",
+            "eZhishi 的选择题和填空题是自动批改的吗？",
+            "选择题和填空题是自动批改的吗？",
+            "系统会自动批改选择题吗？",
+            "填空题会自动评分吗？",
+            "选择题会自动批改吗？",
+            "作文题系统会帮忙评分吗？",
+            "作文会自动评分吗？",
+            "系统会批改作文吗？",
+            "作文题会自动批改吗？",
+            "系统会帮忙评分作文吗？"
+        ],
+        "answer": "Most of the question types in eAssignments are automatically graded by eZhishi's system, which is one of the platform's advantages. Specifically:\n•\tAuto-marking for objective questions: Questions like multiple-choice (选择题), true/false, matching, fill-in-the-blank (with exact answer), etc., are auto-marked instantly upon submission. Students get immediate feedback on these, and teachers see the scores without needing to grade manually.\n•\t\n•\tOpen-ended questions: For questions that are short-answer or essay type, those cannot be auto-graded by the system for accuracy of content. If an eAssignment includes open-ended responses (like sentence writing or essay), the system will record the student's answer\n•\tAI-assisted grading: Notably, eZhishi has some AI features. For instance, AI Essay Evaluation can help check compositions for errors, which might assist teachers in grading written answers. Similarly, AI Oral Read Aloud can evaluate pronunciation for oral submissions. These AI tools provide feedback and preliminary scoring, but teachers still have the final say in scoring open responses."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "Can students attempt an assignment more than once?",
+        "questionZh": "学生可以对同一个作业尝试多次吗？",
+        "answer": "Yes, eZhishi allows students to re-attempt an eAssignment even after the first submission, mainly for practice purposes. However, keep in mind:\n•\tFirst attempt is recorded: Your first submitted attempt is considered the official attempt for grading. The teacher's record will capture that first score as your assignment result.\n•\tMultiple practice attempts: After submitting once, you can often go back to the assignment and try it again. You might do this to improve your understanding or get a better score for yourself. The system will still show you your result each time.\n•\tWithin availability period: You can only reattempt while the assignment is still open. If the teacher set a closing date or once the teacher archives the assignment, you may not be able to submit new attempts."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "Does eZhishi provide Chinese reading materials for extra reading practice?",
+        "questionZh": "eZhishi 平台上有提供华文阅读材料让学生课外阅读吗？",
+        "answer": "Yes. eZhishi provides a wide range of online Chinese reading resources, including:\n• Zhishi·Funland E-Magazine – Interactive e-magazines with syllabus-aligned stories, language enhancement activities, and quizzes.\n• eReading Levelled eBooks – Graded picture books with read-aloud audio, Pinyin support, animations, and comprehension questions.\n• eClassic Animated Series – Adapted Chinese and Western classics in comic-style episodes with follow-up questions.\n• Textbook Sync (eChinese) – Supplementary content aligned with MOE textbooks.\n• Reading Tools – Includes highlighting, word lookup, audio playback, and commenting functions.\n• Progress Tracking – Tracks reading time, completion, and quiz results.\nThese features support independent reading and build comprehension skills in a fun and engaging way."
+    },
+    {
+        "category": "eZhishi 平台",
+        "questionEn": "How do students' access and submit eAssignments (online homework)?",
+        "questionZh": "学生如何查看并完成提交电子作业？",
+        "answer": "For students, doing an eAssignment on eZhishi is straightforward:\n•\tNotification of assignment: When you log in to eZhishi, you will automatically receive a notification if a teacher has published an eAssignment for you. This could be a pop-up alert or a highlighted icon. Additionally, on your student homepage, there is a \"My Homework (我的作业)\" section or icon – click that to view all assignments.\n•\tAccessthe assignment: In the My Homework section, go to the eAssignment tab or list. You will see the titles of the assignments assigned to you. Click on the assignment title you wish to attempt. This will open the eAssignment exercise page, where you can see the questions.\n•\tAnswer the questions: Complete the assignment by selecting or inputting answers for each question. \n•\tSave progress (if needed): If you cannot finish in one sitting or need to pause, you can click the \"Save\" button to save your progress without submitting. The assignment will be marked as \"uncompleted\" in your homework list. Later, you can return to My Homework and find the assignment under an \"Incomplete Assignments 未完成作业\" list, then continue from where you left off. This is useful if you get interrupted or want to first draft some answers.\n•\tSubmit the assignment: Once you have answered all questions and are ready, click the \"Submit (交卷)\" button. The system will ask for confirmation. After confirming, the system will auto-mark the assignment immediately – for automatically gradable parts, you will instantly see your score and which answers were correct or incorrect. Your assignment results are also automatically recorded and sent to your teacher upon submission.\n•\tView results and feedback: After submitting, you can view a summary of your results (score for each section, total score, etc.). If you submit more than once, note that the first submission's score is what counts for your teacher's record."
+    },
+    {
+        "category": "积分与奖励问题",
+        "questionEn": "My account was hacked and reward points were redeemed by someone. How can she change the password and recover the points?",
+        "questionZh": "我孩子的账号被盗，积分被他人兑换了。请问如何修改密码并追回积分？",
+        "answer": "Please change your password immediately. Once the change is successful, kindly send your child's login ID and the reward(s) you wish to cancel via WhatsApp at +65 9012 6012 or email us at service@ecombay.com."
+    },
+    {
+        "category": "积分与奖励问题",
+        "questionEn": "Why are no points added when I do my work?",
+        "questionZh": "为什么我完成练习后没有积分？",
+        "answer": "It may have exceeded the maximum points allowed for the day. You can view the eZhishi Reward Rules and Regulations here: https://www.ezhishi.com/reward/public/rules."
+    },
+    {
+        "category": "积分与奖励问题",
+        "questionEn": "What is the eZhishi Reward Program and how can students earn or use points?",
+        "questionZh": "什么是 eZhishi \"知识之星\" 奖励计划？学生如何获取和使用积分？",
+        "answer": "The eZhishi Reward Program, also known as \"Zhishi Star\" (知识之星), is a point-based incentive system designed to encourage students to actively engage in learning activities on the platform. Here's how it works:\n•\tHow to Earn Points:\nStudents earn Reward Points by completing tasks such as:\no\tLogging in regularly\no\tFinishing teacher-assigned eAssignments\no\tDoing self-practice eExercises\no\tRead stories on eReading and eClassic\n•\tChecking Your Points: On your student dashboard, you can view your accumulated points and click for a breakdown showing how and when the points were earned.\n•\tRedeeming Prizes: Points can be used to redeem physical gifts like stationery and small toys. You can browse the reward catalogue and submit a request for any item once you have enough points.\no\tPrize Distribution: For school users, redeemed prizes are delivered to the school and handed out (often with the fortnightly magazines).\n•\tLeaderboards: Some schools or regions display point rankings at class, school, or even national levels, adding a fun and friendly competitive element.\n•\tRules to Note:\no\tEach prize can usually only be redeemed once per account.\no\tRedemption is final once submitted.\no\tPoints expire at year-end, so remember to use them in time.\no\tPrizes are while stocks last."
+    },
+    {
+        "category": "积分与奖励问题",
+        "questionEn": "What is the eZhishi Buddy Program and how does it work?",
+        "questionZh": "什么是 eZhishi \"知识学伴\"计划？它是如何运作的？",
+        "answer": "The eZhishi Buddy Program is a fun and motivational feature designed to encourage consistent learning. It works like a virtual learning companion or avatar that grows as you study. Here's how it works:\n•\tGrow your Buddy: Students earn Buddy Growth Points by completing online assignments, exercises, reading eBooks, and using learning resources.\n•\tCustomize your Buddy: Points can be used in the \"Buddy Home\" section to change your buddy's appearance—outfits, accessories, and more.\n•\tBuddy Rankings: Students can view their standing in the Buddy Leaderboard, which shows who's been most active.\n•\tMotivation through play: The more you learn, the more your buddy grows and unlocks fun features. It adds a playful, game-like layer to the learning experience.\n•\tNo impact on school grades: The Buddy system is for fun and engagement. It does not affect your school academic performance or results.\nThis program helps students stay motivated by rewarding consistent effort with visible progress through their Buddy's evolution."
+    },
+    {
+        "category": "积分与奖励问题",
+        "questionEn": "When will I receive my eZhishi reward?",
+        "questionZh": "我什么时候可以收到 eZhishi 礼物？",
+        "answer": "Upon successful redemption submission being done online, all the redemption item shall be delivered ONLY to the pupil's school, within 20 working days (EXCEPT school holidays, HBL and school exam period). If the redemption is being done during school holiday, HBL and/or public holidays, they are not counted as working day and the item will be received only after the school re-open."
+    },
+    {
+        "category": "积分与奖励问题",
+        "questionEn": "How can I check my child's points on eZhishi Buddy?",
+        "questionZh": "怎么查孩子在eZhishi Buddy上的成长点？",
+        "answer": "After logging in to your eZhishi account, click on \"Buddy\" to view your child's Buddy Points."
+    },
+    {
+        "category": "积分与奖励问题",
+        "questionEn": "Where are the eZhishi Buddy points recorded or displayed?",
+        "questionZh": "成长点记录在哪里显示？",
+        "answer": "After logging in to your eZhishi account, click on \"Buddy\" to view your child's Buddy Points."
+    },
+    {
+        "category": "其他问题",
+        "questionEn": "What is your address and office hour?",
+        "questionZh": "你们的公司地址和工作时间是什么？",
+        "answer": "Address: 33 Ubi Ave 3 #03-23 Tower A Vertex Singapore 408868\nOffice Hour: Mondays to Fridays 9am-6pm, Saturdays 9am-1pm, closed at Sundays and Public Holidays."
+    },
+    {
+        "category": "其他问题",
+        "questionEn": "I cannot login my MIMS/SLS/Google classroom, can you help me?",
+        "questionZh": "我不能登录我的MIMS/SLS/Google classroom账号，可以帮帮我吗？",
+        "answer": "Sorry, this helpdesk only supports www.ezhishi.com, not other portals."
+    },
+    {
+        "category": "其他问题",
+        "questionEn": "My child is locked out of her SLS and MIMS accounts due to incorrect login attempts. Could you please help reset her credentials?",
+        "questionZh": "孩子因为输错密码，被锁定了SLS和MIMS账号。请帮忙重置登录信息。",
+        "answer": "Sorry, this helpdesk only supports www.ezhishi.com, not other portals."
+    },
+    {
+        "category": "人工",
+        "questionEn": "Can I talk to a customer service agent?",
+        "questionZh": "我想联系人工客服",
+        "answer": "You may reach out to eZhishi's Customer Care Helpdesk through the following channels:\n• Hotline:\nCall us at (65) 6742 7555 (Singapore).\nOperating hours:\n• Monday to Friday: 9:00am – 6:00pm\n• Saturday: 9:00am – 1:00pm\n(Closed on Sundays and Public Holidays)\nPlease have your Login ID and school name ready, and provide a brief description of the issue.\n• WhatsApp Messaging:\nSend a message to (65) 9012 6012 during working hours.\nThis option is ideal for quick queries or sharing screenshots.\nKindly include key details such as your school, user type (e.g., student or parent), and the nature of the problem.\n• Email Support:\nEmail us at service@ecombay.com with your inquiry.\nWe aim to respond within 1–2 working days.\n• Language Support:\nOur support team can assist you in both English and Chinese. Please feel free to communicate in your preferred language."
+    },
+    {
+        "category": "人工",
+        "questionEn": "How can I contact eZhishi support if I need further assistance?",
+        "questionZh": "如果我需要更多帮助，该如何联系 eZhishi 技术支持？",
+        "answer": "You may reach out to eZhishi's Customer Care Helpdesk through the following channels:\n• Hotline:\nCall us at (65) 6742 7555 (Singapore).\nOperating hours:\n• Monday to Friday: 9:00am – 6:00pm\n• Saturday: 9:00am – 1:00pm\n(Closed on Sundays and Public Holidays)\nPlease have your Login ID and school name ready, and provide a brief description of the issue.\n• WhatsApp Messaging:\nSend a message to (65) 9012 6012 during working hours.\nThis option is ideal for quick queries or sharing screenshots.\nKindly include key details such as your school, user type (e.g., student or parent), and the nature of the problem.\n• Email Support:\nEmail us at service@ecombay.com with your inquiry.\nWe aim to respond within 1–2 working days.\n• Language Support:\nOur support team can assist you in both English and Chinese. Please feel free to communicate in your preferred language."
+    },
+    {
+        "category": "项目激活 / 使用问题",
+        "questionEn": "Can you explain the delay in activating my account?",
+        "questionZh": "能解释一下激活我账户的延迟吗？",
+        "answer": "We will activate your account within 1–2 working days after receiving your payment.\n\nIf your request is urgent, please provide your Invoice ID, contact number, and a screenshot of your payment details via WhatsApp at +65 9012 6012 or email us at service@ecombay.com.",
+        "alternateQuestionsEn": [
+            "Still no access after payment. What's the hold-up?",
+            "Why can't I access my account after payment?",
+            "I paid but my account is not activated yet."
+        ]
+    }
 ]
