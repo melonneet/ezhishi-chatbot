@@ -1,5 +1,5 @@
-const natural = require('natural');
-const { pipeline } = require('@xenova/transformers');
+import natural from 'natural';
+import { pipeline } from '@xenova/transformers';
 
 class RelatedQuestionsGenerator {
     constructor() {
@@ -230,4 +230,4 @@ class RelatedQuestionsGenerator {
     }
 }
 
-module.exports = RelatedQuestionsGenerator; 
+export default RelatedQuestionsGenerator; 

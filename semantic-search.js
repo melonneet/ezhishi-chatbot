@@ -1,4 +1,4 @@
-const { pipeline } = require('@xenova/transformers');
+import { pipeline } from '@xenova/transformers';
 
 class SemanticSearch {
     constructor() {
@@ -330,4 +330,4 @@ class SemanticSearch {
     }
 }
 
-module.exports = SemanticSearch; 
+export default SemanticSearch; 

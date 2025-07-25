@@ -1,17 +1,22 @@
-const express = require('express');
-const cors = require('cors');
-const fs = require('fs');
-const path = require('path');
-const SemanticSearch = require('./semantic-search');
-const RelatedQuestionsGenerator = require('./related-questions');
-const RelatedFAQ = require('./related-faq');
-const { pipeline } = require('@xenova/transformers');
-const natural = require('natural');
-const emailService = require('./email-service');
-const Fuse = require('fuse.js');
-const stringSimilarity = require('string-similarity');
-const { franc } = require('franc');
-const { findBestMatch } = require('./faq-search');
+import express from 'express';
+import cors from 'cors';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import SemanticSearch from './semantic-search.js';
+import RelatedQuestionsGenerator from './related-questions.js';
+import RelatedFAQ from './related-faq.js';
+import { pipeline } from '@xenova/transformers';
+import natural from 'natural';
+import emailService from './email-service.js';
+import Fuse from 'fuse.js';
+import stringSimilarity from 'string-similarity';
+import { franc } from 'franc';
+import { findBestMatch } from './faq-search.js';
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -243,7 +248,7 @@ function normalizeZh(text) {
   // trim and remove Chinese & ASCII punctuation/whitespace
   return text
     .trim()
-    .replace(/[\s?？!！。，"”、,\.]/g, '');
+    .replace(/[\s?？!！。，""]/g, '');
 }
 
 // 2. Quick Chinese-char detector
@@ -478,7 +483,7 @@ class ConversationContext {
   }
 }
 
-// --- Enhanced getFaqAnswer and helpers for synonym/variation support ---
+// --- ENHANCED getFaqAnswer and helpers for synonym/variation support ---
 
 const FALLBACK_MESSAGE = 'The question you asked cannot be answered here. Please WhatsApp +65 9012 6012 or email service@ecombay.com to contact our customer service team.';
 
