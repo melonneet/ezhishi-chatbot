@@ -14,6 +14,7 @@ import stringSimilarity from 'string-similarity';
 import { franc } from 'franc';
 import { findBestMatch } from './faq-search.js';
 import db from './database.js';
+const MyClassificationPipeline = require('./MyClassificationPipeline');
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -29,6 +30,7 @@ const sessionContexts = {};
 // Initialize semantic search and related questions generator
 const semanticSearch = new SemanticSearch();
 const relatedQuestionsGenerator = new RelatedQuestionsGenerator();
+let relatedFAQ = null; // Declare relatedFAQ variable
 
 // Middleware
 app.use(cors({
@@ -217,7 +219,7 @@ try {
       relatedQuestionsGenerator.loadFAQs(faqs);
       console.log('✅ Related questions generator ready with stats:', relatedQuestionsGenerator.getStats());
 
-      const semanticModel = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+      const semanticModel = await MyClassificationPipeline.getInstance();
       relatedFAQ = new RelatedFAQ(faqs.map(f => f.questionEn), semanticModel);
       console.log('✅ Related FAQ module ready');
     } catch (error) {

@@ -1,5 +1,5 @@
 import natural from 'natural';
-import { pipeline } from '@xenova/transformers';
+const MyClassificationPipeline = require('./MyClassificationPipeline');
 
 class RelatedQuestionsGenerator {
     constructor() {
@@ -15,7 +15,7 @@ class RelatedQuestionsGenerator {
             console.log('🤖 Initializing related questions generator...');
             
             // Load the sentence transformer model for semantic similarity
-            this.model = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+            this.model = await MyClassificationPipeline.getInstance();
             
             this.initialized = true;
             console.log('✅ Related questions generator ready');

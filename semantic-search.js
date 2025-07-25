@@ -1,4 +1,4 @@
-import { pipeline } from '@xenova/transformers';
+const MyClassificationPipeline = require('./MyClassificationPipeline');
 
 class SemanticSearch {
     constructor() {
@@ -13,7 +13,7 @@ class SemanticSearch {
             console.log('🤖 Initializing semantic search with sentence transformers...');
             
             // Load the sentence transformer model
-            this.model = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+            this.model = await MyClassificationPipeline.getInstance();
             
             console.log('✅ Semantic search model loaded successfully');
             this.initialized = true;
@@ -330,4 +330,4 @@ class SemanticSearch {
     }
 }
 
-export default SemanticSearch; 
+module.exports = SemanticSearch; 
