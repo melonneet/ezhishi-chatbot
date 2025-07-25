@@ -1,5 +1,7 @@
-import natural from 'natural';
+const natural = require('natural');
 const MyClassificationPipeline = require('./MyClassificationPipeline');
+const path = require('path');
+const fs = require('fs');
 
 class RelatedQuestionsGenerator {
     constructor() {
@@ -230,4 +232,4 @@ class RelatedQuestionsGenerator {
     }
 }
 
-export default RelatedQuestionsGenerator; 
+module.exports = RelatedQuestionsGenerator; 

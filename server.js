@@ -1,24 +1,20 @@
-import express from 'express';
-import cors from 'cors';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import SemanticSearch from './semantic-search.js';
-import RelatedQuestionsGenerator from './related-questions.js';
-import RelatedFAQ from './related-faq.js';
-import { pipeline } from '@xenova/transformers';
-import natural from 'natural';
-import emailService from './email-service.js';
-import Fuse from 'fuse.js';
-import stringSimilarity from 'string-similarity';
-import { franc } from 'franc';
-import { findBestMatch } from './faq-search.js';
-import db from './database.js';
+const express = require('express');
+const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
+const SemanticSearch = require('./semantic-search');
+const RelatedQuestionsGenerator = require('./related-questions');
+const RelatedFAQ = require('./related-faq');
 const MyClassificationPipeline = require('./MyClassificationPipeline');
+const natural = require('natural');
+const emailService = require('./email-service');
+const Fuse = require('fuse.js');
+const stringSimilarity = require('string-similarity');
+const franc = require('franc');
+const { findBestMatch } = require('./faq-search');
+const db = require('./database');
 
-// Get __dirname equivalent in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+let relatedFAQ = null; // Declare relatedFAQ variable
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -30,7 +26,6 @@ const sessionContexts = {};
 // Initialize semantic search and related questions generator
 const semanticSearch = new SemanticSearch();
 const relatedQuestionsGenerator = new RelatedQuestionsGenerator();
-let relatedFAQ = null; // Declare relatedFAQ variable
 
 // Middleware
 app.use(cors({
