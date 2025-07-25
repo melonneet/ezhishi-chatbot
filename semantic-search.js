@@ -80,8 +80,11 @@ class SemanticSearch {
         }
 
         try {
-            // Get query embedding
-            const queryEmbedding = await this.getEmbedding(query);
+            // Expand abbreviations for better semantic matching
+            const expandedQuery = this.expandAbbreviations(query);
+            
+            // Get query embedding using expanded query
+            const queryEmbedding = await this.getEmbedding(expandedQuery);
             
             // Calculate cosine similarities
             const similarities = this.faqEmbeddings.map(({ faq, embedding, index }) => {
@@ -132,10 +135,13 @@ class SemanticSearch {
     fallbackSearch(query, topK = 5) {
         const queryLower = query.toLowerCase().trim();
         
+        // Expand common abbreviations
+        const expandedQuery = this.expandAbbreviations(queryLower);
+        
         // Enhanced keyword mapping with semantic variations
         const semanticKeywordMap = {
             'login': ['login', 'log in', 'signin', 'sign in', 'access', 'cannot login', 'cant login', 'unable to login', 'login problem', 'sign on', 'authentication'],
-            'password': ['password', 'pwd', 'passcode', 'forgot password', 'reset password', 'change password', 'new password', 'password expired', 'security code', 'pin'],
+            'password': ['password', 'pwd', 'passcode', 'forgot password', 'reset password', 'recover password', 'change password', 'new password', 'password expired', 'security code', 'pin'],
             'activate': ['activate', 'activation', 'active', 'activating', 'activated', 'not activated', 'enable', 'enabling', 'start', 'begin'],
             'refund': ['refund', 'money back', 'cancel', 'return', 'get money back', 'reimbursement', 'credit back'],
             'delivery': ['delivery', 'shipping', 'mail', 'address', 'receive', 'parcel', 'order', 'when will i receive', 'track order', 'shipment', 'postage'],
@@ -152,7 +158,7 @@ class SemanticSearch {
         // Check for semantic keyword matches
         let keywordBoost = {};
         Object.entries(semanticKeywordMap).forEach(([category, keywords]) => {
-            const matchedKeywords = keywords.filter(kw => queryLower.includes(kw));
+            const matchedKeywords = keywords.filter(kw => expandedQuery.includes(kw));
             if (matchedKeywords.length > 0) {
                 keywordBoost[category] = Math.min(0.5, matchedKeywords.length * 0.15);
             }
@@ -160,10 +166,10 @@ class SemanticSearch {
 
         // Calculate similarity scores
         const scoredFaqs = this.faqs.map(faq => {
-            const englishScore = this.calculateSimilarity(query, faq.questionEn);
+            const englishScore = this.calculateSimilarity(expandedQuery, faq.questionEn);
             const chineseScore = this.calculateSimilarity(query, faq.questionZh || '');
-            const categoryScore = this.calculateSimilarity(query, faq.category) * 0.4;
-            const answerScore = this.calculateSimilarity(query, faq.answer) * 0.15;
+            const categoryScore = this.calculateSimilarity(expandedQuery, faq.category) * 0.4;
+            const answerScore = this.calculateSimilarity(expandedQuery, faq.answer) * 0.15;
             
             let boost = 0;
             Object.entries(keywordBoost).forEach(([category, boostValue]) => {
@@ -191,6 +197,84 @@ class SemanticSearch {
             .filter(result => result.score > 0.1)
             .sort((a, b) => b.score - a.score)
             .slice(0, topK);
+    }
+
+    expandAbbreviations(text) {
+        // Common abbreviation mappings
+        const abbreviations = {
+            'pls': 'please',
+            'plz': 'please',
+            'thx': 'thanks',
+            'ty': 'thank you',
+            'u': 'you',
+            'ur': 'your',
+            'yr': 'your',
+            'r': 'are',
+            'n': 'and',
+            '&': 'and',
+            'w/': 'with',
+            'w/o': 'without',
+            'b/c': 'because',
+            'bc': 'because',
+            'b4': 'before',
+            '2': 'to',
+            '4': 'for',
+            '8': 'ate',
+            'gr8': 'great',
+            'l8r': 'later',
+            'asap': 'as soon as possible',
+            'fyi': 'for your information',
+            'btw': 'by the way',
+            'imo': 'in my opinion',
+            'tbh': 'to be honest',
+            'idk': 'i do not know',
+            'dont': 'do not',
+            'cant': 'cannot',
+            'wont': 'will not',
+            'isnt': 'is not',
+            'arent': 'are not',
+            'havent': 'have not',
+            'hasnt': 'has not',
+            'didnt': 'did not',
+            'doesnt': 'does not',
+            'wasnt': 'was not',
+            'werent': 'were not',
+            'hadnt': 'had not',
+            'wouldnt': 'would not',
+            'couldnt': 'could not',
+            'shouldnt': 'should not',
+            'mightnt': 'might not',
+            'mustnt': 'must not',
+            'shant': 'shall not',
+            'neednt': 'need not',
+            'darent': 'dare not',
+            'usednt': 'used not',
+            // Payment and account related abbreviations
+            'acc': 'account',
+            'acct': 'account',
+            'act': 'activate',
+            'actv': 'activate',
+            'pay': 'payment',
+            'paid': 'payment',
+            'pmt': 'payment',
+            'sub': 'subscription',
+            'subs': 'subscription',
+            'login': 'login',
+            'log': 'login',
+            'pwd': 'password',
+            'pass': 'password'
+        };
+
+        let expandedText = text;
+        
+        // Replace abbreviations with their full forms
+        Object.entries(abbreviations).forEach(([abbr, full]) => {
+            // Use word boundaries to avoid partial matches
+            const regex = new RegExp(`\\b${abbr}\\b`, 'gi');
+            expandedText = expandedText.replace(regex, full);
+        });
+
+        return expandedText;
     }
 
     calculateSimilarity(query, text) {
