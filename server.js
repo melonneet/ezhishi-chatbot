@@ -13,6 +13,7 @@ import Fuse from 'fuse.js';
 import stringSimilarity from 'string-similarity';
 import { franc } from 'franc';
 import { findBestMatch } from './faq-search.js';
+import db from './database.js';
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -1462,7 +1463,6 @@ app.get('/api/faqs/:category', (req, res) => {
 // Get chat sessions (for admin)
 app.get('/api/sessions', async (req, res) => {
   try {
-    const db = require('./database.js');
     const sessions = await db.getAllSessions(100, 0);
     res.json({ 
       sessions: sessions,
@@ -1484,7 +1484,6 @@ app.get('/api/sessions', async (req, res) => {
 app.get('/api/sessions/:sessionId', async (req, res) => {
   try {
     const { sessionId } = req.params;
-    const db = require('./database.js');
     
     // Get session info
     const sessions = await db.getAllSessions();
@@ -1526,7 +1525,6 @@ app.get('/api/sessions/:sessionId', async (req, res) => {
 // Get analytics (for admin)
 app.get('/api/analytics', async (req, res) => {
   try {
-    const db = require('./database.js');
     const analytics = await db.getQuestionAnalytics();
     res.json({ 
       analytics: analytics,
@@ -1542,7 +1540,6 @@ app.get('/api/analytics', async (req, res) => {
 // Get dashboard data (for admin)
 app.get('/api/dashboard', async (req, res) => {
   try {
-    const db = require('./database.js');
     const sessions = await db.getAllSessions(100, 0);
     const analytics = await db.getQuestionAnalytics();
     
