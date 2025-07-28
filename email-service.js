@@ -3,10 +3,14 @@ import nodemailer from 'nodemailer';
 class EmailService {
   constructor() {
     this.transporter = null;
-    this.initializeTransporter();
+    // Don't initialize immediately, wait for first use
   }
 
   initializeTransporter() {
+    if (this.transporter) {
+      return; // Already initialized
+    }
+    
     try {
       this.transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
@@ -30,6 +34,9 @@ class EmailService {
   }
 
   async sendEmail(to, subject, html, text = null) {
+    // Initialize transporter if not already done
+    this.initializeTransporter();
+    
     if (!this.transporter) {
       throw new Error('Email service not initialized');
     }
@@ -87,6 +94,9 @@ class EmailService {
   }
 
   isConfigured() {
+    // Initialize transporter if not already done
+    this.initializeTransporter();
+    
     return this.transporter !== null && 
            process.env.SMTP_USER && 
            process.env.SMTP_PASS;
