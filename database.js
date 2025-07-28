@@ -1,10 +1,18 @@
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
-const fs = require('fs');
+import sqlite3 from 'sqlite3';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Enable verbose mode for sqlite3
+const { verbose } = sqlite3;
+const sqlite3Verbose = verbose();
 
 class Database {
     constructor() {
-        this.db = new sqlite3.Database(path.join(__dirname, 'data', 'chat_records.db'));
+        this.db = new sqlite3Verbose.Database(path.join(__dirname, 'data', 'chat_records.db'));
         this.init();
     }
 
@@ -270,4 +278,4 @@ class Database {
     }
 }
 
-module.exports = new Database();
+export default new Database();
