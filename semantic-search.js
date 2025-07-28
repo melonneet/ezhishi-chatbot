@@ -1,4 +1,9 @@
-const MyClassificationPipeline = require('./MyClassificationPipeline');
+import { pipeline } from '@xenova/transformers';
+import MyClassificationPipeline from './MyClassificationPipeline.js';
+import natural from 'natural';
+import Fuse from 'fuse.js';
+import path from 'path';
+import fs from 'fs';
 
 class SemanticSearch {
     constructor() {
@@ -12,11 +17,11 @@ class SemanticSearch {
         try {
             console.log('🤖 Initializing semantic search with sentence transformers...');
             
-            // Load the sentence transformer model
-            this.model = await MyClassificationPipeline.getInstance();
+            // The model will be set externally from server.js
+            // This method is kept for compatibility but doesn't load the model
             
-            console.log('✅ Semantic search model loaded successfully');
-            this.initialized = true;
+            console.log('✅ Semantic search ready for model assignment');
+            this.initialized = false; // Will be set to true when model is assigned
         } catch (error) {
             console.error('❌ Error initializing semantic search:', error);
             this.initialized = false;
@@ -65,12 +70,17 @@ class SemanticSearch {
             throw new Error('Model not initialized');
         }
 
-        const output = await this.model(text, {
-            pooling: 'mean',
-            normalize: true
-        });
+        try {
+            const output = await this.model.process(text, {
+                pooling: 'mean',
+                normalize: true
+            });
 
-        return Array.from(output.data);
+            return Array.from(output.data);
+        } catch (error) {
+            console.error('Error getting embedding:', error);
+            throw error;
+        }
     }
 
     async semanticSearch(query, topK = 5) {
@@ -330,4 +340,4 @@ class SemanticSearch {
     }
 }
 
-module.exports = SemanticSearch; 
+export default SemanticSearch; 

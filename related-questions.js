@@ -1,7 +1,7 @@
-const natural = require('natural');
-const MyClassificationPipeline = require('./MyClassificationPipeline');
-const path = require('path');
-const fs = require('fs');
+import natural from 'natural';
+import MyClassificationPipeline from './MyClassificationPipeline.js';
+import path from 'path';
+import fs from 'fs';
 
 class RelatedQuestionsGenerator {
     constructor() {
@@ -232,4 +232,4 @@ class RelatedQuestionsGenerator {
     }
 }
 
-module.exports = RelatedQuestionsGenerator; 
+export default RelatedQuestionsGenerator; 

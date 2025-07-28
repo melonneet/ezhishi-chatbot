@@ -1,23 +1,32 @@
-const express = require('express');
-const cors = require('cors');
-const fs = require('fs');
-const path = require('path');
-const SemanticSearch = require('./semantic-search');
-const RelatedQuestionsGenerator = require('./related-questions');
-const RelatedFAQ = require('./related-faq');
-const MyClassificationPipeline = require('./MyClassificationPipeline');
-const natural = require('natural');
-const emailService = require('./email-service');
-const Fuse = require('fuse.js');
-const stringSimilarity = require('string-similarity');
-const franc = require('franc');
-const { findBestMatch } = require('./faq-search');
-const db = require('./database');
+import express from 'express';
+import cors from 'cors';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+import SemanticSearch from './semantic-search.js';
+import RelatedQuestionsGenerator from './related-questions.js';
+import RelatedFAQ from './related-faq.js';
+import MyClassificationPipeline from './MyClassificationPipeline.js';
+import natural from 'natural';
+import emailService from './email-service.js';
+import Fuse from 'fuse.js';
+import stringSimilarity from 'string-similarity';
+import { franc } from 'franc';
+import { findBestMatch } from './faq-search.js';
+import db from './database.js';
+import openRouterService from './openrouter-service.js';
+
+// Load environment variables
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 let relatedFAQ = null; // Declare relatedFAQ variable
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const DEFAULT_PORT = process.env.PORT || 3000;
 
 // ---- CONTEXT STORE ----
 // In-memory context store for session chat history (for prototype only)
@@ -166,47 +175,19 @@ try {
     return spellcheck;
   }
 
-  function correctQuery(query, spellcheck) {
-    // Common abbreviations that should not be spell-corrected
-    const commonAbbreviations = new Set([
-      'pls', 'plz', 'thx', 'ty', 'u', 'ur', 'yr', 'r', 'n', 'bc', 'b4', 'gr8', 'l8r',
-      'asap', 'fyi', 'btw', 'imo', 'tbh', 'idk', 'dont', 'cant', 'wont', 'isnt', 'arent',
-      'havent', 'hasnt', 'didnt', 'doesnt', 'wasnt', 'werent', 'hadnt', 'wouldnt',
-      'couldnt', 'shouldnt', 'acc', 'acct', 'act', 'actv', 'pay', 'paid', 'pmt',
-      'sub', 'subs', 'pwd', 'pass'
-    ]);
-
-    return query
-      .split(/\b/)                     // split on word boundaries
-      .map(token => {
-        const lower = token.toLowerCase();
-        // Skip spell correction for common abbreviations
-        if (commonAbbreviations.has(lower)) {
-          return token;
-        }
-        // only try to correct alphabetic tokens longer than 2 chars
-        if (/^[a-z]{3,}$/.test(lower)) {
-          if (!spellcheck.isCorrect(lower)) {
-            const corrections = spellcheck.getCorrections(lower, 1);
-            if (corrections.length > 0) {
-              const best = corrections[0];
-              console.log(`🔤 Spell correction: "${token}" → "${best}"`);
-              return best;
-            }
-          }
-        }
-        return token;
-      })
-      .join("");
-  }
-
   // Initialize spellcheck
   global.spellcheck = buildSpellcheckDictionary(faqs);
   
   // Initialize semantic search and related questions generator with FAQs
   (async () => {
     try {
-      await semanticSearch.initialize();
+      // Initialize the semantic model first
+      const semanticModel = await MyClassificationPipeline.getInstance();
+      
+      // Set the model in semantic search
+      semanticSearch.model = semanticModel;
+      semanticSearch.initialized = true;
+      
       await semanticSearch.loadFAQs(faqs);
       console.log('✅ Semantic search ready with stats:', semanticSearch.getStats());
       
@@ -214,8 +195,7 @@ try {
       relatedQuestionsGenerator.loadFAQs(faqs);
       console.log('✅ Related questions generator ready with stats:', relatedQuestionsGenerator.getStats());
 
-      const semanticModel = await MyClassificationPipeline.getInstance();
-      relatedFAQ = new RelatedFAQ(faqs.map(f => f.questionEn), semanticModel);
+      relatedFAQ = new RelatedFAQ(faqs.map(f => f.questionEn), semanticModel.process.bind(semanticModel));
       console.log('✅ Related FAQ module ready');
     } catch (error) {
       console.error('⚠️ Initialization failed, using fallback:', error);
@@ -226,6 +206,47 @@ try {
   console.error('Error loading FAQ data:', error);
   console.error('Make sure data/faqs.json exists and contains valid JSON');
 }
+
+// Spell correction function - moved outside try-catch block for global access
+function correctQuery(query, spellcheck) {
+  // Common abbreviations and technical terms that should not be spell-corrected
+  const commonAbbreviations = new Set([
+    'pls', 'plz', 'thx', 'ty', 'u', 'ur', 'yr', 'r', 'n', 'bc', 'b4', 'gr8', 'l8r',
+    'asap', 'fyi', 'btw', 'imo', 'tbh', 'idk', 'dont', 'cant', 'wont', 'isnt', 'arent',
+    'havent', 'hasnt', 'didnt', 'doesnt', 'wasnt', 'werent', 'hadnt', 'wouldnt',
+    'couldnt', 'shouldnt', 'acc', 'acct', 'act', 'actv', 'pay', 'paid', 'pmt',
+    'sub', 'subs', 'pwd', 'pass', 'moe', 'syllabus', 'curriculum', 'ezhishi', 'chinese',
+    'mandarin', 'cantonese', 'singapore', 'primary', 'secondary', 'school', 'education',
+    'learning', 'teaching', 'student', 'teacher', 'parent', 'account', 'login', 'password',
+    'username', 'email', 'mobile', 'app', 'website', 'online', 'digital', 'platform'
+  ]);
+
+  return query
+    .split(/\b/)                     // split on word boundaries
+    .map(token => {
+      const lower = token.toLowerCase();
+      // Skip spell correction for common abbreviations
+      if (commonAbbreviations.has(lower)) {
+        return token;
+      }
+      // only try to correct alphabetic tokens longer than 2 chars
+      if (/^[a-z]{3,}$/.test(lower)) {
+        if (!spellcheck.isCorrect(lower)) {
+          const corrections = spellcheck.getCorrections(lower, 1);
+          if (corrections.length > 0) {
+            const best = corrections[0];
+            console.log(`🔤 Spell correction: "${token}" → "${best}"`);
+            return best;
+          }
+        }
+      }
+      return token;
+    })
+    .join("");
+}
+
+// Global function declarations to ensure they're available everywhere
+global.correctQuery = correctQuery;
 
 // Normalize helper: trim + lowercase
 function normalize(text) {
@@ -486,9 +507,25 @@ class ConversationContext {
 const FALLBACK_MESSAGE = 'The question you asked cannot be answered here. Please WhatsApp +65 9012 6012 or email service@ecombay.com to contact our customer service team.';
 
 const E_ZHISHI_KEYWORDS = [
+  // eZhishi specific terms
   'login', 'password', 'account', 'reset', 'activate', 'assignment',
   'reward', 'video', 'subscription', 'name', 'technical', '无法登录',
-  '忘记密码', '账号', '登录', '奖励', '作业', '视频', '激活'
+  '忘记密码', '账号', '登录', '奖励', '作业', '视频', '激活',
+  
+  // General help terms
+  'help', 'need', 'want', 'how', 'what', 'where', 'when', 'why', 
+  'can', 'could', 'should', 'would', 'please', 'trying', 'tried',
+  
+  // Common problem phrases
+  'cannot', 'can\'t', 'unable', 'problem', 'issue', 'error', 'fail',
+  'not working', 'doesn\'t work', 'forgot', 'lost', 'missing',
+  
+  // eZhishi brand name variations
+  'ezhishi', 'e-zhishi', 'e zhishi', '知识网', '知识', '网',
+  
+  // General question words
+  'is', 'are', 'was', 'were', 'do', 'does', 'did', 'will', 'would',
+  'tell', 'explain', 'describe', 'show', 'give', 'provide'
 ];
 
 // ✅ Utility function to detect relevance
@@ -500,13 +537,26 @@ function shouldFallback(message) {
     text.includes(keyword.toLowerCase())
   );
 
-  const isQuestionLike = /[?？]$/.test(text) || text.startsWith('how') || text.startsWith('what') || text.includes('吗');
+  const isQuestionLike = /[?？]$/.test(text) || 
+                        text.startsWith('how') || 
+                        text.startsWith('what') || 
+                        text.startsWith('when') ||
+                        text.startsWith('where') ||
+                        text.startsWith('why') ||
+                        text.startsWith('can') ||
+                        text.startsWith('could') ||
+                        text.startsWith('would') ||
+                        text.startsWith('should') ||
+                        text.includes('吗') ||
+                        text.includes('什么') ||
+                        text.includes('怎么') ||
+                        text.includes('如何');
 
-  // Fallback if message is long and has no keyword
-  if (wordCount > 15 && !hasEzhishiKeyword) return true;
+  // Only fallback for very long, clearly unrelated messages (more than 20 words)
+  if (wordCount > 20 && !hasEzhishiKeyword && !isQuestionLike) return true;
 
-  // Fallback if it's a statement with no keyword and no question pattern
-  if (!hasEzhishiKeyword && !isQuestionLike) return true;
+  // Only fallback for very short, non-question, non-keyword messages (1-2 words that aren't questions)
+  if (wordCount <= 2 && !hasEzhishiKeyword && !isQuestionLike) return true;
 
   return false;
 }
@@ -552,20 +602,9 @@ async function getFaqAnswer(userInput) {
   }
 
   const normalizedInput = userInput.trim().toLowerCase();
-  // Abbreviation expansion
-  const expandedInput = expandAbbreviations(normalizedInput);
-  // Spell correction
-  const correctedInput = correctQuery(expandedInput, global.spellcheck);
-
-  // Language detection - only process Chinese and English
-  const detectedLang = franc(userInput);
-  if (detectedLang !== 'cmn' && detectedLang !== 'eng' && detectedLang !== 'zho') {
-    console.log(`🎯 Non-Chinese/English language detected: ${detectedLang}`);
-    return fallbackResponse;
-  }
 
   // Small talk
-  if (/(\b(thank|thanks|thank you|thx|tq)\b)/.test(correctedInput) || /谢谢|多谢|感谢/.test(userInput)) {
+  if (/(\b(thank|thanks|thank you|thx|tq)\b)/.test(normalizedInput) || /谢谢|多谢|感谢/.test(userInput)) {
     return {
       faq: null,
       answer: "You're welcome! Anything else I can help with?",
@@ -583,14 +622,18 @@ async function getFaqAnswer(userInput) {
   }
 
   // Rule-based overrides
-  const ruleBasedResult = ruleBasedAnswer(correctedInput);
+  const ruleBasedResult = ruleBasedAnswer(normalizedInput);
   if (ruleBasedResult) {
+    console.log(`🔍 Rule-based result found: ${ruleBasedResult.faq?.questionEn || 'no question'}`);
     return ruleBasedResult;
   }
+  console.log(`🔍 No rule-based result, continuing to FAQ matching`);
 
   // Use findBestMatch for alternate questions
+  console.log(`🔍 Trying findBestMatch for: "${userInput}"`);
   const bestMatch = findBestMatch(userInput);
   if (bestMatch) {
+    console.log(`🔍 findBestMatch returned: "${bestMatch.text}"`);
     const matchedFaq = faqs.find(f =>
       f.questionEn === bestMatch.text ||
       f.questionZh === bestMatch.text ||
@@ -598,13 +641,36 @@ async function getFaqAnswer(userInput) {
       (f.alternateQuestionsZh && f.alternateQuestionsZh.includes(bestMatch.text))
     );
     if (matchedFaq) {
+      console.log(`🔍 Found FAQ match via findBestMatch: "${matchedFaq.questionEn}"`);
       return {
         faq: matchedFaq,
         score: 1,
         similarity: 1,
         matchType: 'faq_match'
       };
+    } else {
+      console.log(`🔍 findBestMatch found "${bestMatch.text}" but no matching FAQ in database`);
     }
+  } else {
+    console.log(`🔍 findBestMatch returned null`);
+  }
+
+  // Direct FAQ matching as fallback
+  console.log(`🔍 Trying direct FAQ matching for: "${userInput}"`);
+  const directMatch = faqs.find(f =>
+    f.questionEn.toLowerCase() === userInput.toLowerCase() ||
+    f.questionZh && f.questionZh.toLowerCase() === userInput.toLowerCase()
+  );
+  if (directMatch) {
+    console.log(`🔍 Found direct FAQ match: "${directMatch.questionEn}"`);
+    return {
+      faq: directMatch,
+      score: 1,
+      similarity: 1,
+      matchType: 'direct_match'
+    };
+  } else {
+    console.log(`🔍 No direct FAQ match found`);
   }
 
   // Chinese-specific matching
@@ -621,24 +687,23 @@ async function getFaqAnswer(userInput) {
     }
   }
 
-  // --- Semantic search as primary method ---
-  const semanticResult = await semanticSearchPipeline(correctedInput);
-  if (semanticResult && semanticResult.similarity > 0.5) {
-    return semanticResult;
+  // If no direct match found, try semantic search
+  try {
+    const semanticResult = await semanticSearchPipeline(userInput);
+    if (semanticResult && semanticResult.score > 0.3) {
+      return semanticResult;
+    }
+  } catch (error) {
+    console.error('Semantic search failed:', error);
   }
 
-  // Fuzzy/keyword matching with synonyms
-  const fuzzyResult = performFuzzyAndKeywordSearch(correctedInput, faqs);
-  if (fuzzyResult && fuzzyResult.score > 0.3) {
+  // Final fallback - fuzzy search
+  const fuzzyResult = performFuzzyAndKeywordSearch(userInput, faqs);
+  if (fuzzyResult && fuzzyResult.score > 0.2) {
     return fuzzyResult;
   }
 
-  // Relaxed semantic search
-  const relaxedSemanticResult = await semanticSearchPipeline(correctedInput);
-  if (relaxedSemanticResult && relaxedSemanticResult.similarity > 0.3) {
-    return relaxedSemanticResult;
-  }
-
+  // If no match found, return fallback response
   return fallbackResponse;
 }
 
@@ -648,7 +713,7 @@ async function semanticSearchPipeline(query) {
       const queryVariations = [
         query,
         expandAbbreviations(query),
-        correctQuery(query, global.spellcheck)
+        global.spellcheck && global.correctQuery ? global.correctQuery(query, global.spellcheck) : query
       ];
       let bestResult = null;
       let bestScore = 0;
@@ -671,6 +736,33 @@ async function semanticSearchPipeline(query) {
   } catch (error) {
     console.error('Semantic search error:', error);
   }
+  return null;
+}
+
+function findChineseMatch(userInput, faqs) {
+  const normalizedInput = normalizeChineseText(userInput);
+  
+  for (const faq of faqs) {
+    if (faq.questionZh) {
+      const normalizedFaq = normalizeChineseText(faq.questionZh);
+      
+      // Direct match
+      if (normalizedFaq.includes(normalizedInput) || normalizedInput.includes(normalizedFaq)) {
+        return faq;
+      }
+      
+      // Check alternate questions
+      if (faq.alternateQuestionsZh) {
+        for (const altQuestion of faq.alternateQuestionsZh) {
+          const normalizedAlt = normalizeChineseText(altQuestion);
+          if (normalizedAlt.includes(normalizedInput) || normalizedInput.includes(normalizedAlt)) {
+            return faq;
+          }
+        }
+      }
+    }
+  }
+  
   return null;
 }
 
@@ -779,17 +871,115 @@ app.post('/api/search', async (req, res) => {
   }
 });
 
-// --- Replace /chat endpoint ---
+// --- Enhanced /chat endpoint with AI integration ---
 app.post('/chat', async (req, res) => {
-  const userQ = req.body.message || '';
-  const result = await getFaqAnswer(userQ);
-  if (result && result.faq && result.faq.answer) {
-    return res.json({ reply: result.faq.answer });
+  try {
+    const userQ = req.body.message || '';
+    const sessionId = req.body.sessionId || 'default';
+    
+    // Get FAQ answer first
+    console.log(`🔍 Complex chat endpoint - calling getFaqAnswer for: "${userQ}"`);
+    const result = await getFaqAnswer(userQ);
+    console.log(`🔍 Complex chat endpoint - getFaqAnswer result:`, result ? {
+      matchType: result.matchType,
+      score: result.score,
+      similarity: result.similarity,
+      hasFaq: !!result.faq,
+      faqQuestion: result.faq?.questionEn,
+      hasAnswer: !!result.faq?.answer
+    } : 'null');
+    
+    let response = {
+      reply: '',
+      enhanced: false,
+      followUpQuestions: [],
+      aiGenerated: false
+    };
+
+    // Simplified logic - disable AI integration temporarily
+    console.log(`🔍 Processing result with matchType: ${result?.matchType}, score: ${result?.score}`);
+    
+    if (result && result.faq && result.faq.answer && result.matchType !== 'fallback') {
+      console.log(`🔍 Using FAQ answer: "${result.faq.questionEn}"`);
+      response.reply = result.faq.answer;
+    } else if (result && result.answer && result.matchType !== 'fallback') {
+      console.log(`🔍 Using direct answer`);
+      response.reply = result.answer;
+    } else {
+      console.log(`🔍 No valid match found, using fallback`);
+      response.reply = "The question you asked cannot be answered here. " +
+                      "Please WhatsApp +65 90126012 or email service@ecombay.com to contact our customer service team.";
+    }
+
+    // Update session context
+    if (!sessionContexts[sessionId]) {
+      sessionContexts[sessionId] = new ConversationContext(sessionId);
+    }
+    sessionContexts[sessionId].addMessage(userQ, response.reply);
+
+    return res.json(response);
+    
+  } catch (error) {
+    console.error('Chat endpoint error:', error);
+    return res.status(500).json({
+      reply: "I apologize, but I encountered an error. Please try again or contact our support team.",
+      error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
+    });
   }
-  return res.json({
-    reply: "The question you asked cannot be answered here. " +
-           "Please WhatsApp +65 90126012 or email service@ecombay.com to contact our customer service team."
-  });
+});
+
+// Test endpoint for OpenRouter API
+app.post('/test-ai', async (req, res) => {
+  try {
+    const { message, model } = req.body;
+    
+    if (!message) {
+      return res.status(400).json({ error: 'Message is required' });
+    }
+
+    console.log('🤖 OpenRouter API Test Request:', {
+      message: message.substring(0, 100) + (message.length > 100 ? '...' : ''),
+      model: model || openRouterService.model,
+      timestamp: new Date().toISOString()
+    });
+
+    const startTime = Date.now();
+    const completion = await openRouterService.createCompletion([
+      {
+        role: 'user',
+        content: message
+      }
+    ], {
+      model: model || openRouterService.model,
+      temperature: 0.7,
+      maxTokens: 500
+    });
+    const endTime = Date.now();
+
+    console.log('✅ OpenRouter API Test Success:', {
+      responseLength: completion.choices[0]?.message?.content?.length || 0,
+      usage: completion.usage,
+      responseTime: `${endTime - startTime}ms`,
+      timestamp: new Date().toISOString()
+    });
+
+    res.json({
+      success: true,
+      response: completion.choices[0]?.message?.content,
+      usage: completion.usage,
+      responseTime: endTime - startTime
+    });
+  } catch (error) {
+    console.error('❌ OpenRouter API Test Error:', {
+      error: error.message,
+      stack: error.stack,
+      timestamp: new Date().toISOString()
+    });
+    res.status(500).json({
+      error: 'AI test failed',
+      details: error.message
+    });
+  }
 });
 
 // Test function to verify Chinese matching works
@@ -1092,7 +1282,7 @@ app.post('/api/search', async (req, res) => {
     }
     
     // 2) Spell-correct the query
-    const correctedQuery = correctQuery(query, global.spellcheck);
+    const correctedQuery = global.spellcheck && global.correctQuery ? global.correctQuery(query, global.spellcheck) : query;
     if (correctedQuery !== query) {
       console.log(`🔤 Spell-corrected query: "${query}" → "${correctedQuery}"`);
     }
@@ -1326,89 +1516,73 @@ app.post('/apiChat/search', async (req, res) => {
       console.log(`🎯 Rule-based result for API Chat query: "${query}"`);
       return res.json({ results, relatedQuestions });
     }
-    // 2) Spell-correct the query
-    const correctedQuery = correctQuery(query, global.spellcheck);
-    if (correctedQuery !== query) {
-      console.log(`🔤 Spell-corrected query: "${query}" → "${correctedQuery}"`);
-    }
-    // 3) Check for exact matches
-    let exactMatch = await getFaqAnswer(correctedQuery);
-    // If no exact match and using context, try with contextual query
-    if (!exactMatch && useContext && contextualQuery !== query) {
-      console.log('🔍 No exact match, trying with contextual query');
-      exactMatch = await getFaqAnswer(contextualQuery);
-    }
-    if (exactMatch && exactMatch.matchType === 'small_talk') {
-      return res.json({
-        results: [{
-          answer: exactMatch.answer,
-          matchType: 'small_talk'
-        }],
-        relatedQuestions: []
-      });
-    }
-    let searchResults;
+    
+    // 2) Try exact FAQ matching first (without spell correction)
+    let exactMatch = await getFaqAnswer(query);
     if (exactMatch && !exactMatch.isFallback) {
-      // Check for special cases
-      if (exactMatch.matchType === 'special_case') {
-        console.log(`🎯 Special case match found: "${exactMatch.specialCase}"`);
-        return res.json({ 
-          results: [{ 
-            faq: exactMatch.faq, 
-            score: exactMatch.score, 
-            similarity: exactMatch.similarity,
-            matchType: exactMatch.matchType,
-            specialCase: exactMatch.specialCase
-          }], 
-          relatedQuestions: [] 
-        });
-      }
-      // Use exact match
-      searchResults = [{
+      const results = [{
         faq: exactMatch.faq,
         score: exactMatch.score,
         similarity: exactMatch.similarity
       }];
-      // Add additional semantic results
-      const additionalResults = await semanticSearch.semanticSearch(query, 4);
-      const filteredResults = additionalResults.filter(result => 
-        result.faq.questionEn !== exactMatch.faq.questionEn
-      );
-      searchResults = searchResults.concat(filteredResults);
-      console.log(`✅ Match found for query: "${query}" (context: ${useContext})`);
-    } else {
-      // Use semantic search
-      const searchQuery = useContext ? correctedQuery : query;
-      searchResults = await semanticSearch.semanticSearch(searchQuery, 5);
-      console.log(`🔍 Using semantic search for query: "${searchQuery}"`);
-      // Check relevance
-      const relevantResults = searchResults.filter(result => result.similarity > 0.5);
-      if (relevantResults.length === 0) {
-        console.log(`❌ No relevant results found`);
-        const fallbackMatch = await getFaqAnswer(query);
-        return res.json({ 
-          results: [{ 
-            faq: fallbackMatch.faq, 
-            score: fallbackMatch.score, 
-            similarity: fallbackMatch.similarity,
-            matchType: fallbackMatch.matchType,
-            isFallback: true
-          }], 
-          relatedQuestions: [] 
+      let relatedQuestions = [];
+      if (relatedFAQ) {
+        relatedQuestions = await relatedFAQ.relatedQuestionKeywords(query, 3, 3);
+      }
+      console.log(`✅ Exact FAQ match found for: "${query}"`);
+      return res.json({ results, relatedQuestions });
+    }
+    
+    // 3) Try semantic search
+    console.log(`🔍 Using semantic search for query: "${query}"`);
+    let searchResults = await semanticSearch.semanticSearch(query, 5);
+    
+    // 4) If semantic search returns good results, use them
+    if (searchResults.length > 0 && searchResults[0].similarity > 0.5) {
+      let relatedQuestions = [];
+      if (relatedFAQ) {
+        relatedQuestions = await relatedFAQ.relatedQuestionKeywords(query, 3, 3);
+      }
+      console.log(`✅ Good semantic matches found for: "${query}"`);
+      return res.json({ results: searchResults, relatedQuestions });
+    }
+    
+    // 5) If no good matches, use AI-powered understanding
+    console.log(`🤖 No good matches found, using AI-powered understanding for: "${query}"`);
+    try {
+      const aiResponse = await getAIEnhancedResponse(query);
+      if (aiResponse) {
+        console.log(`✅ AI provided enhanced response for: "${query}"`);
+        return res.json({
+          results: [{
+            questionEn: "AI Enhanced Response",
+            questionZh: "AI增强回答",
+            answer: aiResponse,
+            score: 0.8,
+            similarity: 0.8,
+            isAIEnhanced: true
+          }],
+          relatedQuestions: []
         });
       }
+    } catch (aiError) {
+      console.log(`❌ AI enhancement failed: ${aiError.message}`);
     }
-    const results = searchResults.map(result => ({
-      ...result.faq,
-      score: result.score,
-      similarity: result.similarity
-    }));
-    // Generate related questions
-    let relatedQuestions = [];
-    if (relatedFAQ) {
-      relatedQuestions = await relatedFAQ.relatedQuestionKeywords(query, 3, 3);
-    }
-    res.json({ results, relatedQuestions });
+    
+    // 6) Fallback to customer service
+    console.log(`❌ No relevant results found for: "${query}"`);
+    return res.json({
+      results: [{
+        questionEn: "Unrelated Query",
+        questionZh: "无关查询",
+        answer: "The question you asked cannot be answered here. Please WhatsApp +65 9012 6012 or email service@ecombay.com to contact our customer service team.",
+        category: "Customer Service",
+        score: 0,
+        similarity: 0,
+        isFallback: true
+      }],
+      relatedQuestions: []
+    });
   } catch (error) {
     console.error('Search error:', error);
     res.status(500).json({ error: 'Search failed' });
@@ -1431,9 +1605,17 @@ app.post('/chat', async (req, res) => {
   
   const result = await getFaqAnswer(userQ);
   console.log('🔍 getFaqAnswer result (chat):', result ? { matchType: result.matchType, question: result.faq && result.faq.questionEn, answer: result.faq && result.faq.answer } : 'no match');
-  if (result && result.faq && result.faq.answer) {
+  
+  // Check if we have a valid FAQ match
+  if (result && result.faq && result.faq.answer && result.matchType !== 'fallback') {
     return res.json({ reply: result.faq.answer });
   }
+  
+  // Check if it's a special response (like small talk or greeting)
+  if (result && result.answer && result.matchType !== 'fallback') {
+    return res.json({ reply: result.answer });
+  }
+  
   return res.json({
     reply: FALLBACK_MESSAGE
   });
@@ -1726,9 +1908,22 @@ app.get('/api/email-status', (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+// Function to try different ports if the default is in use
+function tryListen(port) {
+  app.listen(port, () => {
+    console.log(`✅ Server running at http://localhost:${port}`);
+  }).on('error', err => {
+    if (err.code === 'EADDRINUSE') {
+      console.log(`⚠️ Port ${port} in use, trying ${port + 1}...`);
+      tryListen(port + 1);
+    } else {
+      console.error('❌ Server error:', err);
+      throw err;
+    }
+  });
+}
+
+tryListen(DEFAULT_PORT);
 
 // Place these helpers near the top of the file, outside ruleBasedAnswer
 function getActivationFAQ(faqs) {
@@ -1772,5 +1967,48 @@ async function getFaqResponse(message) {
     return result.faq.answer;
   }
   return FALLBACK_MESSAGE;
+}
+
+// AI Enhanced Response Function
+async function getAIEnhancedResponse(userQuery) {
+  try {
+    // Create context from available FAQs
+    const contextFAQs = faqs.slice(0, 10).map(faq => 
+      `Q: ${faq.questionEn}\nA: ${faq.answer}`
+    ).join('\n\n');
+    
+    const messages = [
+      {
+        role: 'system',
+        content: `You are a helpful customer service assistant for eZhishi, an educational platform for Chinese language learning. 
+        
+Based on the following FAQ context, provide a helpful and accurate answer to the user's question. If the question is related to eZhishi but not directly covered in the FAQs, provide a general but helpful response based on your knowledge of educational platforms.
+
+FAQ Context:
+${contextFAQs}
+
+Guidelines:
+- Be helpful and friendly
+- If the question is about eZhishi features, curriculum, or usage, provide relevant information
+- If the question is not related to eZhishi, politely redirect to customer service
+- Keep responses concise but informative
+- Use the same tone and style as the FAQ answers`
+      },
+      {
+        role: 'user',
+        content: userQuery
+      }
+    ];
+
+    const completion = await openRouterService.createCompletion(messages, {
+      temperature: 0.7,
+      maxTokens: 300
+    });
+
+    return completion.choices[0]?.message?.content || null;
+  } catch (error) {
+    console.error('AI enhancement error:', error);
+    return null;
+  }
 }
 

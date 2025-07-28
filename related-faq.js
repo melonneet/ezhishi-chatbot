@@ -1,7 +1,7 @@
-const natural = require('natural');
-const compromise = require('compromise');
-const path = require('path');
-const fs = require('fs');
+import natural from 'natural';
+import compromise from 'compromise';
+import path from 'path';
+import fs from 'fs';
 
 class RelatedFAQ {
   constructor(faqQuestions, semanticModel = null) {
@@ -151,4 +151,4 @@ class RelatedFAQ {
   }
 }
 
-module.exports = RelatedFAQ; 
+export default RelatedFAQ; 
