@@ -1,8 +1,16 @@
 (function() {
     'use strict';
 
+    // ---- SESSION ID LOGIC ----
+    // Always use a persistent sessionId for context-aware chat
+    let persistentSessionId = localStorage.getItem('ezhishi_session_id');
+    if (!persistentSessionId) {
+        persistentSessionId = 'sess-' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('ezhishi_session_id', persistentSessionId);
+    }
+
     window.EZhishiChatbot = {
-        sessionId: null,
+        sessionId: persistentSessionId,
         chatHistory: [],
         
         init: function(config) {
@@ -15,6 +23,7 @@
 
             this.createChatWidget();
             this.attachEventListeners();
+            // Optionally call startSession for backend logic, but sessionId is always set
             this.startSession();
         },
 
@@ -41,7 +50,7 @@
                     body: Object.keys(body).length > 0 ? JSON.stringify(body) : undefined
                 });
                 const data = await response.json();
-                this.sessionId = data.sessionId;
+                // Do not overwrite persistent sessionId; keep for backend logic if needed
             } catch (error) {
                 console.error('Error starting session:', error);
             }
@@ -401,6 +410,9 @@
                 timestamp: new Date().toISOString()
             });
 
+            // Add personal data warning as a separate message
+            this.addMessage('Please DO NOT share personal data (e.g. name, NRIC, passport no., address) in this chat. If shared, it will be treated as consented, but will not be used and will be deleted by eZhishi.', 'bot');
+
             // Add click functionality to "View My Chats" subtitle
             const subtitle = widget.querySelector('.ezhishi-header-subtitle');
             subtitle.addEventListener('click', () => {
@@ -462,7 +474,7 @@
                         },
                         body: JSON.stringify({ 
                             query: message,
-                            sessionId: this.sessionId 
+                            sessionId: this.sessionId // Always send persistent sessionId
                         })
                     });
 
@@ -474,12 +486,32 @@
                     if (data.results && data.results.length > 0) {
                         // Show the best result
                         const bestMatch = data.results[0];
-                        this.addMessage(bestMatch.answer, 'bot');
+                        console.log('Debug - API Response:', data);
+                        console.log('Debug - Best Match:', bestMatch);
+                        console.log('Debug - Best Match FAQ:', bestMatch.faq);
+                        console.log('Debug - Best Match Answer:', bestMatch.answer);
+                        console.log('Debug - Best Match FAQ Answer:', bestMatch.faq?.answer);
+                        
+                        // Handle both direct answer and nested faq.answer structures
+                        const answer = bestMatch.answer || bestMatch.faq?.answer || "The question you asked cannot be answered here. Please WhatsApp +65 90126012 or email service@ecombay.com to contact our customer service team.";
+                        console.log('Debug - Final Answer:', answer);
+                        console.log('Debug - Answer type:', typeof answer);
+                        console.log('Debug - Answer length:', answer ? answer.length : 0);
+                        console.log('Debug - Answer is empty:', !answer || answer.trim() === '');
+                        
+                        if (answer && answer.trim()) {
+                            this.addMessage(answer, 'bot');
+                            console.log('Debug - addMessage called successfully');
+                        } else {
+                            console.error('Debug - Answer is empty or invalid, using fallback');
+                            this.addMessage("The question you asked cannot be answered here. Please WhatsApp +65 90126012 or email service@ecombay.com to contact our customer service team.", 'bot');
+                        }
                         // Show related questions if available
                         if (data.relatedQuestions && data.relatedQuestions.length > 0) {
                             this.showRelatedQuestions(data.relatedQuestions);
                         }
                     } else {
+                        // Use the fallback message from API response
                         this.addMessage("The question you asked cannot be answered here. Please WhatsApp +65 90126012 or email service@ecombay.com to contact our customer service team.", 'bot');
                     }
                 } catch (error) {
@@ -506,13 +538,31 @@
         },
 
         addMessage: function(text, type) {
+            console.log('Debug - addMessage called with:', { text, type });
+            
+            // Validate text input
+            if (!text || typeof text !== 'string') {
+                console.error('Invalid text input:', text);
+                text = 'Sorry, I encountered an error processing your request.';
+            }
+            
+            // Clean the text - replace newlines with <br> tags for proper display
+            const cleanText = text.trim().replace(/\n/g, '<br>');
+            
             const messages = document.getElementById('ezhishi-chat-messages');
+            console.log('Debug - messages element:', messages);
+            
+            if (!messages) {
+                console.error('Messages container not found');
+                return;
+            }
+            
             const messageDiv = document.createElement('div');
             messageDiv.className = 'ezhishi-message';
             
             const messageContent = document.createElement('div');
             messageContent.className = `ezhishi-message-${type}`;
-            messageContent.textContent = text;
+            messageContent.innerHTML = cleanText; // Use innerHTML to handle <br> tags
             
             const timeDiv = document.createElement('div');
             timeDiv.className = 'ezhishi-message-time';
@@ -521,6 +571,9 @@
             messageDiv.appendChild(messageContent);
             messageDiv.appendChild(timeDiv);
             messages.appendChild(messageDiv);
+            
+            console.log('Debug - Message added to DOM:', messageDiv);
+            console.log('Debug - Message content:', messageContent.innerHTML);
             
             // Add to chat history
             this.chatHistory.push({
